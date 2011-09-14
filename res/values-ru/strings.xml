@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="pick_a_color">Выберите цвет</string>
+	<string name="saving_to_sd_please_wait">Сохраняю...</string>
+	<string name="successfully_saved_to">Рисунок сохранен в %s</string>
+	<string name="please_wait">Минуточку...</string>
+	<string name="sd_card_is_not_available">SD-карта не доступна</string>
+	<string name="send_image_to">Отправить:</string>
+
+	<!-- Confirm dialog -->
+	<string name="yes">Да</string>
+	<string name="are_you_sure">Вы уверены, что хотите очистить экран?</string>
+
+	<!-- Menu -->
+	<string name="brushes">Кисти</string>
+	<string name="color">Цвет</string>
+	<string name="clear">Очистить</string>
+	<string name="send">Отправить</string>
+	<string name="save">Сохранить</string>
+	<string name="about">О программе</string>
+	<string name="undo">Отмена</string>
+
+	<!-- Submenu -->
+	<string name="grid">Grid</string>
+	<string name="circles">Circles</string>
+	<string name="ribbon">Ribbon</string>
+	<string name="squares">Squares</string>
+	<string name="web">Web</string>
+	<string name="longfur">Longfur</string>
+	<string name="fur">Fur</string>
+	<string name="chrome">Chrome</string>
+	<string name="shaded">Shaded</string>
+	<string name="simple">Simple</string>
+	<string name="sketchy">Sketchy</string>
+	<string name="eraser">Ластик</string>
+
+	<!-- About dialog -->
+    <string name="about_title">Что нового?</string>
+    <string name="about_text">- реализовал отмену действия
+    	\n- небольшие фиксы
+		\n<b>Sketcher</b> - приложение с открытым исходным кодом, лицензированным под
+        <i>лицензией Apache версии 2.0</i>: 
+		\nhttp://bit.ly/apachelicense.
+        \nОфициальный сайт: 
+		\nhttp://bit.ly/sketcherapp.
+        \nИсходные коды доступны здесь: 
+		\nhttp://github.com/wargoth/Sketcher.
+		\nЭто приложение - порт рисовалки Harmony: 
+		\nhttp://mrdoob.com/projects/harmony
+        \n
+        \n<b>Отдельное спасибо:</b>
+        \n
+        \nMichael Crombeen за перевод на французский
+        \nScott за перевод на корейский
+        \nPiyush Mor за перевод на хинди
+    </string>
+    <string name="buy_pro_version">Купить Sketcher PRO</string>
+    <string name="button_close">Закрыть</string>
+</resources>

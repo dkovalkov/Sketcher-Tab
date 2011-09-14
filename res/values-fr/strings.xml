@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Translated by Michael Crombeen -->
+<resources>
+	<string name="pick_a_color">Choisissez une couleur</string>
+	<string name="saving_to_sd_please_wait">Enregistre sur SD</string>
+	<string name="please_wait">Please wait...</string>
+	<string name="sd_card_is_not_available">SD card is not available</string>
+	<string name="brushes">Pinceaux</string>
+	<string name="color">Couleur</string>
+	<string name="clear">Effacer</string>
+	<string name="send">Partager</string>
+	<string name="save">Sauvegarder</string>
+	<string name="send_image_to">Send Image To:</string>
+	<string name="grid">Grille</string>
+	<string name="circles">Circles</string>
+	<string name="ribbon">Bande</string>
+	<string name="squares">Carrés</string>
+	<string name="web">Toile</string>
+	<string name="longfur">Fourrure longue</string>
+	<string name="fur">Fourrure</string>
+	<string name="chrome">Chromée</string>
+	<string name="shaded">Ombrée</string>
+	<string name="simple">Simple</string>
+	<string name="sketchy">Dessin</string>
+
+	<string name="app_name">Sketcher</string>
+</resources>

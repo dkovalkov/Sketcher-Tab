@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Sketcher Lite</string>
+	<string name="pick_a_color">Pick a Color</string>
+	<string name="saving_to_sd_please_wait">Saving to SD. Please wait...</string>
+	<string name="successfully_saved_to">Picture saved to "%s"</string>
+	<string name="please_wait">Please wait...</string>
+	<string name="sd_card_is_not_available">SD card is not available</string>
+	<string name="send_image_to">Send Image To:</string>
+
+	<!-- Confirm dialog -->
+	<string name="yes">Yes</string>
+	<string name="are_you_sure">Are you sure that you want to clear the canvas?
+	</string>
+
+	<!-- Menu -->
+	<string name="brushes">Brushes</string>
+	<string name="color">Color</string>
+	<string name="clear">Clear</string>
+	<string name="send">Share</string>
+	<string name="save">Save</string>
+	<string name="about">About</string>
+	<string name="undo">Undo</string>
+
+	<!-- Submenu -->
+	<string name="grid">Grid</string>
+	<string name="circles">Circles</string>
+	<string name="ribbon">Ribbon</string>
+	<string name="squares">Squares</string>
+	<string name="web">Web</string>
+	<string name="longfur">Longfur</string>
+	<string name="fur">Fur</string>
+	<string name="chrome">Chrome</string>
+	<string name="shaded">Shaded</string>
+	<string name="simple">Simple</string>
+	<string name="sketchy">Sketchy</string>
+	<string name="eraser">Eraser</string>
+
+	<!-- Picker dialog -->
+	<string name="accept">Accept</string>
+	<string name="cancel">Cancel</string>
+
+	<!-- About dialog -->
+	<string name="about_title">What\'s new?</string>
+	<string name="about_text">- implemented undo/redo
+		\n- minor fixes
+		\n<b>Sketcher</b> is an open-source application licensed under
+		<i>Apache License v2.0</i>: 
+		\nhttp://bit.ly/apachelicense. 
+		\nOfficial web site:
+		\nhttp://bit.ly/sketcherapp.
+		\nSource code available at 
+		\nhttp://github.com/wargoth/Sketcher. 
+		\nThis application is a port of	Harmony drawing application 
+		\nhttp://mrdoob.com/projects/harmony
+		\n
+		\n<b>Special thanks to:</b>
+		\n
+		\nMichael Crombeen for translation to French
+		\nScott for translation to Korean
+		\nPiyush Mor for translation to Hindi
+	</string>
+	<string name="buy_pro_version">Buy Sketcher PRO</string>
+	<string name="button_close">Close</string>
+</resources>

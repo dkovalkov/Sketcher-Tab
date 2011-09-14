@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">स्केचर Lite</string>
+	<string name="pick_a_color">एक रंग चुनें</string>
+	<string name="saving_to_sd_please_wait">कार्ड के लिए सहेजा जा रहा है। कृपया प्रतीक्षा करें...</string>
+	<string name="please_wait">कृपया प्रतीक्षा करें...</string>
+	<string name="sd_card_is_not_available">कार्ड उपलब्ध नहीं है</string>
+	<string name="send_image_to">छवि को भेजें:</string>
+
+	<!-- Confirm dialog -->
+	<string name="yes">हाँ</string>
+	<string name="are_you_sure">आप सुनिश्चित हैं कि आप कैनवास ख़ाली करना चाहते हैं?</string>
+
+	<!-- Menu -->
+	<string name="brushes">ब्रश</string>
+	<string name="color">रंग</string>
+	<string name="clear">ख़ाली</string>
+	<string name="send">साझा करें</string>
+	<string name="save">सहेजीए</string>
+	<string name="about">जानकारी</string>
+
+	<!-- Submenu -->
+	<string name="grid">ग्रिड</string>
+	<string name="circles">गोलाकार</string>
+	<string name="ribbon">रिबन</string>
+	<string name="squares">वर्ग</string>
+	<string name="web">वेब</string>
+	<string name="longfur">लौंगफर</string>
+	<string name="fur">फर</string>
+	<string name="chrome">क्रोम</string>
+	<string name="shaded">छायांकित</string>
+	<string name="simple">सादा</string>
+	<string name="sketchy">रेखा - चित्र जैसा</string>
+	<string name="eraser">रबड़</string>
+
+	<!-- Picker dialog -->
+	<string name="accept">स्वीकार करो</string>
+	<string name="cancel">रद्द करो</string>
+
+	<!-- About dialog -->
+	<string name="about_title">जानकारी</string>
+        <string name="about_text">दान करे यदि आप यह अनुप्रयोग पसंद करते हैं:
+		\nhttp://bit.ly/sketcherdonate
+		\nस्केचर एक खुला स्रोत अनुप्रयोग हैं, जिसे
+		<i>अपाचे लाइसेंस v2.0</i>
+		के अंतर्गत लाइसेंस प्राप्त है:
+		\nhttp://bit.ly/apachelicense.
+		\nआधिकारिक वेब साइट:
+		\nhttp://bit.ly/sketcherapp.
+		\nस्रोत कोड यहाँ उपलब्ध है
+		\nhttp://github.com/wargoth/Sketcher.
+		\nयह अनुप्रयोग हारमोनी ड्राइंग अनुप्रयोग का एक बंदरगाह है
+		\nhttp://mrdoob.com/projects/harmony
+		\n
+		\n<b>विशेष धन्यवाद:</b>
+		\n
+		\nफ्रेंच अनुवाद के लिए Michael Crombeen
+		\nकोरियाई अनुवाद के लिए Scott
+		\nहिन्दी अनुवाद करने के लिए पिय़ूष मोर
+	</string>
+	<string name="button_close">बंद करे</string>
+</resources>
