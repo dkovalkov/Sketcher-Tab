@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Sketcher Lite</string>
+	<string name="app_name">Sketcher Tab</string>
 	<string name="pick_a_color">Pick a Color</string>
 	<string name="saving_to_sd_please_wait">Saving to SD. Please wait...</string>
 	<string name="successfully_saved_to">Picture saved to "%s"</string>
