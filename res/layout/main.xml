@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<org.sketcher.Surface android:id="@+id/surface"
+	<org.sketchertab.Surface android:id="@+id/surface"
 		android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <LinearLayout
+            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            >
+    <LinearLayout
+            android:id="@+id/brush_toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            >
+        <ImageButton
+                android:id="@+id/brush_sketchy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brush_sketchy_button"
+                />
+        <ImageButton
+                android:id="@+id/brush_shaded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brush_shaded_button"
+                />
+        <ImageButton
+                android:id="@+id/brush_chrome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brush_chrome_button"
+                />
+         <ImageButton
+                android:id="@+id/brush_fur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brush_fur_button"
+                />
+        <ImageButton
+                android:id="@+id/brush_web"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/brush_chrome_button"
+                />
+    </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

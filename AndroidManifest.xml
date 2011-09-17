@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.sketcher" android:versionCode="14092011" android:versionName="1.0.0"
+	package="org.sketchertab" android:versionCode="14092011" android:versionName="1.0.0"
 	android:installLocation="auto">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-		<activity android:name="Sketcher" android:label="@string/app_name"
+		<activity android:name="org.sketchertab.Sketcher" android:label="@string/app_name"
 			android:screenOrientation="landscape">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
