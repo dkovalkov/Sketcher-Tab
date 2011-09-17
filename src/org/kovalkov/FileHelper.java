@@ -27,7 +27,7 @@ public class FileHelper {
 
 	private File getSDDir() {
 		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/sketcher/";
+				.getAbsolutePath() + "/ru.kovalkov.kovalkov/";
 
 		File file = new File(path);
 		if (!file.exists()) {

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class AboutDialog extends Dialog {
-	private static final String MARKET_URL = "market://details?id=org.sketcher.pro";
+	private static final String MARKET_URL = "market://details?id=org.ru.kovalkov.kovalkov.pro";
 
 	public AboutDialog(Context context) {
 		super(context);
