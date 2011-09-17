@@ -1,5 +1,8 @@
 package org.sketchertab;
 
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import org.sketchertab.colorpicker.Picker;
 import org.sketchertab.colorpicker.PickerDialog;
 import org.sketchertab.style.StylesFactory;
@@ -16,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View.OnClickListener;
 
 public class Sketcher extends Activity {
 	private static final short GROUP_BRUSHES = 0x1000;
@@ -30,6 +34,7 @@ public class Sketcher extends Activity {
 
 	private Surface surface;
 	private final FileHelper fileHelper = new FileHelper(this);
+    private View selectedBrush;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,12 @@ public class Sketcher extends Activity {
 
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
+
+        brushButtonOnClick(R.id.brush_sketchy, StylesFactory.SKETCHY);
+        brushButtonOnClick(R.id.brush_shaded, StylesFactory.SHADED);
+        brushButtonOnClick(R.id.brush_chrome, StylesFactory.CHROME);
+        brushButtonOnClick(R.id.brush_fur, StylesFactory.FUR);
+        brushButtonOnClick(R.id.brush_web, StylesFactory.WEB);
 
 		try {
 			// current version
@@ -60,6 +71,19 @@ public class Sketcher extends Activity {
 		}
 	}
 
+    private void brushButtonOnClick(int buttonRes, final int brushStyle) {
+        ImageButton button = (ImageButton) findViewById(buttonRes);
+        button.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                if (null != selectedBrush) {
+                    selectedBrush.setSelected(false);
+                }
+                selectedBrush = view;
+                view.setSelected(true);
+                getSurface().setStyle(StylesFactory.getStyle(brushStyle));
+            }
+        });
+    }
 //	@Override
 //	protected void onPause() {
 //		super.onPause();

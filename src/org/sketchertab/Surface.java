@@ -107,7 +107,6 @@ public final class Surface extends SurfaceView implements Callback {
 		return drawThread;
 	}
 
-	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -121,12 +120,10 @@ public final class Surface extends SurfaceView implements Callback {
 		mHistoryHelper.saveState();
 	}
 
-	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		getDrawThread().start();
 	}
 
-	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		getDrawThread().stopDrawing();
 		while (true) {

@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b59da1a4-f97c-4e31-ae7c-4c2abc849902" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_chrome_normal.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_chrome_selected.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_fur_normal.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_fur_selected.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_shaded_normal.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_shaded_selected.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_sketchy_normal.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/brush_sketchy_selected.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/style.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/brush_chrome_button.xml" afterPath="$PROJECT_DIR$/res/drawable/brush_chrome_button.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/brush_fur_button.xml" afterPath="$PROJECT_DIR$/res/drawable/brush_fur_button.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/brush_shaded_button.xml" afterPath="$PROJECT_DIR$/res/drawable/brush_shaded_button.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/brush_sketchy_button.xml" afterPath="$PROJECT_DIR$/res/drawable/brush_sketchy_button.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/main.xml" afterPath="$PROJECT_DIR$/res/layout/main.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/Sketcher.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/Sketcher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/style/SimpleStyle.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/style/SimpleStyle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/Surface.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/Surface.java" />
     </list>
     <ignored path="Sketcher.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,19 +81,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <file leaf-file-name="Sketcher.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Sketcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="108" selection-end="108" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleStyle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/style/SimpleStyle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="31" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
+            <state line="39" column="15" selection-start="1390" selection-end="1390" vertical-scroll-proportion="0.476082">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,73 +92,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Surface.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Surface.java">
+      <file leaf-file-name="main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="19" selection-start="383" selection-end="383" vertical-scroll-proportion="-1.971299">
+            <state line="16" column="42" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SatValPicker.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/SatValPicker.java">
+      <file leaf-file-name="style.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/style.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="29" selection-start="29" selection-end="29" vertical-scroll-proportion="0.0">
+            <state line="7" column="53" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/Utils.java">
+      <file leaf-file-name="colors.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="6" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="38" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LongfurStyle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/style/LongfurStyle.java">
+      <file leaf-file-name="brush_sketchy_button.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/drawable/brush_sketchy_button.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="22" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sketcher.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Sketcher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="0" selection-start="2080" selection-end="2413" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileHelper.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/FileHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="133" column="26" selection-start="3289" selection-end="3289" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="brush_shaded_button.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable/brush_shaded_button.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="51" selection-start="352" selection-end="352" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="brush_fur_button.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable/brush_fur_button.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="48" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0">
+            <state line="6" column="33" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -174,20 +142,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/org/sketcher/Sketcher.java" />
-        <option value="$PROJECT_DIR$/src/org/ru.kovalkov.sketcher_tab/FileHelper.java" />
-        <option value="$PROJECT_DIR$/src/org/sketcher/FileHelper.java" />
-        <option value="$PROJECT_DIR$/proguard/mapping.txt" />
-        <option value="$PROJECT_DIR$/src/org/sketchertab/AboutDialog.java" />
-        <option value="$PROJECT_DIR$/res/drawable/brush_chrome_button.xml" />
-        <option value="$PROJECT_DIR$/res/layout/main.xml" />
         <option value="$PROJECT_DIR$/res/drawable/brush_sketchy_button.xml" />
+        <option value="$PROJECT_DIR$/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_shaded_selected.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_shaded_normal.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_sketchy_normal.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_sketchy_selected.xml" />
         <option value="$PROJECT_DIR$/res/drawable/brush_shaded_button.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_chrome_selected.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_chrome_normal.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_chrome_button.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_fur_selected.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/brush_fur_normal.xml" />
         <option value="$PROJECT_DIR$/res/drawable/brush_fur_button.xml" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/values/style.xml" />
+        <option value="$PROJECT_DIR$/res/layout/main.xml" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/Sketcher.java" />
-        <option value="$PROJECT_DIR$/src/org/sketchertab/style/SimpleStyle.java" />
       </list>
     </option>
   </component>
@@ -221,6 +191,34 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sketcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sketcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sketcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sketcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org.sketchertab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -267,7 +265,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sketcher" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sketcher Tab" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -330,46 +346,18 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sketcher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sketcher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sketcher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Sketcher" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="org.sketchertab" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="AndroidTargetDevices" value="3806148412074d7" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -558,10 +546,10 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23562753" sideWeight="0.67042255" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26072875" sideWeight="0.65915495" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34084508" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32957748" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43521127" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -616,89 +604,117 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_shaded_selected.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="42" selection-start="1116" selection-end="1116" vertical-scroll-proportion="0.0" />
+        <state line="10" column="52" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/brush_chrome_button.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_shaded_normal.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="42" selection-start="368" selection-end="368" vertical-scroll-proportion="0.0" />
+        <state line="13" column="49" selection-start="452" selection-end="452" vertical-scroll-proportion="0.29456192">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/brush_sketchy_button.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_sketchy_normal.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="52" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0" />
+        <state line="6" column="14" selection-start="205" selection-end="205" vertical-scroll-proportion="0.13595167">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/AlphaPicker.java">
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_sketchy_selected.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="10" selection-start="1218" selection-end="1218" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Style.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="173" column="48" selection-start="8583" selection-end="8583" vertical-scroll-proportion="0.5439137" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="108" selection-end="108" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/SatValPicker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="29" selection-start="29" selection-end="29" vertical-scroll-proportion="-0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/style/LongfurStyle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="22" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Sketcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="0" selection-start="2080" selection-end="2413" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/FileHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="26" selection-start="3289" selection-end="3289" vertical-scroll-proportion="0.0" />
+        <state line="10" column="52" selection-start="414" selection-end="414" vertical-scroll-proportion="0.2265861">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable/brush_shaded_button.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="51" selection-start="352" selection-end="352" vertical-scroll-proportion="0.0" />
+        <state line="9" column="58" selection-start="401" selection-end="401" vertical-scroll-proportion="0.19794722">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_chrome_selected.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="50" selection-start="162" selection-end="162" vertical-scroll-proportion="0.067975834">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_chrome_normal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="50" selection-start="162" selection-end="162" vertical-scroll-proportion="0.067975834">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_chrome_button.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="58" selection-start="378" selection-end="378" vertical-scroll-proportion="0.15395895">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_fur_selected.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="47" selection-start="159" selection-end="159" vertical-scroll-proportion="0.067975834">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_fur_normal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="45" selection-start="167" selection-end="167" vertical-scroll-proportion="0.09063444">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable/brush_fur_button.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="48" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/style/SimpleStyle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="31" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="7" column="55" selection-start="369" selection-end="369" vertical-scroll-proportion="0.15395895">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Surface.java">
+    <entry file="file://$PROJECT_DIR$/res/drawable/brush_sketchy_button.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="19" selection-start="383" selection-end="383" vertical-scroll-proportion="-1.971299">
+        <state line="6" column="33" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="38" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/style.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="53" selection-start="326" selection-end="326" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="42" selection-start="804" selection-end="804" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Sketcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="15" selection-start="1390" selection-end="1390" vertical-scroll-proportion="0.476082">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
