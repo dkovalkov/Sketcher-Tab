@@ -1,8 +1,8 @@
-package org.sketcher;
+package org.sketchertab;
 
-import org.sketcher.colorpicker.Picker;
-import org.sketcher.colorpicker.PickerDialog;
-import org.sketcher.style.StylesFactory;
+import org.sketchertab.colorpicker.Picker;
+import org.sketchertab.colorpicker.PickerDialog;
+import org.sketchertab.style.StylesFactory;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,10 +35,6 @@ public class Sketcher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// register nullwire exception handler which sends crash reports to
-		// http://trace.nullwire.com/. Disabled since it's down
-		// ExceptionHandler.register(this);
-
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
 
@@ -64,29 +60,29 @@ public class Sketcher extends Activity {
 		}
 	}
 
-//	@Override
-//	protected void onPause() {
-//		super.onPause();
-//
-//		if (fileHelper.isSaved) {
-//			return;
-//		}
-//		// wrapped to a new thread since it can be killed due to time limits for
-//		// #onPause() method
-//		new Thread() {
-//			@Override
-//			public void run() {
-//				fileHelper.saveBitmap();
-//			}
-//		}.run();
-//	}
+	@Override
+	protected void onPause() {
+		super.onPause();
 
-//	@Override
-//	protected void onResume() {
-//		super.onResume();
-//		fileHelper.isSaved = false;
-//		getSurface().setInitialBitmap(fileHelper.getSavedBitmap());
-//	}
+		if (fileHelper.isSaved) {
+			return;
+		}
+		// wrapped to a new thread since it can be killed due to time limits for
+		// #onPause() method
+		new Thread() {
+			@Override
+			public void run() {
+				fileHelper.saveBitmap();
+			}
+		}.run();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		fileHelper.isSaved = false;
+		getSurface().setInitialBitmap(fileHelper.getSavedBitmap());
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,7 +141,6 @@ public class Sketcher extends Activity {
 			return true;
 		case MENU_COLOR:
 			new PickerDialog(this, new Picker.OnColorChangedListener() {
-				@Override
 				public void colorChanged(Paint color) {
 					getSurface().setPaintColor(color);
 				}

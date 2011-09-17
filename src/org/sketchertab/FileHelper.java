@@ -1,9 +1,8 @@
 package org.sketchertab;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,12 +15,12 @@ import android.os.Environment;
 import android.widget.Toast;
 
 public class FileHelper {
-	private static final String FILENAME_PATTERN = "image_%d.png";
+	private static final String FILENAME_PATTERN = "sketch_%04d.png";
 
 	private final Sketcher context;
 	boolean isSaved = false;
 
-	/* package */FileHelper(Sketcher context) {
+	FileHelper(Sketcher context) {
 		this.context = context;
 	}
 
@@ -37,48 +36,68 @@ public class FileHelper {
 		return file;
 	}
 
-	Bitmap getSavedBitmap() {
-		if (!isStorageAvailable()) {
-			return null;
-		}
+//	Bitmap getSavedBitmap() {
+//		if (!isStorageAvailable()) {
+//			return null;
+//		}
+//
+//		File lastFile = getLastFile(getSDDir());
+//		if (lastFile == null) {
+//			return null;
+//		}
+//
+//		Bitmap savedBitmap = null;
+//		try {
+//			FileInputStream fis = new FileInputStream(lastFile);
+//			savedBitmap = BitmapFactory.decodeStream(fis);
+//		} catch (FileNotFoundException e) {
+//			throw new RuntimeException(e);
+//		}
+//		return savedBitmap;
+//	}
 
-		File lastFile = getLastFile(getSDDir());
-		if (lastFile == null) {
-			return null;
-		}
-
-		Bitmap savedBitmap = null;
-		try {
-			FileInputStream fis = new FileInputStream(lastFile);
-			savedBitmap = BitmapFactory.decodeStream(fis);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-		return savedBitmap;
-	}
-
-	File getLastFile(File dir) {
-		int suffix = 1;
-
-		File newFile = null;
-		File file = null;
-		do {
-			file = newFile;
-			newFile = new File(dir, String.format(FILENAME_PATTERN, suffix));
-			suffix++;
-		} while (newFile.exists());
-
-		return file;
-	}
+//	File getLastFile(File dir) {
+//		int suffix = 1;
+//
+//		File newFile = null;
+//		File file = null;
+//		do {
+//			file = newFile;
+//			newFile = new File(dir, String.format(FILENAME_PATTERN, suffix));
+//			suffix++;
+//		} while (newFile.exists());
+//
+//		return file;
+//	}
 
 	private File getUniqueFilePath(File dir) {
-		int suffix = 1;
 
-		while (new File(dir, String.format(FILENAME_PATTERN, suffix)).exists()) {
-			suffix++;
-		}
+//		while (new File(dir, String.format(FILENAME_PATTERN, suffix)).exists()) {
+//			suffix++;
+//		}
 
-		return new File(dir, String.format(FILENAME_PATTERN, suffix));
+        File[] sketchList = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File file, String s) {
+                if (s.matches("^sketch_(\\d\\d\\d\\d)\\.png$"))
+                    return true;
+               return false;
+            }
+        });
+        Pattern p = Pattern.compile("^sketch_(\\d\\d\\d\\d)\\.png$");
+        int lastNum = 0;
+
+        for (int i = 0; i < sketchList.length; i += 1) {
+            Matcher m = p.matcher(sketchList[i].getName());
+            if (m.find()) {
+                int fileNum = Integer.valueOf(m.group(1));
+                if (fileNum > lastNum) {
+                    lastNum = fileNum;
+                }
+            }
+        }
+
+        lastNum += 1;
+		return new File(dir, String.format(FILENAME_PATTERN, lastNum));
 	}
 
 	private void saveBitmap(File file) {
@@ -160,11 +179,11 @@ public class FileHelper {
 			dialog.hide();
 
 			String absolutePath = file.getAbsolutePath();
-			String sdPath = Environment.getExternalStorageDirectory()
-					.getAbsolutePath();
-			String beautifiedPath = absolutePath.replace(sdPath, "SD:/");
+//			String sdPath = Environment.getExternalStorageDirectory()
+//					.getAbsolutePath();
+//			String beautifiedPath = absolutePath.replace(sdPath, "SD:/");
 			
-			Toast.makeText(context, context.getString(R.string.successfully_saved_to, beautifiedPath),
+			Toast.makeText(context, context.getString(R.string.successfully_saved_to, absolutePath),
 					Toast.LENGTH_LONG).show();
 
 			context.getSurface().getDrawThread().resumeDrawing();
