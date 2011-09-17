@@ -60,29 +60,29 @@ public class Sketcher extends Activity {
 		}
 	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
+//	@Override
+//	protected void onPause() {
+//		super.onPause();
+//
+//		if (fileHelper.isSaved) {
+//			return;
+//		}
+//		// wrapped to a new thread since it can be killed due to time limits for
+//		// #onPause() method
+//		new Thread() {
+//			@Override
+//			public void run() {
+//				fileHelper.saveBitmap();
+//			}
+//		}.run();
+//	}
 
-		if (fileHelper.isSaved) {
-			return;
-		}
-		// wrapped to a new thread since it can be killed due to time limits for
-		// #onPause() method
-		new Thread() {
-			@Override
-			public void run() {
-				fileHelper.saveBitmap();
-			}
-		}.run();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		fileHelper.isSaved = false;
-		getSurface().setInitialBitmap(fileHelper.getSavedBitmap());
-	}
+//	@Override
+//	protected void onResume() {
+//		super.onResume();
+//		fileHelper.isSaved = false;
+//		getSurface().setInitialBitmap(fileHelper.getSavedBitmap());
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
