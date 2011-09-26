@@ -62,4 +62,7 @@
 	</string>
 	<string name="buy_pro_version">Buy Sketcher PRO</string>
 	<string name="button_close">Close</string>
+
+    <string name="opacity">Opacity</string>
+    <string name="size">Size</string>
 </resources>

@@ -30,7 +30,10 @@ public class Controller implements View.OnTouchListener {
 		this.style = style;
 	}
 
-	@Override
+    public Style getStyle() {
+        return style;
+    }
+
 	public boolean onTouch(View v, MotionEvent event) {
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:

@@ -13,8 +13,7 @@ public class PickerDialog extends Dialog {
 	private Picker.OnColorChangedListener mListener;
 	private final Paint mPaint;
 
-	public PickerDialog(Context context,
-			Picker.OnColorChangedListener listener, Paint initialPaint) {
+	public PickerDialog(Context context, Picker.OnColorChangedListener listener, Paint initialPaint) {
 		super(context);
 
 		mListener = listener;
@@ -31,8 +30,11 @@ public class PickerDialog extends Dialog {
 		previewView.setPaint(mPaint);
 
 		final Picker satValPicker = (Picker) findViewById(R.id.satval_picker);
+        final Picker alphaPicker = (Picker) findViewById(R.id.alpha_picker);
+
 		Picker.OnColorChangedListener satValLstr = new Picker.OnColorChangedListener() {
 			public void colorChanged(Paint paint) {
+                alphaPicker.setColor(paint.getColor());
 				previewView.setColor(paint.getColor());
 				mPaint.setColor(paint.getColor());
 			}
@@ -42,7 +44,6 @@ public class PickerDialog extends Dialog {
 
 		Picker huePicker = (Picker) findViewById(R.id.hue_picker);
 		Picker.OnColorChangedListener hueLstr = new Picker.OnColorChangedListener() {
-			@Override
 			public void colorChanged(Paint paint) {
 				satValPicker.setColor(paint.getColor());
 				previewView.setColor(paint.getColor());
@@ -52,9 +53,9 @@ public class PickerDialog extends Dialog {
 		huePicker.setOnColorChangedListener(hueLstr);
 		huePicker.setColor(mPaint.getColor());
 
+
 		Button acceptButton = (Button) findViewById(R.id.picker_button_accept);
 		acceptButton.setOnClickListener(new View.OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				mListener.colorChanged(mPaint);
 				dismiss();
@@ -63,7 +64,6 @@ public class PickerDialog extends Dialog {
 
 		Button cancelButton = (Button) findViewById(R.id.picker_button_cancel);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				dismiss();
 			}

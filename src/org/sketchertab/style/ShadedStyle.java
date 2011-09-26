@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-class ShadedStyle implements Style {
+class ShadedStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
 	private Paint paint = new Paint();
@@ -18,6 +18,7 @@ class ShadedStyle implements Style {
 	{
 		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
+        paint.setStrokeWidth(2);
 	}
 
 	@Override
@@ -25,9 +26,9 @@ class ShadedStyle implements Style {
 		PointF current = new PointF(x, y);
 		points.add(current);
 
-		float dx = 0;
-		float dy = 0;
-		int length = 0;
+		float dx;
+		float dy;
+		int length;
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
@@ -38,7 +39,7 @@ class ShadedStyle implements Style {
 			length = (int) (dx * dx + dy * dy);
 
 			if (length < 1000) {
-				paint.setAlpha(((1 - (length / 1000)) * 30));
+				paint.setAlpha(((1 - (length / 1000)) * 50));
 				c.drawLine(current.x, current.y, point.x, point.y, paint);
 			}
 		}

@@ -35,25 +35,14 @@
 	<string name="eraser">Ластик</string>
 
 	<!-- About dialog -->
-    <string name="about_title">Что нового?</string>
-    <string name="about_text">- реализовал отмену действия
-    	\n- небольшие фиксы
-		\n<b>Sketcher</b> - приложение с открытым исходным кодом, лицензированным под
-        <i>лицензией Apache версии 2.0</i>: 
-		\nhttp://bit.ly/apachelicense.
-        \nОфициальный сайт: 
-		\nhttp://bit.ly/sketcherapp.
-        \nИсходные коды доступны здесь: 
-		\nhttp://github.com/wargoth/Sketcher.
-		\nЭто приложение - порт рисовалки Harmony: 
-		\nhttp://mrdoob.com/projects/harmony
-        \n
-        \n<b>Отдельное спасибо:</b>
-        \n
-        \nMichael Crombeen за перевод на французский
-        \nScott за перевод на корейский
-        \nPiyush Mor за перевод на хинди
+    <string name="about_title">О Sketcher Tab</string>
+    <string name="about_text">
+		Рисовалка с процедурными кистями. Рисунок кисти строится на математических правилах.
+        \nSketcher Tab сделана на основе приложения &lt;a href="https://market.android.com/details?id=org.sketcher"&gt;Sketcher Lite&lt;/a&gt;, автор Wargoth.
+        \nИсходный код доступен на &lt;a href="https://github.com/dkovalkov/Sketcher-Tab"&gt;Гитхабе&lt;/a&gt; и распространяется с лицензией Apache версии 2.0.
     </string>
-    <string name="buy_pro_version">Купить Sketcher PRO</string>
     <string name="button_close">Закрыть</string>
+
+    <string name="opacity">Прозрачность</string>
+    <string name="size">Размер</string>
 </resources>

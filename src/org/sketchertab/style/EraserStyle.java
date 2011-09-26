@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-class EraserStyle implements Style {
+class EraserStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 

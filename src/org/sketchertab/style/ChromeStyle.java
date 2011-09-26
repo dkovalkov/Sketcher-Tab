@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-class ChromeStyle implements Style {
+class ChromeStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 
@@ -21,10 +21,11 @@ class ChromeStyle implements Style {
 
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(30);
+		paint.setAlpha(50);
 		paint.setAntiAlias(true);
-
+        paint.setStrokeWidth(2);
 		randPaint.setAntiAlias(true);
+        randPaint.setStrokeWidth(2);
 	}
 
 	@Override
@@ -74,7 +75,7 @@ class ChromeStyle implements Style {
 	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(30);
+		paint.setAlpha(50);
 	}
 
 	@SuppressWarnings("unchecked")

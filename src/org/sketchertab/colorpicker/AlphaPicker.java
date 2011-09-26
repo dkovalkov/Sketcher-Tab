@@ -38,12 +38,9 @@ public class AlphaPicker extends View implements Picker {
 		applyChages(w, h);
 	}
 
-	@Override
 	public void setColor(int color) {
 		mColor.setColor(color);
-
 		mHsv = Utils.color2HSV(color);
-
 		applyChages(getWidth(), getHeight());
 	}
 
@@ -76,7 +73,6 @@ public class AlphaPicker extends View implements Picker {
 		return false;
 	}
 
-	@Override
 	public void setOnColorChangedListener(OnColorChangedListener listener) {
 		mListener = listener;
 	}

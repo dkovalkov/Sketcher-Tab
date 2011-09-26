@@ -3,37 +3,32 @@ package org.sketchertab.style;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.graphics.*;
 import org.sketchertab.Style;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PointF;
-
-class SketchyStyle implements Style {
+class SketchyStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
-	private Paint paint = new Paint();
-
 	{
+        opacity = 60;
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(80);
+		paint.setAlpha(opacity);
 		paint.setAntiAlias(true);
+        paint.setStrokeWidth(strokeWidth);
 	}
 
-	@Override
 	public void stroke(Canvas c, float x, float y) {
 		PointF current = new PointF(x, y);
 		points.add(current);
 
 		c.drawLine(prevX, prevY, x, y, paint);
 
-		float dx = 0;
-		float dy = 0;
-		float length = 0;
+		float dx;
+		float dy;
+		float length;
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
@@ -54,23 +49,19 @@ class SketchyStyle implements Style {
 		prevY = y;
 	}
 
-	@Override
 	public void strokeStart(float x, float y) {
 		prevX = x;
 		prevY = y;
 	}
 
-	@Override
 	public void draw(Canvas c) {
 	}
 
-	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(30);
+//		paint.setAlpha(opacity);
 	}
 
-	@Override
 	public void saveState(HashMap<Integer, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
@@ -78,7 +69,6 @@ class SketchyStyle implements Style {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public void restoreState(HashMap<Integer, Object> state) {
 		this.points.clear();
 		ArrayList<PointF> points = (ArrayList<PointF>) state

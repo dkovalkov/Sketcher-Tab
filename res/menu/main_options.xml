@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/menu_undo"
+            android:title="@string/undo"
+            android:icon="@android:drawable/ic_menu_revert"
+            android:showAsAction="ifRoom"
+            />
+    <item
+            android:id="@+id/menu_save"
+            android:title="@string/save"
+            android:icon="@android:drawable/ic_menu_save"
+            android:showAsAction="ifRoom"
+            />
+    <item
+            android:id="@+id/menu_color"
+            android:title="@string/color"
+            android:icon="@drawable/ic_palette"
+            android:showAsAction="ifRoom"
+            />
+    <item
+            android:id="@+id/menu_send"
+            android:title="@string/send"
+            android:icon="@android:drawable/ic_menu_send"
+            />
+    <item
+            android:id="@+id/menu_clear"
+            android:title="@string/clear"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            />
+    <item
+            android:id="@+id/menu_about"
+            android:title="@string/about"
+            android:icon="@android:drawable/ic_menu_info_details"
+            />
+</menu>

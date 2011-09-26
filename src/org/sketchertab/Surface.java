@@ -100,6 +100,10 @@ public final class Surface extends SurfaceView implements Callback {
 		controller.setStyle(style);
 	}
 
+    public Style getStyle() {
+        return controller.getStyle();
+    }
+
 	public DrawThread getDrawThread() {
 		if (drawThread == null) {
 			drawThread = new DrawThread();

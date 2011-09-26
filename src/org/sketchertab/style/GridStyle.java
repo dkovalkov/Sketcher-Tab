@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-class GridStyle implements Style {
+class GridStyle extends StyleBrush {
 	private Paint paint = new Paint();
 
 	{

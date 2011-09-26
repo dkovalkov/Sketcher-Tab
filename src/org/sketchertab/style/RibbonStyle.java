@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-class RibbonStyle implements Style {
+class RibbonStyle extends StyleBrush {
 	private Paint paint = new Paint();
 	private Painter[] painters = new Painter[50];
 

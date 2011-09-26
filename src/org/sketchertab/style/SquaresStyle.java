@@ -9,7 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-class SquaresStyle implements Style {
+class SquaresStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 

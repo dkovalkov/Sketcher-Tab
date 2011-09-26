@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="fill_parent"
-	android:orientation="vertical" android:gravity="center_horizontal">
+	android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+	android:orientation="vertical"
+    android:gravity="center_horizontal"
+        >
 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 		android:orientation="horizontal">
 
 		<org.sketchertab.colorpicker.SatValPicker
@@ -14,6 +18,12 @@
 			android:id="@+id/hue_picker" android:layout_width="50dp"
 			android:layout_height="240dp" />
 	</LinearLayout>
+
+    <org.sketchertab.colorpicker.AlphaPicker
+			android:id="@+id/alpha_picker"
+            android:layout_width="fill_parent"
+			android:layout_height="50dp"
+            />
 
 	<org.sketchertab.colorpicker.PreviewView
 		android:id="@+id/preview_new" android:layout_width="100dp"

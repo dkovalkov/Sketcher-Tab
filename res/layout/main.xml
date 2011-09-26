@@ -43,4 +43,44 @@
                     />
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+            android:layout_height="fill_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            >
+        <LinearLayout
+                android:id="@+id/brush_property"
+                android:layout_height="wrap_content"
+                android:layout_width="150dip"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="6dip"
+                android:paddingRight="10dip"
+                android:paddingTop="10dip"
+                android:paddingBottom="10dip"
+                android:background="@color/brush_property_bg"
+                >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/opacity"
+                    />
+            <SeekBar
+                    android:id="@+id/brush_opacity_bar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    />
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/size"
+                    />
+            <SeekBar
+                    android:id="@+id/brush_size_bar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    />
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

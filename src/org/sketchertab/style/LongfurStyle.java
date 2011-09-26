@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-class LongfurStyle implements Style {
+class LongfurStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
 	private Paint paint = new Paint();

@@ -10,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-class FurStyle implements Style {
+class FurStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 
@@ -20,8 +20,9 @@ class FurStyle implements Style {
 
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(25);
+		paint.setAlpha(40);
 		paint.setAntiAlias(true);
+        paint.setStrokeWidth(2);
 	}
 
 	@Override
@@ -31,9 +32,9 @@ class FurStyle implements Style {
 
 		c.drawLine(prevX, prevY, x, y, paint);
 
-		float dx = 0;
-		float dy = 0;
-		float length = 0;
+		float dx;
+		float dy;
+		float length;
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
@@ -67,7 +68,7 @@ class FurStyle implements Style {
 	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(25);
+		paint.setAlpha(40);
 	}
 
 	@Override

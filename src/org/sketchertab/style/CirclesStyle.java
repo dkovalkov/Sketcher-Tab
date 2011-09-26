@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-class CirclesStyle implements Style {
+class CirclesStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 

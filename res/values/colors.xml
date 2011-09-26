@@ -3,4 +3,5 @@
     <color name="brush_button_outline">#aaa</color>
     <color name="brush_button_selected">#ffa200</color>
     <color name="transparent">#0000</color>
+    <color name="brush_property_bg">#9000</color>
 </resources>

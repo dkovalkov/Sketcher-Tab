@@ -26,7 +26,7 @@ public class FileHelper {
 
 	private File getSDDir() {
 		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/sketcher/";
+				.getAbsolutePath() + "/sketcher_tab/";
 
 		File file = new File(path);
 		if (!file.exists()) {
