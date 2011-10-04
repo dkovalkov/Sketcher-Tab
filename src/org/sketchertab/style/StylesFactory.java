@@ -21,10 +21,10 @@ public class StylesFactory {
 	public static final int SIMPLE = 0x1011;
 	public static final int ERASER = 0x1012;
 
-	private static Map<Integer, Style> cache = new HashMap<Integer, Style>();
+	private static Map<Integer, StyleBrush> cache = new HashMap<Integer, StyleBrush>();
 	private static int currentStyle = SKETCHY;
 
-	public static Style getStyle(int id) {
+	public static StyleBrush getStyle(int id) {
 		if (!cache.containsKey(id)) {
 			cache.put(id, getStyleInstance(id));
 		}
@@ -40,7 +40,7 @@ public class StylesFactory {
 		cache.clear();
 	}
 
-	private static Style getStyleInstance(int id) {
+	private static StyleBrush getStyleInstance(int id) {
 		switch (id) {
 		case SKETCHY:
 			return new SketchyStyle();
@@ -73,7 +73,7 @@ public class StylesFactory {
 	}
 
 	public static void saveState(HashMap<Integer, Object> state) {
-		Collection<Style> values = cache.values();
+		Collection<StyleBrush> values = cache.values();
 		for (Style style : values) {
 			style.saveState(state);
 		}

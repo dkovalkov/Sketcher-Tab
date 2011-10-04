@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 class RibbonStyle extends StyleBrush {
-	private Paint paint = new Paint();
 	private Painter[] painters = new Painter[50];
 
 	private float x;
@@ -29,7 +28,6 @@ class RibbonStyle extends StyleBrush {
 
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(25);
 		paint.setAntiAlias(true);
 
 		for (int i = 0; i < 50; i++) {
@@ -37,10 +35,9 @@ class RibbonStyle extends StyleBrush {
 		}
 	}
 
-	@Override
 	public void draw(Canvas c) {
-		float startX = 0;
-		float startY = 0;
+		float startX;
+		float startY;
 		for (int i = 0; i < painters.length; i++) {
 			startX = painters[i].dx;
 			startY = painters[i].dy;
@@ -54,13 +51,11 @@ class RibbonStyle extends StyleBrush {
 		}
 	}
 
-	@Override
 	public void stroke(Canvas c, float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	@Override
 	public void strokeStart(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -72,10 +67,8 @@ class RibbonStyle extends StyleBrush {
 		}
 	}
 
-	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(25);
 	}
 
 	@Override

@@ -2,8 +2,6 @@ package org.sketchertab.style;
 
 import java.util.HashMap;
 
-import org.sketchertab.Style;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,17 +10,16 @@ class CirclesStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 
-	private Paint paint = new Paint();
+//	private Paint paint = new Paint();
 
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(50);
-		paint.setStyle(Paint.Style.STROKE);
+//		paint.setAlpha(50);
+//		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
-		paint.setStrokeWidth(1);
+//		paint.setStrokeWidth(1);
 	}
 
-	@Override
 	public void stroke(Canvas c, float x, float y) {
 		float dx = x - prevX;
 		float dy = y - prevY;
@@ -43,27 +40,22 @@ class CirclesStyle extends StyleBrush {
 		prevY = y;
 	}
 
-	@Override
 	public void strokeStart(float x, float y) {
 		prevX = x;
 		prevY = y;
 	}
 
-	@Override
 	public void draw(Canvas c) {
 	}
 
-	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(50);
+//		paint.setAlpha(50);
 	}
 
-	@Override
 	public void saveState(HashMap<Integer, Object> state) {
 	}
 
-	@Override
 	public void restoreState(HashMap<Integer, Object> state) {
 	}
 }

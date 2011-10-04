@@ -13,11 +13,7 @@ class SketchyStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
 	{
-        opacity = 60;
-		paint.setColor(Color.BLACK);
-		paint.setAlpha(opacity);
 		paint.setAntiAlias(true);
-        paint.setStrokeWidth(strokeWidth);
 	}
 
 	public void stroke(Canvas c, float x, float y) {
@@ -55,11 +51,6 @@ class SketchyStyle extends StyleBrush {
 	}
 
 	public void draw(Canvas c) {
-	}
-
-	public void setColor(int color) {
-		paint.setColor(color);
-//		paint.setAlpha(opacity);
 	}
 
 	public void saveState(HashMap<Integer, Object> state) {

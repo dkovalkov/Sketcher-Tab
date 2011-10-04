@@ -5,7 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 public class FileHelper {
 	private static final String FILENAME_PATTERN = "sketch_%04d.png";
+    private static final String CUR_FILE_NUM = "cur_file_num";
 
 	private final Sketcher context;
 	boolean isSaved = false;
@@ -36,69 +39,44 @@ public class FileHelper {
 		return file;
 	}
 
-//	Bitmap getSavedBitmap() {
-//		if (!isStorageAvailable()) {
-//			return null;
-//		}
-//
-//		File lastFile = getLastFile(getSDDir());
-//		if (lastFile == null) {
-//			return null;
-//		}
-//
-//		Bitmap savedBitmap = null;
-//		try {
-//			FileInputStream fis = new FileInputStream(lastFile);
-//			savedBitmap = BitmapFactory.decodeStream(fis);
-//		} catch (FileNotFoundException e) {
-//			throw new RuntimeException(e);
-//		}
-//		return savedBitmap;
-//	}
+	Bitmap getSavedBitmap(String fileName) {
+		if (!isStorageAvailable()) {
+			return null;
+		}
 
-//	File getLastFile(File dir) {
-//		int suffix = 1;
-//
-//		File newFile = null;
-//		File file = null;
-//		do {
-//			file = newFile;
-//			newFile = new File(dir, String.format(FILENAME_PATTERN, suffix));
-//			suffix++;
-//		} while (newFile.exists());
-//
-//		return file;
-//	}
+		File lastFile = new File(fileName);
+		if (!lastFile.exists()) {
+			return null;
+		}
 
-	private File getUniqueFilePath(File dir) {
+		Bitmap savedBitmap;
 
-//		while (new File(dir, String.format(FILENAME_PATTERN, suffix)).exists()) {
-//			suffix++;
-//		}
-
-        File[] sketchList = dir.listFiles(new FilenameFilter() {
-            public boolean accept(File file, String s) {
-                if (s.matches("^sketch_(\\d\\d\\d\\d)\\.png$"))
-                    return true;
-               return false;
-            }
-        });
-        Pattern p = Pattern.compile("^sketch_(\\d\\d\\d\\d)\\.png$");
-        int lastNum = 0;
-
-        for (int i = 0; i < sketchList.length; i += 1) {
-            Matcher m = p.matcher(sketchList[i].getName());
-            if (m.find()) {
-                int fileNum = Integer.valueOf(m.group(1));
-                if (fileNum > lastNum) {
-                    lastNum = fileNum;
-                }
-            }
-        }
-
-        lastNum += 1;
-		return new File(dir, String.format(FILENAME_PATTERN, lastNum));
+		try {
+			FileInputStream fis = new FileInputStream(lastFile);
+			savedBitmap = BitmapFactory.decodeStream(fis);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		return savedBitmap;
 	}
+
+	private String getUniqueFilePath(File dir) {
+        SharedPreferences preferences = context.getSharedPreferences(Sketcher.PREFS_NAME, Context.MODE_PRIVATE);
+        int curFileNum = preferences.getInt(CUR_FILE_NUM, 0);
+
+        int freeFileNum = findFreeFileNum(curFileNum + 1, dir);
+        preferences.edit().putInt(CUR_FILE_NUM, freeFileNum).apply();
+
+        return new File(dir, String.format(FILENAME_PATTERN, freeFileNum)).getAbsolutePath();
+    }
+
+    private int findFreeFileNum(int fileNum, File dir) {
+        int result = fileNum;
+        if (new File(dir, String.format(FILENAME_PATTERN, fileNum)).exists()) {
+            result = findFreeFileNum(fileNum + 1, dir);
+        }
+        return result;
+    }
 
 	private void saveBitmap(File file) {
 		try {
@@ -153,8 +131,8 @@ public class FileHelper {
 		new SaveTask().execute();
 	}
 
-	File saveBitmap() {
-		File newFile = getUniqueFilePath(getSDDir());
+	File saveBitmap(String fileName) {
+        File newFile = new File(fileName);
 		saveBitmap(newFile);
 		notifyMediaScanner(newFile);
 		return newFile;
@@ -172,7 +150,7 @@ public class FileHelper {
 
 		protected File doInBackground(Void... none) {
 			context.getSurface().getDrawThread().pauseDrawing();
-			return saveBitmap();
+			return saveBitmap(getUniqueFilePath(getSDDir()));
 		}
 
 		protected void onPostExecute(File file) {

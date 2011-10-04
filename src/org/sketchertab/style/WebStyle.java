@@ -16,16 +16,11 @@ class WebStyle extends StyleBrush {
 
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
-	private Paint paint = new Paint();
-
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(40);
 		paint.setAntiAlias(true);
-        paint.setStrokeWidth(2);
 	}
 
-	@Override
 	public void stroke(Canvas c, float x, float y) {
 		PointF current = new PointF(x, y);
 		points.add(current);
@@ -53,23 +48,18 @@ class WebStyle extends StyleBrush {
 		prevY = y;
 	}
 
-	@Override
 	public void strokeStart(float x, float y) {
 		prevX = x;
 		prevY = y;
 	}
 
-	@Override
 	public void draw(Canvas c) {
 	}
 
-	@Override
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(40);
 	}
 
-	@Override
 	public void saveState(HashMap<Integer, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
@@ -77,7 +67,6 @@ class WebStyle extends StyleBrush {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public void restoreState(HashMap<Integer, Object> state) {
 		this.points.clear();
 		ArrayList<PointF> points = (ArrayList<PointF>) state

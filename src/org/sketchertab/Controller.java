@@ -27,6 +27,8 @@ public class Controller implements View.OnTouchListener {
 	public void setStyle(Style style) {
 		toDraw = false;
 		style.setColor(mColor.getColor());
+        style.setOpacity(mColor.getAlpha());
+        style.setStrokeWidth(mColor.getStrokeWidth());
 		this.style = style;
 	}
 
@@ -54,7 +56,7 @@ public class Controller implements View.OnTouchListener {
 	}
 
 	public void setPaintColor(Paint color) {
-		mColor = color;
+		mColor.setColor(color.getColor());
 		style.setColor(color.getColor());
 	}
 
@@ -62,4 +64,13 @@ public class Controller implements View.OnTouchListener {
 		return mColor;
 	}
 
+    public void setOpacity(int opacity) {
+        mColor.setAlpha(opacity);
+        style.setOpacity(opacity);
+    }
+
+    public void setStrokeWidth(float width) {
+        mColor.setStrokeWidth(width);
+        style.setStrokeWidth(width);
+    }
 }

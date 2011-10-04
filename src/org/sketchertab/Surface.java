@@ -6,92 +6,56 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.View;
 
 public final class Surface extends SurfaceView implements Callback {
-	public final class DrawThread extends Thread {
-		private boolean mRun = true;
-		private boolean mPause = false;
-
-		@Override
-		public void run() {
-			waitForBitmap();
-
-			final SurfaceHolder surfaceHolder = getHolder();
-			Canvas canvas = null;
-
-			while (mRun) {
-				try {
-					while (mRun && mPause) {
-						Thread.sleep(100);
-					}
-
-					canvas = surfaceHolder.lockCanvas();
-					if (canvas == null) {
-						break;
-					}
-
-					synchronized (surfaceHolder) {
-						controller.draw();
-						canvas.drawBitmap(bitmap, 0, 0, null);
-					}
-
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-				} finally {
-					if (canvas != null) {
-						surfaceHolder.unlockCanvasAndPost(canvas);
-					}
-				}
-			}
-		}
-
-		private void waitForBitmap() {
-			while (bitmap == null) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		public void stopDrawing() {
-			mRun = false;
-		}
-
-		public void pauseDrawing() {
-			mPause = true;
-		}
-
-		public void resumeDrawing() {
-			mPause = false;
-		}
-	}
-
 	private DrawThread drawThread;
 	private final Canvas drawCanvas = new Canvas();
 	private final Controller controller = new Controller(drawCanvas);
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
 	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
+    private BrushProperties brushProperties;
+    private float curX, curY;
+    private Context context;
 
 	public Surface(Context context, AttributeSet attributes) {
 		super(context, attributes);
 
+        this.context = context;
+
 		getHolder().addCallback(this);
 		setFocusable(true);
+        brushProperties = new BrushProperties();
+
+        setOpacity(brushProperties.opacity);
+        setStrokeWidth(brushProperties.width);
 	}
-	
+
+    private void switchMenu() {
+        ((Sketcher) context).switchToolbars();
+    }
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_UP:
-			mHistoryHelper.saveState();
-			break;
+            case MotionEvent.ACTION_DOWN:
+                curX = event.getRawX();
+                curY = event.getRawY();
+//                Log.i("cur X, Y", String.valueOf(curX) + " " + String.valueOf(curY));
+                break;
+            case MotionEvent.ACTION_UP:
+                mHistoryHelper.saveState();
+                if (curX == event.getRawX() && curY == event.getRawY()) {
+                    switchMenu();
+                }
+
+                break;
 		}
 		return controller.onTouch(this, event);
 	}
@@ -154,6 +118,14 @@ public final class Surface extends SurfaceView implements Callback {
 		return controller.getPaintColor();
 	}
 
+    public void setOpacity(int opacity) {
+        controller.setOpacity(opacity);
+    }
+
+    public void setStrokeWidth(float width) {
+        controller.setStrokeWidth(width);
+    }
+
 	public void setInitialBitmap(Bitmap initialBitmap) {
 		this.initialBitmap = initialBitmap;
 	}
@@ -161,8 +133,72 @@ public final class Surface extends SurfaceView implements Callback {
 	public Bitmap getBitmap() {
 		return bitmap;
 	}
-	
+
 	public void undo() {
 		mHistoryHelper.undo();
 	}
+
+    public BrushProperties getBrushProperties() {
+        return brushProperties;
+    }
+
+    public final class DrawThread extends Thread {
+        private boolean mRun = true;
+        private boolean mPause = false;
+
+        @Override
+        public void run() {
+            waitForBitmap();
+
+            final SurfaceHolder surfaceHolder = getHolder();
+            Canvas canvas = null;
+
+            while (mRun) {
+                try {
+                    while (mRun && mPause) {
+                        Thread.sleep(100);
+                    }
+
+                    canvas = surfaceHolder.lockCanvas();
+                    if (canvas == null) {
+                        break;
+                    }
+
+                    synchronized (surfaceHolder) {
+                        controller.draw();
+                        canvas.drawBitmap(bitmap, 0, 0, null);
+                    }
+
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                } finally {
+                    if (canvas != null) {
+                        surfaceHolder.unlockCanvasAndPost(canvas);
+                    }
+                }
+            }
+        }
+
+        private void waitForBitmap() {
+            while (bitmap == null) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public void stopDrawing() {
+            mRun = false;
+        }
+
+        public void pauseDrawing() {
+            mPause = true;
+        }
+
+        public void resumeDrawing() {
+            mPause = false;
+        }
+    }
 }

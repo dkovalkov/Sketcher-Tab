@@ -30,11 +30,9 @@ public class PickerDialog extends Dialog {
 		previewView.setPaint(mPaint);
 
 		final Picker satValPicker = (Picker) findViewById(R.id.satval_picker);
-        final Picker alphaPicker = (Picker) findViewById(R.id.alpha_picker);
 
 		Picker.OnColorChangedListener satValLstr = new Picker.OnColorChangedListener() {
 			public void colorChanged(Paint paint) {
-                alphaPicker.setColor(paint.getColor());
 				previewView.setColor(paint.getColor());
 				mPaint.setColor(paint.getColor());
 			}

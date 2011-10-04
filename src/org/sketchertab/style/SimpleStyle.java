@@ -12,18 +12,13 @@ class SimpleStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 
-	private Paint paint = new Paint();
-
 	{
 		paint.setColor(Color.BLACK);
-		paint.setAlpha(100);
 		paint.setAntiAlias(true);
-		paint.setStrokeWidth(1.5F);
 	}
 
 	public void stroke(Canvas c, float x, float y) {
 		c.drawLine(prevX, prevY, x, y, paint);
-
 		prevX = x;
 		prevY = y;
 	}
@@ -38,7 +33,6 @@ class SimpleStyle extends StyleBrush {
 
 	public void setColor(int color) {
 		paint.setColor(color);
-		paint.setAlpha(100);
 	}
 
 	public void saveState(HashMap<Integer, Object> state) {

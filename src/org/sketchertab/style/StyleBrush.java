@@ -13,20 +13,21 @@ import org.sketchertab.Style;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class StyleBrush implements Style {
-    protected int opacity;
-    protected float strokeWidth;
     protected Paint paint = new Paint();
+    protected int opacity;
 
     public void setOpacity(int opacity) {
         Log.i("opacity", String.valueOf(opacity));
         this.opacity = opacity;
-        paint.setAlpha(this.opacity);
+        paint.setAlpha(opacity);
     }
 
     public void setStrokeWidth(float width) {
         Log.i("size", String.valueOf(width));
-        strokeWidth = width;
-        paint.setStrokeWidth(strokeWidth);
+        paint.setStrokeWidth(width);
     }
 
+    public void setColor(int color) {
+		paint.setColor(color);
+	}
 }

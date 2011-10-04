@@ -1,10 +1,13 @@
 package org.sketchertab;
 
+import android.app.ActionBar;
+import android.graphics.Color;
 import android.view.*;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import org.sketchertab.colorpicker.Picker;
 import org.sketchertab.colorpicker.PickerDialog;
+import org.sketchertab.style.StyleBrush;
 import org.sketchertab.style.StylesFactory;
 
 import android.app.Activity;
@@ -12,19 +15,28 @@ import android.app.Dialog;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
+import android.util.Log;
+
+import java.io.File;
 
 public class Sketcher extends Activity {
-	private static final short GROUP_BRUSHES = 0x1000;
-	private static final String PREFS_NAME = "preferences";
+	public static final String PREFS_NAME = "preferences";
     private static final float MAX_STROKE_WIDTH = 4;
+    private static final float MAX_OPACITY = 255;
+    private static final String TEMP_FILE_NAME = "current_pic.png";
 
 	private Surface surface;
 	private final FileHelper fileHelper = new FileHelper(this);
     private View selectedBrushButton;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
 
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
@@ -36,32 +48,27 @@ public class Sketcher extends Activity {
         brushButtonOnClick(R.id.brush_web, StylesFactory.WEB);
 
         SeekBar opacityBar = (SeekBar) findViewById(R.id.brush_opacity_bar);
+        opacityBar.setProgress((int) (surface.getBrushProperties().opacity / MAX_OPACITY * 100));
+
         SeekBar sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
+        sizeBar.setProgress((int) (surface.getBrushProperties().width / MAX_STROKE_WIDTH * 100));
 
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                surface.getStyle().setOpacity(i);
+                surface.setOpacity((int) (i * MAX_OPACITY / 100));
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
         sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                surface.getStyle().setStrokeWidth((float) i / 100 * MAX_STROKE_WIDTH);
+                surface.setStrokeWidth((float) i / 100 * MAX_STROKE_WIDTH);
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 	}
 
@@ -74,9 +81,26 @@ public class Sketcher extends Activity {
                 }
                 selectedBrushButton = view;
                 view.setSelected(true);
-                getSurface().setStyle(StylesFactory.getStyle(brushStyle));
+                StyleBrush styleBrush = StylesFactory.getStyle(brushStyle);
+                getSurface().setStyle(styleBrush);
             }
         });
+    }
+
+    public void switchToolbars() {
+        View brushToolbar = findViewById(R.id.brush_toolbar);
+        View brushProperties = findViewById(R.id.brush_property);
+        ActionBar actionBar = getActionBar();
+
+        if (actionBar.isShowing()) {
+            actionBar.hide();
+            brushToolbar.setVisibility(View.GONE);
+            brushProperties.setVisibility(View.GONE);
+        } else {
+            actionBar.show();
+            brushToolbar.setVisibility(View.VISIBLE);
+            brushProperties.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -85,29 +109,31 @@ public class Sketcher extends Activity {
         return true;
     }
 
-//	@Override
-//	protected void onPause() {
-//		super.onPause();
-//
-//		if (fileHelper.isSaved) {
-//			return;
-//		}
-//		// wrapped to a new thread since it can be killed due to time limits for
-//		// #onPause() method
-//		new Thread() {
-//			@Override
-//			public void run() {
-//				fileHelper.saveBitmap();
-//			}
-//		}.run();
-//	}
+	@Override
+	protected void onPause() {
+		super.onPause();
 
-//	@Override
-//	protected void onResume() {
-//		super.onResume();
-//		fileHelper.isSaved = false;
-//		getSurface().setInitialBitmap(fileHelper.getSavedBitmap());
-//	}
+		if (fileHelper.isSaved) {
+			return;
+		}
+		// wrapped to a new thread since it can be killed due to time limits for
+		// #onPause() method
+		new Thread() {
+			@Override
+			public void run() {
+                String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
+				fileHelper.saveBitmap(tempFileName);
+			}
+		}.run();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		fileHelper.isSaved = false;
+        String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
+		getSurface().setInitialBitmap(fileHelper.getSavedBitmap(tempFileName));
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -128,6 +154,7 @@ public class Sketcher extends Activity {
                 new PickerDialog(this, new Picker.OnColorChangedListener() {
                     public void colorChanged(Paint color) {
                         getSurface().setPaintColor(color);
+//                        surface.getBrushProperties().color = color.getColor();
                     }
                 }, getSurface().getPaintColor()).show();
                 return true;
@@ -148,14 +175,5 @@ public class Sketcher extends Activity {
 	Surface getSurface() {
 		return surface;
 	}
-	
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		switch(keyCode) {
-//		case KeyEvent.KEYCODE_BACK:
-//			getSurface().undo();
-//			return true;
-//		}
-//		return super.onKeyDown(keyCode, event);
-//	}
+
 }

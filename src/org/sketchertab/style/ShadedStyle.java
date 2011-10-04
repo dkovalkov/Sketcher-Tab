@@ -13,15 +13,10 @@ import android.graphics.PointF;
 class ShadedStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
-	private Paint paint = new Paint();
-
 	{
-		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
-        paint.setStrokeWidth(2);
 	}
 
-	@Override
 	public void stroke(Canvas c, float x, float y) {
 		PointF current = new PointF(x, y);
 		points.add(current);
@@ -39,26 +34,20 @@ class ShadedStyle extends StyleBrush {
 			length = (int) (dx * dx + dy * dy);
 
 			if (length < 1000) {
-				paint.setAlpha(((1 - (length / 1000)) * 50));
+				paint.setAlpha((int) ((1 - (length / 1000)) * opacity * 0.1));
 				c.drawLine(current.x, current.y, point.x, point.y, paint);
 			}
 		}
 	}
 
-	@Override
 	public void strokeStart(float x, float y) {
 	}
 
-	@Override
 	public void draw(Canvas c) {
 	}
 
-	@Override
-	public void setColor(int color) {
-		paint.setColor(color);
-	}
 
-	@Override
+
 	public void saveState(HashMap<Integer, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
@@ -66,7 +55,6 @@ class ShadedStyle extends StyleBrush {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public void restoreState(HashMap<Integer, Object> state) {
 		this.points.clear();
 		ArrayList<PointF> points = (ArrayList<PointF>) state
