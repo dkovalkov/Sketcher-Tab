@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.graphics.*;
+import android.util.Log;
 import org.sketchertab.Style;
 
 class SketchyStyle extends StyleBrush {
@@ -34,8 +35,8 @@ class SketchyStyle extends StyleBrush {
 			length = dx * dx + dy * dy;
 
 			if (length < 4000 && Math.random() > (length / 2000)) {
-				float ddx = dx * 0.3F;
-				float ddy = dy * 0.3F;
+				float ddx = dx * 0.2F;
+				float ddy = dy * 0.2F;
 				c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,
 						point.y - ddy, paint);
 			}
@@ -56,6 +57,7 @@ class SketchyStyle extends StyleBrush {
 	public void saveState(HashMap<Integer, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
+        Log.i("sketch point length", String.valueOf(points.size()));
 		state.put(StylesFactory.SKETCHY, points);
 	}
 

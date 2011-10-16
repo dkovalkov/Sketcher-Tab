@@ -46,12 +46,11 @@ public class HuePicker extends View implements Picker {
 		mGradient.setStrokeWidth(w);
 	}
 
-	@Override
 	public void setColor(int color) {
 		mColor.setColor(color);
+        invalidate();
 	}
 
-	@Override
 	public void setOnColorChangedListener(Picker.OnColorChangedListener listener) {
 		mListener = listener;
 	}
@@ -83,13 +82,13 @@ public class HuePicker extends View implements Picker {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-		case MotionEvent.ACTION_MOVE:
-			float y = event.getY() / getHeight();
-			setColor(interpColor(mColors, y));
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                float y = event.getY() / getHeight();
+                setColor(interpColor(mColors, y));
 
-			mListener.colorChanged(mColor);
-			return true;
+                mListener.colorChanged(mColor.getColor());
+                return true;
 		}
 
 		return false;

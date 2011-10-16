@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
+    <!--item
             android:id="@+id/menu_undo"
             android:title="@string/undo"
             android:icon="@android:drawable/ic_menu_revert"
             android:showAsAction="ifRoom"
-            />
+            /-->
     <item
             android:id="@+id/menu_save"
             android:title="@string/save"
             android:icon="@android:drawable/ic_menu_save"
-            android:showAsAction="ifRoom"
-            />
-    <item
-            android:id="@+id/menu_color"
-            android:title="@string/color"
-            android:icon="@drawable/ic_palette"
             android:showAsAction="ifRoom"
             />
     <item

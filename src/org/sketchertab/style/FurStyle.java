@@ -17,7 +17,7 @@ class FurStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
 	{
-		paint.setColor(Color.BLACK);
+//		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 	}
 

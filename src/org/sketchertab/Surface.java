@@ -20,7 +20,6 @@ public final class Surface extends SurfaceView implements Callback {
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
 	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
-    private BrushProperties brushProperties;
     private float curX, curY;
     private Context context;
 
@@ -31,10 +30,6 @@ public final class Surface extends SurfaceView implements Callback {
 
 		getHolder().addCallback(this);
 		setFocusable(true);
-        brushProperties = new BrushProperties();
-
-        setOpacity(brushProperties.opacity);
-        setStrokeWidth(brushProperties.width);
 	}
 
     private void switchMenu() {
@@ -50,7 +45,7 @@ public final class Surface extends SurfaceView implements Callback {
 //                Log.i("cur X, Y", String.valueOf(curX) + " " + String.valueOf(curY));
                 break;
             case MotionEvent.ACTION_UP:
-                mHistoryHelper.saveState();
+//                mHistoryHelper.saveState();
                 if (curX == event.getRawX() && curY == event.getRawY()) {
                     switchMenu();
                 }
@@ -85,7 +80,7 @@ public final class Surface extends SurfaceView implements Callback {
 		if (initialBitmap != null) {
 			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);
 		}
-		mHistoryHelper.saveState();
+//		mHistoryHelper.saveState();
 	}
 
 	public void surfaceCreated(SurfaceHolder holder) {
@@ -105,16 +100,16 @@ public final class Surface extends SurfaceView implements Callback {
 	}
 
 	public void clearBitmap() {
-		bitmap.eraseColor(Color.WHITE);
+		bitmap.eraseColor(controller.getBackgroundColor());
 		controller.clear();
-		mHistoryHelper.saveState();
+//		mHistoryHelper.saveState();
 	}
 
-	public void setPaintColor(Paint color) {
+	public void setPaintColor(int color) {
 		controller.setPaintColor(color);
 	}
 
-	public Paint getPaintColor() {
+	public int getPaintColor() {
 		return controller.getPaintColor();
 	}
 
@@ -122,9 +117,25 @@ public final class Surface extends SurfaceView implements Callback {
         controller.setOpacity(opacity);
     }
 
+    public int getOpacity() {
+        return controller.getOpacity();
+    }
+
     public void setStrokeWidth(float width) {
         controller.setStrokeWidth(width);
     }
+
+    public float getStrokeWidth() {
+        return controller.getStrokeWidth();
+    }
+
+    public void setBackgroundColor(int color) {
+		controller.setBackgroundColor(color);
+	}
+
+    public int getBackgroundColor() {
+		return controller.getBackgroundColor();
+	}
 
 	public void setInitialBitmap(Bitmap initialBitmap) {
 		this.initialBitmap = initialBitmap;
@@ -134,13 +145,9 @@ public final class Surface extends SurfaceView implements Callback {
 		return bitmap;
 	}
 
-	public void undo() {
-		mHistoryHelper.undo();
-	}
-
-    public BrushProperties getBrushProperties() {
-        return brushProperties;
-    }
+//	public void undo() {
+//		mHistoryHelper.undo();
+//	}
 
     public final class DrawThread extends Thread {
         private boolean mRun = true;

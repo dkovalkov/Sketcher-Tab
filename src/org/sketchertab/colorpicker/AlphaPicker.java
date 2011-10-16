@@ -65,7 +65,7 @@ public class AlphaPicker extends View implements Picker {
 			int alpha = (int) ((1f - x / getWidth()) * 255f);
 			mColor.setColor(Color.HSVToColor(alpha, mHsv));
 
-			mListener.colorChanged(mColor);
+			mListener.colorChanged(mColor.getColor());
 			invalidate();
 			return true;
 		}

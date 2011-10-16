@@ -35,10 +35,10 @@ public class SatValPicker extends View implements Picker {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 
-		applyChages(w, h);
+		applyChanges(w, h);
 	}
 
-	private void applyChages(int w, int h) {
+	private void applyChanges(int w, int h) {
 		Shader valGradient = new LinearGradient(0, 0, 0, h, Color.WHITE,
 				Color.BLACK, Shader.TileMode.CLAMP);
 
@@ -53,18 +53,32 @@ public class SatValPicker extends View implements Picker {
 		invalidate();
 	}
 
-	@Override
-	public void setColor(int color) {
-		mColor.setColor(color);
-
-		float[] hsv = Utils.color2HSV(color);
-
+    public void setColor(int color) {
+        float[] hsv = Utils.color2HSV(color);
 		mHue = hsv[0];
 
-		applyChages(getWidth(), getHeight());
+        mColor.setColor(color);
+        applyChanges(getWidth(), getHeight());
+
+    }
+
+	public void setHue(int color) {
+		float[] hsv = Utils.color2HSV(color);
+		mHue = hsv[0];
+
+        int curColor = mColor.getColor();
+        float[] curHsv = Utils.color2HSV(curColor);
+        curHsv[0] = mHue;
+
+        mColor.setColor(Color.HSVToColor(curHsv));
+
+		applyChanges(getWidth(), getHeight());
 	}
 
-	@Override
+    public int getColor() {
+        return mColor.getColor();
+    }
+
 	public void setOnColorChangedListener(Picker.OnColorChangedListener listener) {
 		mListener = listener;
 	}
@@ -91,7 +105,7 @@ public class SatValPicker extends View implements Picker {
 			mColor.setColor(Color.HSVToColor(0xFF,
 					new float[] { mHue, sat, val }));
 
-			mListener.colorChanged(mColor);
+			mListener.colorChanged(mColor.getColor());
 			invalidate();
 			return true;
 		}

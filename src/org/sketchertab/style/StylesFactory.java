@@ -20,13 +20,21 @@ public class StylesFactory {
 	public static final int GRID = 0x1010;
 	public static final int SIMPLE = 0x1011;
 	public static final int ERASER = 0x1012;
+    public static final int DEFAULT_STYLE = SKETCHY;
 
 	private static Map<Integer, StyleBrush> cache = new HashMap<Integer, StyleBrush>();
-	private static int currentStyle = SKETCHY;
+	private static int currentStyle = DEFAULT_STYLE;
 
 	public static StyleBrush getStyle(int id) {
 		if (!cache.containsKey(id)) {
-			cache.put(id, getStyleInstance(id));
+			StyleBrush style;
+			try {
+				style = getStyleInstance(id);
+			} catch (RuntimeException e) {
+				id = DEFAULT_STYLE;
+				style = getStyleInstance(id);
+			}
+			cache.put(id, style);
 		}
 		currentStyle = id;
 		return cache.get(id);
@@ -34,6 +42,10 @@ public class StylesFactory {
 
 	public static Style getCurrentStyle() {
 		return getStyle(currentStyle);
+	}
+
+    public static int getCurrentStyleId() {
+		return currentStyle;
 	}
 
 	public static void clearCache() {
@@ -46,8 +58,8 @@ public class StylesFactory {
 			return new SketchyStyle();
 		case SHADED:
 			return new ShadedStyle();
-		case CHROME:
-			return new ChromeStyle();
+		// case CHROME:
+		// 			return new ChromeStyle();
 		case FUR:
 			return new FurStyle();
 		case LONGFUR:
@@ -66,7 +78,6 @@ public class StylesFactory {
 			return new SimpleStyle();
 		case ERASER:
 			return new EraserStyle();
-
 		default:
 			throw new RuntimeException("Invalid style ID");
 		}

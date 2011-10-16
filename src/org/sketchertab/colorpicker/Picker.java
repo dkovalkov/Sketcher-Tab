@@ -1,10 +1,8 @@
 package org.sketchertab.colorpicker;
 
-import android.graphics.Paint;
-
 public interface Picker {
 	public interface OnColorChangedListener {
-		void colorChanged(Paint paint);
+		void colorChanged(int color);
 	}
 
 	void setOnColorChangedListener(OnColorChangedListener listener);

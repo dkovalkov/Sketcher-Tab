@@ -1,7 +1,8 @@
 package org.sketchertab;
 
 import android.app.ActionBar;
-import android.graphics.Color;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.*;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -12,27 +13,47 @@ import org.sketchertab.style.StylesFactory;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.util.Log;
 
 import java.io.File;
+import java.util.HashMap;
+
+// TODO подключить кисть Простая
+// TODO новые иконки кистей
+// TODO Диалог о программе переделать или убрать
 
 public class Sketcher extends Activity {
 	public static final String PREFS_NAME = "preferences";
+    private static final String PREF_OPACITY = "cur_opacity";
+    private static final String PREF_STYLE = "cur_style";
+    private static final String PREF_COLOR = "cur_color";
+    private static final String PREF_BG_COLOR = "cur_background_color";
+    private static final String PREF_STROKE_WIDTH = "cur_stroke_width";
     private static final float MAX_STROKE_WIDTH = 4;
     private static final float MAX_OPACITY = 255;
     private static final String TEMP_FILE_NAME = "current_pic.png";
 
+    private static final HashMap<Integer, Integer> StyleButtonIdMap = new HashMap<Integer, Integer>();
+
 	private Surface surface;
+    private SeekBar opacityBar;
+    private SeekBar sizeBar;
 	private final FileHelper fileHelper = new FileHelper(this);
     private View selectedBrushButton;
-
+    private View backgroundPickerButton;
+    private View foregroundPickerButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        StyleButtonIdMap.put(StylesFactory.SKETCHY, R.id.brush_sketchy);
+        StyleButtonIdMap.put(StylesFactory.SHADED, R.id.brush_shaded);
+        // StyleButtonIdMap.put(StylesFactory.CHROME, R.id.brush_chrome);
+        StyleButtonIdMap.put(StylesFactory.FUR, R.id.brush_fur);
+        StyleButtonIdMap.put(StylesFactory.WEB, R.id.brush_web);
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         ActionBar actionBar = getActionBar();
@@ -41,21 +62,55 @@ public class Sketcher extends Activity {
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
 
-        brushButtonOnClick(R.id.brush_sketchy, StylesFactory.SKETCHY);
-        brushButtonOnClick(R.id.brush_shaded, StylesFactory.SHADED);
-        brushButtonOnClick(R.id.brush_chrome, StylesFactory.CHROME);
-        brushButtonOnClick(R.id.brush_fur, StylesFactory.FUR);
-        brushButtonOnClick(R.id.brush_web, StylesFactory.WEB);
+        restoreFromPrefs();
+        initButtons();
+        initStyle();
+        initSliders();
+	}
 
-        SeekBar opacityBar = (SeekBar) findViewById(R.id.brush_opacity_bar);
-        opacityBar.setProgress((int) (surface.getBrushProperties().opacity / MAX_OPACITY * 100));
 
-        SeekBar sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
-        sizeBar.setProgress((int) (surface.getBrushProperties().width / MAX_STROKE_WIDTH * 100));
+    private void initButtons() {
+        for (int styleId : StyleButtonIdMap.keySet()) {
+            brushButtonOnClick(StyleButtonIdMap.get(styleId), styleId);
+        }
+
+        backgroundPickerButton = findViewById(R.id.background_picker_button);
+        backgroundPickerButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                new PickerDialog(Sketcher.this, new Picker.OnColorChangedListener() {
+                    public void colorChanged(int color) {
+                        getSurface().setBackgroundColor(color);
+                        backgroundPickerButton.setBackgroundColor(color);
+                    }
+                }, getSurface().getBackgroundColor()).show();
+            }
+        });
+
+        foregroundPickerButton = findViewById(R.id.foreground_picker_button);
+        foregroundPickerButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                new PickerDialog(Sketcher.this, new Picker.OnColorChangedListener() {
+                    public void colorChanged(int color) {
+                        getSurface().setPaintColor(color);
+                        foregroundPickerButton.setBackgroundColor(color);
+                    }
+                }, getSurface().getPaintColor()).show();
+            }
+        });
+
+    }
+
+    private void initSliders() {
+        opacityBar = (SeekBar) findViewById(R.id.brush_opacity_bar);
+        opacityBar.setProgress((int) (surface.getOpacity() / MAX_OPACITY * 100));
+
+        sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
+        sizeBar.setProgress((int) (surface.getStrokeWidth() / MAX_STROKE_WIDTH * 100));
 
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 surface.setOpacity((int) (i * MAX_OPACITY / 100));
+                foregroundPickerButton.setBackgroundColor(surface.getPaintColor());
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) { }
@@ -70,7 +125,14 @@ public class Sketcher extends Activity {
             public void onStartTrackingTouch(SeekBar seekBar) { }
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-	}
+    }
+
+    private void initStyle() {
+        selectedBrushButton = findViewById(StyleButtonIdMap.get(StylesFactory.getCurrentStyleId()));
+        selectedBrushButton.setSelected(true);
+        backgroundPickerButton.setBackgroundColor(surface.getBackgroundColor());
+        foregroundPickerButton.setBackgroundColor(surface.getPaintColor());
+    }
 
     private void brushButtonOnClick(int buttonRes, final int brushStyle) {
         ImageButton button = (ImageButton) findViewById(buttonRes);
@@ -109,11 +171,27 @@ public class Sketcher extends Activity {
         return true;
     }
 
+    private void restoreFromPrefs() {
+            SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+            surface.setOpacity(preferences.getInt(PREF_OPACITY, Controller.DEFAULT_OPACITY));
+            surface.setStrokeWidth(preferences.getFloat(PREF_STROKE_WIDTH, Controller.DEFAULT_WIDTH));
+            surface.setPaintColor(preferences.getInt(PREF_COLOR, Controller.DEFAULT_COLOR));
+            surface.setBackgroundColor(preferences.getInt(PREF_BG_COLOR, Controller.INIT_BG_COLOR));
+            surface.setStyle(StylesFactory.getStyle(preferences.getInt(PREF_STYLE, StylesFactory.DEFAULT_STYLE)));
+    }
+
 	@Override
 	protected void onPause() {
 		super.onPause();
 
-		if (fileHelper.isSaved) {
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        preferences.edit().putInt(PREF_OPACITY, surface.getOpacity())
+                .putFloat(PREF_STROKE_WIDTH, surface.getStrokeWidth())
+                .putInt(PREF_COLOR, surface.getPaintColor())
+                .putInt(PREF_BG_COLOR, surface.getBackgroundColor())
+                .putInt(PREF_STYLE, StylesFactory.getCurrentStyleId()).apply();
+
+        if (fileHelper.isSaved) {
 			return;
 		}
 		// wrapped to a new thread since it can be killed due to time limits for
@@ -150,17 +228,9 @@ public class Sketcher extends Activity {
             case R.id.menu_about:
                 showAboutDialog();
                 return true;
-            case R.id.menu_color:
-                new PickerDialog(this, new Picker.OnColorChangedListener() {
-                    public void colorChanged(Paint color) {
-                        getSurface().setPaintColor(color);
-//                        surface.getBrushProperties().color = color.getColor();
-                    }
-                }, getSurface().getPaintColor()).show();
-                return true;
-            case R.id.menu_undo:
-                getSurface().undo();
-                return true;
+//            case R.id.menu_undo:
+//                getSurface().undo();
+//                return true;
 
             default:
                 return false;

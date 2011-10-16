@@ -2,10 +2,9 @@ package org.sketchertab.style;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PointF;
+
+import android.graphics.*;
+import android.util.Log;
 
 class ChromeStyle extends StyleBrush {
 	private float prevX;
@@ -16,15 +15,9 @@ class ChromeStyle extends StyleBrush {
 	private Paint randPaint = new Paint();
 
 	{
-		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 		randPaint.setAntiAlias(true);
 	}
-
-    public void setOpacity(int opacity) {
-        super.setOpacity(opacity);
-        randPaint.setAlpha(opacity);
-    }
 
     public void setStrokeWidth(float width) {
         super.setStrokeWidth(width);
@@ -40,6 +33,9 @@ class ChromeStyle extends StyleBrush {
 		float dx;
 		float dy;
 		float length;
+		int curColorRed = paint.getColor() >> 16 & 0xFF;
+		int curColorGreen = paint.getColor() >> 8 & 0xFF;
+		int curColorBlue = paint.getColor() & 0xFF;
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
@@ -50,10 +46,12 @@ class ChromeStyle extends StyleBrush {
 			length = dx * dx + dy * dy;
 
 			if (length < 1000) {
-				randPaint.setColor(Color.rgb((int) (Math.random() * 255), (int) (Math.random() * 255),
-                        (int) (Math.random() * 255)));
+				
+				randPaint.setARGB(opacity, (int) (Math.random() * curColorRed), (int) (Math.random() * curColorGreen),
+				                        (int) (Math.random() * curColorBlue));
 				float ddx = dx * 0.2F;
 				float ddy = dy * 0.2F;
+				// c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,	point.y - ddy, paint);
 				c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,	point.y - ddy, randPaint);
 			}
 		}

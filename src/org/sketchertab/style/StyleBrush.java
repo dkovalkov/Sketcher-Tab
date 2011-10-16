@@ -17,13 +17,11 @@ public abstract class StyleBrush implements Style {
     protected int opacity;
 
     public void setOpacity(int opacity) {
-        Log.i("opacity", String.valueOf(opacity));
         this.opacity = opacity;
         paint.setAlpha(opacity);
     }
 
     public void setStrokeWidth(float width) {
-        Log.i("size", String.valueOf(width));
         paint.setStrokeWidth(width);
     }
 
