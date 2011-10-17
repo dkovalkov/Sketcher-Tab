@@ -26,11 +26,6 @@
                     style="@style/brush_buttom"
                     android:src="@drawable/brush_shaded_button"
                     />
-            <!--ImageButton
-                    android:id="@+id/brush_chrome"
-                    style="@style/brush_buttom"
-                    android:src="@drawable/brush_chrome_button"
-                    /-->
              <ImageButton
                     android:id="@+id/brush_fur"
                     style="@style/brush_buttom"
@@ -41,6 +36,16 @@
                     style="@style/brush_buttom"
                     android:src="@drawable/brush_chrome_button"
                     />
+			<ImageButton
+                    android:id="@+id/brush_circles"
+                    style="@style/brush_buttom"
+                    android:src="@drawable/brush_circles_button"
+                    />
+			<ImageButton
+                   android:id="@+id/brush_simple"
+                   style="@style/brush_buttom"
+                   android:src="@drawable/brush_simple_button"
+                   />
         </LinearLayout>
     </LinearLayout>
 

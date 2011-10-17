@@ -20,7 +20,6 @@ import android.util.Log;
 import java.io.File;
 import java.util.HashMap;
 
-// TODO подключить кисть Простая
 // TODO новые иконки кистей
 // TODO Диалог о программе переделать или убрать
 
@@ -54,6 +53,8 @@ public class Sketcher extends Activity {
         // StyleButtonIdMap.put(StylesFactory.CHROME, R.id.brush_chrome);
         StyleButtonIdMap.put(StylesFactory.FUR, R.id.brush_fur);
         StyleButtonIdMap.put(StylesFactory.WEB, R.id.brush_web);
+		StyleButtonIdMap.put(StylesFactory.CIRCLES, R.id.brush_circles);
+		StyleButtonIdMap.put(StylesFactory.SIMPLE, R.id.brush_simple);
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         ActionBar actionBar = getActionBar();

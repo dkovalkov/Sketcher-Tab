@@ -5,29 +5,25 @@ import java.util.HashMap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 class CirclesStyle extends StyleBrush {
 	private float prevX;
 	private float prevY;
 
-//	private Paint paint = new Paint();
-
 	{
-		paint.setColor(Color.BLACK);
-//		paint.setAlpha(50);
-//		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
-//		paint.setStrokeWidth(1);
+		paint.setStyle(Paint.Style.STROKE);
 	}
 
 	public void stroke(Canvas c, float x, float y) {
 		float dx = x - prevX;
 		float dy = y - prevY;
-
+		
 		int dxy = (int) (Math.sqrt(dx * dx + dy * dy) * 2);
 
-		int gridx = (int) (Math.floor(x / 50) * 50 + 25);
-		int gridy = (int) (Math.floor(y / 50) * 50 + 25);
+		int gridx = (int) (Math.floor(x / 70) * 70 + 35);
+		int gridy = (int) (Math.floor(y / 70) * 70 + 35);
 
 		int rand = (int) (Math.floor(Math.random() * 9) + 1);
 		int radius = dxy / rand;
@@ -46,11 +42,6 @@ class CirclesStyle extends StyleBrush {
 	}
 
 	public void draw(Canvas c) {
-	}
-
-	public void setColor(int color) {
-		paint.setColor(color);
-//		paint.setAlpha(50);
 	}
 
 	public void saveState(HashMap<Integer, Object> state) {

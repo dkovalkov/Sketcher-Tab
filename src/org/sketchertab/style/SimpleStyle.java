@@ -13,7 +13,7 @@ class SimpleStyle extends StyleBrush {
 	private float prevY;
 
 	{
-		paint.setColor(Color.BLACK);
+		// paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 	}
 
@@ -29,10 +29,6 @@ class SimpleStyle extends StyleBrush {
 	}
 
 	public void draw(Canvas c) {
-	}
-
-	public void setColor(int color) {
-		paint.setColor(color);
 	}
 
 	public void saveState(HashMap<Integer, Object> state) {

@@ -58,26 +58,14 @@ public class StylesFactory {
 			return new SketchyStyle();
 		case SHADED:
 			return new ShadedStyle();
-		// case CHROME:
-		// 			return new ChromeStyle();
 		case FUR:
 			return new FurStyle();
-		case LONGFUR:
-			return new LongfurStyle();
 		case WEB:
 			return new WebStyle();
-		case SQUARES:
-			return new SquaresStyle();
-		case RIBBON:
-			return new RibbonStyle();
 		case CIRCLES:
 			return new CirclesStyle();
-		case GRID:
-			return new GridStyle();
 		case SIMPLE:
 			return new SimpleStyle();
-		case ERASER:
-			return new EraserStyle();
 		default:
 			throw new RuntimeException("Invalid style ID");
 		}

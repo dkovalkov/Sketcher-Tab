@@ -3,6 +3,7 @@ package org.sketchertab.style;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.util.Log;
 import org.sketchertab.Style;
 
 import android.graphics.Canvas;
@@ -23,7 +24,7 @@ class ShadedStyle extends StyleBrush {
 
 		float dx;
 		float dy;
-		int length;
+		float length;
 
 		for (int i = 0, max = points.size(); i < max; i++) {
 			PointF point = points.get(i);
@@ -31,10 +32,11 @@ class ShadedStyle extends StyleBrush {
 			dx = point.x - current.x;
 			dy = point.y - current.y;
 
-			length = (int) (dx * dx + dy * dy);
+			length = dx * dx + dy * dy;
 
 			if (length < 1000) {
-				paint.setAlpha((int) ((1 - (length / 1000)) * opacity * 0.1));
+				int targetOpacity = (int) ((1 - (length / 1000)) * opacity * 0.5);
+				paint.setAlpha(targetOpacity);
 				c.drawLine(current.x, current.y, point.x, point.y, paint);
 			}
 		}
