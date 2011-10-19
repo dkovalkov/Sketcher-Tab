@@ -41,7 +41,12 @@
                     style="@style/brush_buttom"
                     android:src="@drawable/brush_circles_button"
                     />
-			<ImageButton
+            <ImageButton
+                   android:id="@+id/brush_ribbon"
+                   style="@style/brush_buttom"
+                   android:src="@drawable/brush_ribbon_button"
+                   />
+            <ImageButton
                    android:id="@+id/brush_simple"
                    style="@style/brush_buttom"
                    android:src="@drawable/brush_simple_button"

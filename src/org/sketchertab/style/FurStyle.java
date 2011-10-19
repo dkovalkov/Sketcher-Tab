@@ -17,9 +17,13 @@ class FurStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
 
 	{
-//		paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 	}
+
+    @Override
+    public void setOpacity(int opacity) {
+        super.setOpacity((int) (opacity * 0.5f));
+    }
 
 	public void stroke(Canvas c, float x, float y) {
 		PointF current = new PointF(x, y);
@@ -41,8 +45,7 @@ class FurStyle extends StyleBrush {
 			if (length < 2000 && Math.random() > length / 2000) {
 				float ddx = dx * 0.5F;
 				float ddy = dy * 0.5F;
-				c.drawLine(point.x + ddx, point.y + ddy, point.x - ddx, point.y
-						- ddy, paint);
+				c.drawLine(x + ddx, y + ddy, x - ddx, y - ddy, paint);
 			}
 		}
 
@@ -56,10 +59,6 @@ class FurStyle extends StyleBrush {
 	}
 
 	public void draw(Canvas c) {
-	}
-
-	public void setColor(int color) {
-		paint.setColor(color);
 	}
 
 	public void saveState(HashMap<Integer, Object> state) {

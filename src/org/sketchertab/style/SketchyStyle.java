@@ -17,6 +17,11 @@ class SketchyStyle extends StyleBrush {
 		paint.setAntiAlias(true);
 	}
 
+    @Override
+    public void setOpacity(int opacity) {
+        super.setOpacity((int) (opacity * 0.5f));
+    }
+
 	public void stroke(Canvas c, float x, float y) {
 		PointF current = new PointF(x, y);
 		points.add(current);
@@ -35,11 +40,11 @@ class SketchyStyle extends StyleBrush {
 			length = dx * dx + dy * dy;
 
 			if (length < 4000 && Math.random() > (length / 2000)) {
-				float ddx = dx * 0.2F;
-				float ddy = dy * 0.2F;
-				c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,
-						point.y - ddy, paint);
-			}
+                float ddx = dx * 0.2F;
+                float ddy = dy * 0.2F;
+                c.drawLine(current.x + ddx, current.y + ddy, point.x - ddx,
+                        point.y - ddy, paint);
+            }
 		}
 
 		prevX = x;
@@ -57,7 +62,6 @@ class SketchyStyle extends StyleBrush {
 	public void saveState(HashMap<Integer, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
-        Log.i("sketch point length", String.valueOf(points.size()));
 		state.put(StylesFactory.SKETCHY, points);
 	}
 

@@ -64,6 +64,8 @@ public class StylesFactory {
 			return new WebStyle();
 		case CIRCLES:
 			return new CirclesStyle();
+        case RIBBON:
+			return new RibbonStyle();
 		case SIMPLE:
 			return new SimpleStyle();
 		default:

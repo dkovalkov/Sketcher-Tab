@@ -50,11 +50,12 @@ public class Sketcher extends Activity {
 
         StyleButtonIdMap.put(StylesFactory.SKETCHY, R.id.brush_sketchy);
         StyleButtonIdMap.put(StylesFactory.SHADED, R.id.brush_shaded);
-        // StyleButtonIdMap.put(StylesFactory.CHROME, R.id.brush_chrome);
         StyleButtonIdMap.put(StylesFactory.FUR, R.id.brush_fur);
         StyleButtonIdMap.put(StylesFactory.WEB, R.id.brush_web);
 		StyleButtonIdMap.put(StylesFactory.CIRCLES, R.id.brush_circles);
-		StyleButtonIdMap.put(StylesFactory.SIMPLE, R.id.brush_simple);
+		StyleButtonIdMap.put(StylesFactory.RIBBON, R.id.brush_ribbon);
+        StyleButtonIdMap.put(StylesFactory.SIMPLE, R.id.brush_simple);
+
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         ActionBar actionBar = getActionBar();
