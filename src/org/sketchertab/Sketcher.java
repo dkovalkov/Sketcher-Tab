@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.*;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import org.sketchertab.colorpicker.Picker;
 import org.sketchertab.colorpicker.PickerDialog;
@@ -100,6 +101,12 @@ public class Sketcher extends Activity {
             }
         });
 
+        View menuSwitcherImage = findViewById(R.id.menu_switcher);
+        menuSwitcherImage.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                switchToolbars();
+            }
+        });
     }
 
     private void initSliders() {
@@ -230,10 +237,10 @@ public class Sketcher extends Activity {
             case R.id.menu_about:
                 showAboutDialog();
                 return true;
+//  Ввиду утечки памяти требуется доработка Отмены
 //            case R.id.menu_undo:
 //                getSurface().undo();
 //                return true;
-
             default:
                 return false;
         }

@@ -41,26 +41,14 @@
 	<string name="cancel">Cancel</string>
 
 	<!-- About dialog -->
-	<string name="about_title">What\'s new?</string>
-	<string name="about_text">- implemented undo/redo
-		\n- minor fixes
-		\n<b>Sketcher</b> is an open-source application licensed under
-		<i>Apache License v2.0</i>: 
-		\nhttp://bit.ly/apachelicense. 
-		\nOfficial web site:
-		\nhttp://bit.ly/sketcherapp.
-		\nSource code available at 
-		\nhttp://github.com/wargoth/Sketcher. 
-		\nThis application is a port of	Harmony drawing application 
-		\nhttp://mrdoob.com/projects/harmony
-		\n
-		\n<b>Special thanks to:</b>
-		\n
-		\nMichael Crombeen for translation to French
-		\nScott for translation to Korean
-		\nPiyush Mor for translation to Hindi
+	<string name="about_title">About Sketcher Tab app</string>
+	<string name="about_text">
+        Drawing program with procedural brushes. Brush line based on mathematical rules.
+        Sketcher Tab app based on &lt;a href="https://market.android.com/details?id=org.sketcher"&gt;Sketcher Lite&lt;/a&gt;, author Wargoth.
+        Source code is available at &lt;a href="https://github.com/dkovalkov/Sketcher-Tab"&gt;GitHub&lt;/a&gt; and is distributed under Apache License, version 2.0.
+        &lt;p&gt;Facebook &lt;a href="http://www.facebook.com/groups/142209259135086/"&gt;Sketcher group&lt;/a&gt;.&lt;/p&gt;
+        &lt;p&gt;E-mail: &lt;a href="mailto:topoltop@gmail.com"&gt;topoltop@gmail.com&lt;/a&gt;&lt;/p&gt;
 	</string>
-	<string name="buy_pro_version">Buy Sketcher PRO</string>
 	<string name="button_close">Close</string>
 
     <string name="opacity">Opacity</string>

@@ -32,9 +32,9 @@ public final class Surface extends SurfaceView implements Callback {
 		setFocusable(true);
 	}
 
-    private void switchMenu() {
-        ((Sketcher) context).switchToolbars();
-    }
+//    private void switchMenu() {
+//        ((Sketcher) context).switchToolbars();
+//    }
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -42,12 +42,11 @@ public final class Surface extends SurfaceView implements Callback {
             case MotionEvent.ACTION_DOWN:
                 curX = event.getRawX();
                 curY = event.getRawY();
-//                Log.i("cur X, Y", String.valueOf(curX) + " " + String.valueOf(curY));
                 break;
             case MotionEvent.ACTION_UP:
 //                mHistoryHelper.saveState();
                 if (curX == event.getRawX() && curY == event.getRawY()) {
-                    switchMenu();
+//                    switchMenu();
                 }
 
                 break;

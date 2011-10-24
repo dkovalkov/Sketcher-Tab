@@ -5,21 +5,28 @@
 	<application android:icon="@drawable/icon"
                  android:label="@string/app_name"
 		>
-		<activity android:name="org.sketchertab.Sketcher" android:label="@string/app_name"
-			android:screenOrientation="landscape">
+		<activity
+                android:name="org.sketchertab.Sketcher"
+                android:label="@string/app_name"
+			    android:screenOrientation="landscape">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-
 	</application>
-	<uses-sdk android:minSdkVersion="11"
-            android:targetSdkVersion="11"/>
+	<uses-sdk
+            android:minSdkVersion="11"
+            android:targetSdkVersion="11"
+            />
 
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<!-- <uses-permission android:name="android.permission.INTERNET" /> -->
-	<supports-screens android:largeScreens="true"
-		android:normalScreens="false" android:smallScreens="false"
-		android:anyDensity="true" />
+	<supports-screens
+            android:largeScreens="true"
+            android:xlargeScreens="true"
+		    android:normalScreens="false"
+            android:smallScreens="false"
+		    android:anyDensity="true"
+            />
 </manifest>

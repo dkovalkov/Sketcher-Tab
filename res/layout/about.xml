@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:gravity="center">
-
-	<ScrollView android:padding="10dp" android:layout_weight="1"
-		android:layout_height="fill_parent" android:layout_width="wrap_content">
-
-		<LinearLayout android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-            android:orientation="vertical"
-                >
-			<TextView android:autoLink="all" android:layout_width="wrap_content"
-				android:layout_height="fill_parent" android:text="@string/about_text" />
-		</LinearLayout>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+	<ScrollView
+            android:padding="10dp"
+            android:layout_weight="1"
+		    android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            >
+        <TextView
+                android:id="@+id/about_text_view"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_text"
+                />
 	</ScrollView>
 
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-        android:background="@android:drawable/bottom_bar"
-		android:gravity="center_vertical">
-		<Button android:layout_height="wrap_content" android:id="@+id/button_close"
-			android:layout_width="0dip"
-			android:text="@string/button_close" />
-	</LinearLayout>
+    <Button
+            android:id="@+id/button_close"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@android:drawable/bottom_bar"
+            android:text="@string/button_close"
+            android:layout_marginBottom="20dp"
+            />
 </LinearLayout>

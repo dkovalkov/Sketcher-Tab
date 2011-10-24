@@ -2,14 +2,11 @@ package org.sketchertab.style;
 
 import java.util.HashMap;
 
-import org.sketchertab.Style;
-
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 
 class RibbonStyle extends StyleBrush {
-	private Painter[] painters = new Painter[50];
+    private static final int LINE_NUM = 50;
+	private Painter[] paintPool = new Painter[LINE_NUM];
 
 	private float x;
 	private float y;
@@ -23,23 +20,23 @@ class RibbonStyle extends StyleBrush {
 	{
 		paint.setAntiAlias(true);
 
-		for (int i = 0; i < 50; i++) {
-			painters[i] = new Painter();
+		for (int i = 0; i < LINE_NUM; i++) {
+			paintPool[i] = new Painter();
 		}
 	}
 
 	public void draw(Canvas c) {
 		float startX;
 		float startY;
-		for (int i = 0; i < painters.length; i++) {
-			startX = painters[i].dx;
-			startY = painters[i].dy;
-			painters[i].dx -= painters[i].ax = (painters[i].ax + (painters[i].dx - x) * painters[i].div)
-					* painters[i].ease;
-			painters[i].dy -= painters[i].ay = (painters[i].ay + (painters[i].dy - y) * painters[i].div)
-					* painters[i].ease;
-			c.drawLine(startX, startY, painters[i].dx, painters[i].dy, paint);
-		}
+        for (Painter painter : paintPool) {
+            startX = painter.dx;
+            startY = painter.dy;
+            painter.dx -= painter.ax = (painter.ax + (painter.dx - x) * painter.div)
+                    * painter.ease;
+            painter.dy -= painter.ay = (painter.ay + (painter.dy - y) * painter.div)
+                    * painter.ease;
+            c.drawLine(startX, startY, painter.dx, painter.dy, paint);
+        }
 	}
 
 	public void stroke(Canvas c, float x, float y) {
@@ -51,10 +48,9 @@ class RibbonStyle extends StyleBrush {
 		this.x = x;
 		this.y = y;
 
-		for (int i = 0, max = painters.length; i < max; i++) {
-			Painter painter = painters[i];
-			painter.dx = x;
-			painter.dy = y;
+		for (int i = 0, max = paintPool.length; i < max; i++) {
+			paintPool[i].dx = x;
+			paintPool[i].dy = y;
 		}
 	}
 
@@ -65,15 +61,24 @@ class RibbonStyle extends StyleBrush {
 	}
 
     private class Painter {
-        private static final int SCREEN_WIDTH = 1280;
-        private static final int SCREEN_HEIGHT = 752;
+        private int screenWidth;
+        private int screenHeight;
 
-        float dx = SCREEN_WIDTH / 2;
-        float dy = SCREEN_HEIGHT / 2;
+        float dx;
+        float dy;
         float ax = 0;
         float ay = 0;
         float div = 0.1F;
         float ease = (float) (Math.random() * 0.2 + 0.6);
+
+        public Painter() {
+//            Point size = new Point();
+//            Display.getSize(size);
+            screenWidth = 1280;
+            screenHeight = 752;
+            dx = screenWidth / 2;
+            dy = screenHeight / 2;
+        }
     }
 
 }
