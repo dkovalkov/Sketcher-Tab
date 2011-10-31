@@ -3,3 +3,5 @@ gen/*
 proguard/
 out/
 .DS_Store
+*.apk
+*.keystore
