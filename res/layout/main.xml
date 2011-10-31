@@ -34,7 +34,7 @@
             <ImageButton
                     android:id="@+id/brush_web"
                     style="@style/brush_buttom"
-                    android:src="@drawable/brush_chrome_button"
+                    android:src="@drawable/brush_web_button"
                     />
 			<ImageButton
                     android:id="@+id/brush_circles"

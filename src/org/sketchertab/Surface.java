@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-import android.view.View;
 
 public final class Surface extends SurfaceView implements Callback {
 	private DrawThread drawThread;
@@ -19,48 +16,28 @@ public final class Surface extends SurfaceView implements Callback {
 	private final Controller controller = new Controller(drawCanvas);
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
-	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
-    private float curX, curY;
-    private Context context;
+//	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
 
 	public Surface(Context context, AttributeSet attributes) {
 		super(context, attributes);
-
-        this.context = context;
 
 		getHolder().addCallback(this);
 		setFocusable(true);
 	}
 
-//    private void switchMenu() {
-//        ((Sketcher) context).switchToolbars();
-//    }
-
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                curX = event.getRawX();
-                curY = event.getRawY();
-                break;
-            case MotionEvent.ACTION_UP:
+//		switch (event.getAction()) {
+//            case MotionEvent.ACTION_UP:
 //                mHistoryHelper.saveState();
-                if (curX == event.getRawX() && curY == event.getRawY()) {
-//                    switchMenu();
-                }
-
-                break;
-		}
+//                break;
+//		}
 		return controller.onTouch(this, event);
 	}
 
 	public void setStyle(Style style) {
 		controller.setStyle(style);
 	}
-
-    public Style getStyle() {
-        return controller.getStyle();
-    }
 
 	public DrawThread getDrawThread() {
 		if (drawThread == null) {
@@ -93,6 +70,7 @@ public final class Surface extends SurfaceView implements Callback {
 				getDrawThread().join();
 				break;
 			} catch (InterruptedException e) {
+                e.printStackTrace();
 			}
 		}
 		drawThread = null;
@@ -177,6 +155,7 @@ public final class Surface extends SurfaceView implements Callback {
 
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                 } finally {
                     if (canvas != null) {
                         surfaceHolder.unlockCanvasAndPost(canvas);

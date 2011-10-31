@@ -1,31 +1,27 @@
 package org.sketchertab;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.*;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import org.sketchertab.colorpicker.Picker;
 import org.sketchertab.colorpicker.PickerDialog;
 import org.sketchertab.style.StyleBrush;
 import org.sketchertab.style.StylesFactory;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.View.OnClickListener;
-import android.util.Log;
-
 import java.io.File;
 import java.util.HashMap;
 
-// TODO новые иконки кистей
-// TODO Диалог о программе переделать или убрать
-
 public class Sketcher extends Activity {
-	public static final String PREFS_NAME = "preferences";
     private static final String PREF_OPACITY = "cur_opacity";
     private static final String PREF_STYLE = "cur_style";
     private static final String PREF_COLOR = "cur_color";
@@ -34,13 +30,13 @@ public class Sketcher extends Activity {
     private static final float MAX_STROKE_WIDTH = 4;
     private static final float MAX_OPACITY = 255;
     private static final String TEMP_FILE_NAME = "current_pic.png";
+    public static final String PREFS_NAME = "preferences";
+
 
     private static final HashMap<Integer, Integer> StyleButtonIdMap = new HashMap<Integer, Integer>();
 
 	private Surface surface;
-    private SeekBar opacityBar;
-    private SeekBar sizeBar;
-	private final FileHelper fileHelper = new FileHelper(this);
+    private final FileHelper fileHelper = new FileHelper(this);
     private View selectedBrushButton;
     private View backgroundPickerButton;
     private View foregroundPickerButton;
@@ -56,7 +52,6 @@ public class Sketcher extends Activity {
 		StyleButtonIdMap.put(StylesFactory.CIRCLES, R.id.brush_circles);
 		StyleButtonIdMap.put(StylesFactory.RIBBON, R.id.brush_ribbon);
         StyleButtonIdMap.put(StylesFactory.SIMPLE, R.id.brush_simple);
-
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         ActionBar actionBar = getActionBar();
@@ -110,10 +105,10 @@ public class Sketcher extends Activity {
     }
 
     private void initSliders() {
-        opacityBar = (SeekBar) findViewById(R.id.brush_opacity_bar);
+        SeekBar opacityBar = (SeekBar) findViewById(R.id.brush_opacity_bar);
         opacityBar.setProgress((int) (surface.getOpacity() / MAX_OPACITY * 100));
 
-        sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
+        SeekBar sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
         sizeBar.setProgress((int) (surface.getStrokeWidth() / MAX_STROKE_WIDTH * 100));
 
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -123,6 +118,7 @@ public class Sketcher extends Activity {
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) { }
+
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
@@ -132,6 +128,7 @@ public class Sketcher extends Activity {
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) { }
+
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
     }
@@ -181,12 +178,12 @@ public class Sketcher extends Activity {
     }
 
     private void restoreFromPrefs() {
-            SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            surface.setOpacity(preferences.getInt(PREF_OPACITY, Controller.DEFAULT_OPACITY));
-            surface.setStrokeWidth(preferences.getFloat(PREF_STROKE_WIDTH, Controller.DEFAULT_WIDTH));
-            surface.setPaintColor(preferences.getInt(PREF_COLOR, Controller.DEFAULT_COLOR));
-            surface.setBackgroundColor(preferences.getInt(PREF_BG_COLOR, Controller.INIT_BG_COLOR));
-            surface.setStyle(StylesFactory.getStyle(preferences.getInt(PREF_STYLE, StylesFactory.DEFAULT_STYLE)));
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        surface.setOpacity(preferences.getInt(PREF_OPACITY, Controller.DEFAULT_OPACITY));
+        surface.setStrokeWidth(preferences.getFloat(PREF_STROKE_WIDTH, Controller.DEFAULT_WIDTH));
+        surface.setPaintColor(preferences.getInt(PREF_COLOR, Controller.DEFAULT_COLOR));
+        surface.setBackgroundColor(preferences.getInt(PREF_BG_COLOR, Controller.INIT_BG_COLOR));
+        surface.setStyle(StylesFactory.getStyle(preferences.getInt(PREF_STYLE, StylesFactory.DEFAULT_STYLE)));
     }
 
 	@Override
@@ -200,9 +197,9 @@ public class Sketcher extends Activity {
                 .putInt(PREF_BG_COLOR, surface.getBackgroundColor())
                 .putInt(PREF_STYLE, StylesFactory.getCurrentStyleId()).apply();
 
-        if (fileHelper.isSaved) {
-			return;
-		}
+//        if (fileHelper.isSaved) {
+//			return;
+//		}
 		// wrapped to a new thread since it can be killed due to time limits for
 		// #onPause() method
 		new Thread() {

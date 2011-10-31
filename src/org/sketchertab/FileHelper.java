@@ -94,10 +94,9 @@ public class FileHelper {
 	private boolean isStorageAvailable() {
 		String externalStorageState = Environment.getExternalStorageState();
 		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(context, R.string.sd_card_is_not_available,
-					Toast.LENGTH_SHORT).show();
-			return false;
-		}
+            Toast.makeText(context, R.string.sd_card_is_not_available, Toast.LENGTH_SHORT).show();
+            return false;
+        }
 		return true;
 	}
 
@@ -109,7 +108,6 @@ public class FileHelper {
 		new SaveTask() {
 			protected void onPostExecute(File file) {
 				isSaved = true;
-
 				Uri uri = Uri.fromFile(file);
 
 				Intent i = new Intent(Intent.ACTION_SEND);
@@ -127,7 +125,6 @@ public class FileHelper {
 		if (!isStorageAvailable()) {
 			return;
 		}
-
 		new SaveTask().execute();
 	}
 
@@ -140,8 +137,7 @@ public class FileHelper {
 
 	private void notifyMediaScanner(File file) {
 		Uri uri = Uri.fromFile(file);
-		context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-				uri));
+		context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
 	}
 
 	private class SaveTask extends AsyncTask<Void, Void, File> {

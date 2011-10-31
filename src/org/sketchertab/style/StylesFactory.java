@@ -12,14 +12,10 @@ public class StylesFactory {
 	public static final int SHADED = 0x1002;
 	public static final int CHROME = 0x1003;
 	public static final int FUR = 0x1004;
-	public static final int LONGFUR = 0x1005;
 	public static final int WEB = 0x1006;
-	public static final int SQUARES = 0x1007;
 	public static final int RIBBON = 0x1008;
 	public static final int CIRCLES = 0x1009;
-	public static final int GRID = 0x1010;
 	public static final int SIMPLE = 0x1011;
-	public static final int ERASER = 0x1012;
     public static final int DEFAULT_STYLE = SKETCHY;
 
 	private static Map<Integer, StyleBrush> cache = new HashMap<Integer, StyleBrush>();

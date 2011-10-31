@@ -13,7 +13,6 @@ class SimpleStyle extends StyleBrush {
 	private float prevY;
 
 	{
-		// paint.setColor(Color.BLACK);
 		paint.setAntiAlias(true);
 	}
 

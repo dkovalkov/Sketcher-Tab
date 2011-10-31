@@ -35,7 +35,7 @@ class ShadedStyle extends StyleBrush {
 			length = dx * dx + dy * dy;
 
 			if (length < 1000) {
-				int targetOpacity = (int) ((1 - (length / 1000)) * opacity * 0.5);
+				int targetOpacity = (int) ((1 - (length / 1000)) * opacity);
 				paint.setAlpha(targetOpacity);
 				c.drawLine(current.x, current.y, point.x, point.y, paint);
 			}

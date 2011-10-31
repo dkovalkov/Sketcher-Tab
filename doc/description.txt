@@ -1,0 +1,21 @@
+Sketcher Tab
+
+Освободите ваш творческий потенциал с процедурнай рисовалкой. Простое и непринуждённое рисование пальцем. Иллюзию светотени можно создать одной линией. 
+
+Рисунок кисти строится по математическим правилам. Особенность данной версии в том, что она оптимизирована под планшеты с Андроидом 3.0 и выше.
+
+– Семь видов кистей
+– Настройка свойств кисти: прозрачность, размер, цвет
+– Выбор цвета канвы
+– Отправка картинки (почта, Picasa, DropBox)
+
+
+
+Release your creativity with procedural drawing program. Simple and easy to draw with your finger. You can create the illusion of light and shade with a single line.
+
+Brush line is based on mathematical rules. The difference of this version is that it is optimized for tablets with Android 3.0 and above.
+
+– Seven types of brushes
+– Brush properties: opacity, size, color
+– Choice of canvas color 
+– Share picture (e-mail, Picasa, DropBox)
