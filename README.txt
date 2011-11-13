@@ -1,14 +1,14 @@
-Sketcher is an Android drawing tool written in java. A port of Harmony procedural drawing tool http://mrdoob.com/projects/harmony/. 
-Official web site: http://sites.google.com/site/sketcherapp/. Donate: http://sites.google.com/site/sketcherapp/donate/ 
+Sketcher Tab is a procedural drawing program. It contains 7 brushes. You can share images by mail, Dropbox, Picasa, etc. Interface optimized for Android tablets. Minimal system requirements is Android 3.0.
 
-Features:
-* 11 brushes
-* save to SD
-* share by e-mail, MMS, etc.
+See example pictures on Market page
+https://market.android.com/details?id=org.sketchertab
 
-Thanks to:
+The source idea and implementation was made by Mr.doob in Harmony.
+http://mrdoob.com/projects/harmony/
 
-* Michael Crombeen - translation to French
-* Scott - translation to Korean
-* Piyush Mor - translation to Hindi
-* mrdoob - the author of original Harmony procedural drawing tool
+Java implementation and source code was made by Wargoth.
+https://github.com/wargoth/Sketcher
+
+Sketcher Tab uses sources of Sketcher Lite, thanks to Wargoth.
+
+dkovalkov@gmail.com
