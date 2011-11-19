@@ -55,7 +55,9 @@ public class Sketcher extends Activity {
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         ActionBar actionBar = getActionBar();
-        actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
+        if (null != actionBar) {
+            actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
+        }
 
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
@@ -160,14 +162,16 @@ public class Sketcher extends Activity {
         View brushProperties = findViewById(R.id.brush_property);
         ActionBar actionBar = getActionBar();
 
-        if (actionBar.isShowing()) {
-            actionBar.hide();
-            brushToolbar.setVisibility(View.GONE);
-            brushProperties.setVisibility(View.GONE);
-        } else {
-            actionBar.show();
-            brushToolbar.setVisibility(View.VISIBLE);
-            brushProperties.setVisibility(View.VISIBLE);
+        if (null != actionBar) {
+            if (actionBar.isShowing()) {
+                actionBar.hide();
+                brushToolbar.setVisibility(View.GONE);
+                brushProperties.setVisibility(View.GONE);
+            } else {
+                actionBar.show();
+                brushToolbar.setVisibility(View.VISIBLE);
+                brushProperties.setVisibility(View.VISIBLE);
+            }
         }
     }
 
