@@ -54,10 +54,6 @@ public class Sketcher extends Activity {
         StyleButtonIdMap.put(StylesFactory.SIMPLE, R.id.brush_simple);
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-        ActionBar actionBar = getActionBar();
-        if (null != actionBar) {
-            actionBar.setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
-        }
 
 		setContentView(R.layout.main);
 		surface = (Surface) findViewById(R.id.surface);
@@ -68,6 +64,11 @@ public class Sketcher extends Activity {
         initSliders();
 	}
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
+    }
 
     private void initButtons() {
         for (int styleId : StyleButtonIdMap.keySet()) {
@@ -162,16 +163,14 @@ public class Sketcher extends Activity {
         View brushProperties = findViewById(R.id.brush_property);
         ActionBar actionBar = getActionBar();
 
-        if (null != actionBar) {
-            if (actionBar.isShowing()) {
-                actionBar.hide();
-                brushToolbar.setVisibility(View.GONE);
-                brushProperties.setVisibility(View.GONE);
-            } else {
-                actionBar.show();
-                brushToolbar.setVisibility(View.VISIBLE);
-                brushProperties.setVisibility(View.VISIBLE);
-            }
+        if (actionBar.isShowing()) {
+            actionBar.hide();
+            brushToolbar.setVisibility(View.GONE);
+            brushProperties.setVisibility(View.GONE);
+        } else {
+            actionBar.show();
+            brushToolbar.setVisibility(View.VISIBLE);
+            brushProperties.setVisibility(View.VISIBLE);
         }
     }
 
