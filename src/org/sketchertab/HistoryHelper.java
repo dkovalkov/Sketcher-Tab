@@ -8,7 +8,7 @@ import org.sketchertab.style.StylesFactory;
 
 import android.graphics.Bitmap;
 
-public class HistoryHelper {
+public final class HistoryHelper {
 	private final Surface mSurface;
 
 	private State mUndoState = new State();
