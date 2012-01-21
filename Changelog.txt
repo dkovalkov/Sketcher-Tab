@@ -1,0 +1,7 @@
+1.1.0
+21.01.12
+
+* Undo/Redo ability.
+* Android 4 compatibility.
+* Stability improvement.
+

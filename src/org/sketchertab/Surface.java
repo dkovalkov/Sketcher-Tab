@@ -16,7 +16,7 @@ public final class Surface extends SurfaceView implements Callback {
 	private final Controller controller = new Controller(drawCanvas);
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
-//	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
+	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
 
 	public Surface(Context context, AttributeSet attributes) {
 		super(context, attributes);
@@ -27,11 +27,11 @@ public final class Surface extends SurfaceView implements Callback {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-//		switch (event.getAction()) {
-//            case MotionEvent.ACTION_UP:
-//                mHistoryHelper.saveState();
-//                break;
-//		}
+		switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                mHistoryHelper.saveState();
+                break;
+		}
 		return controller.onTouch(this, event);
 	}
 
@@ -56,7 +56,7 @@ public final class Surface extends SurfaceView implements Callback {
 		if (initialBitmap != null) {
 			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);
 		}
-//		mHistoryHelper.saveState();
+		mHistoryHelper.saveState();
 	}
 
 	public void surfaceCreated(SurfaceHolder holder) {
@@ -79,7 +79,7 @@ public final class Surface extends SurfaceView implements Callback {
 	public void clearBitmap() {
 		bitmap.eraseColor(controller.getBackgroundColor());
 		controller.clear();
-//		mHistoryHelper.saveState();
+		mHistoryHelper.saveState();
 	}
 
 	public void setPaintColor(int color) {
@@ -122,9 +122,9 @@ public final class Surface extends SurfaceView implements Callback {
 		return bitmap;
 	}
 
-//	public void undo() {
-//		mHistoryHelper.undo();
-//	}
+	public void undo() {
+		mHistoryHelper.undo();
+	}
 
     public final class DrawThread extends Thread {
         private boolean mRun = true;

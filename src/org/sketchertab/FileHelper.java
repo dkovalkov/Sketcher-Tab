@@ -141,8 +141,11 @@ public class FileHelper {
 	}
 
 	private class SaveTask extends AsyncTask<Void, Void, File> {
-		private ProgressDialog dialog = ProgressDialog.show(context, "",
-				context.getString(R.string.saving_to_sd_please_wait), true);
+		private ProgressDialog dialog;
+
+        protected void onPreExecute() {
+            dialog = ProgressDialog.show(context, "", context.getString(R.string.saving_to_sd_please_wait), true);
+        }
 
 		protected File doInBackground(Void... none) {
 			context.getSurface().getDrawThread().pauseDrawing();
@@ -150,7 +153,7 @@ public class FileHelper {
 		}
 
 		protected void onPostExecute(File file) {
-			dialog.hide();
+			dialog.dismiss();
 			String absolutePath = file.getAbsolutePath();
 			Toast.makeText(context, context.getString(R.string.successfully_saved_to, absolutePath),
 					Toast.LENGTH_LONG).show();

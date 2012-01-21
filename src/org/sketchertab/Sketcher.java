@@ -237,10 +237,9 @@ public class Sketcher extends Activity {
             case R.id.menu_about:
                 showAboutDialog();
                 return true;
-//  Ввиду утечки памяти требуется доработка Отмены
-//            case R.id.menu_undo:
-//                getSurface().undo();
-//                return true;
+            case R.id.menu_undo:
+                getSurface().undo();
+                return true;
             default:
                 return false;
         }

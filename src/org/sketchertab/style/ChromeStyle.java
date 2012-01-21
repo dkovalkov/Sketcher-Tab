@@ -74,10 +74,9 @@ class ChromeStyle extends StyleBrush {
 
 	@SuppressWarnings("unchecked")
 	public void restoreState(HashMap<Integer, Object> state) {
-		this.points.clear();
-		ArrayList<PointF> points = (ArrayList<PointF>) state
-				.get(StylesFactory.CHROME);
-		this.points.addAll(points);
+		points.clear();
+		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.CHROME);
+		points.addAll(points);
 	}
 
 	public void saveState(HashMap<Integer, Object> state) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="org.sketchertab"
-    android:versionCode="20111126"
-    android:versionName="1.0.3"
+    android:versionCode="20120121"
+    android:versionName="1.1.0"
 	android:installLocation="auto">
 	<application
             android:icon="@drawable/icon"
@@ -21,15 +21,17 @@
 	</application>
 	<uses-sdk
             android:minSdkVersion="11"
+            android:maxSdkVersion="15"
             android:targetSdkVersion="11"
             />
 
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            />
 	<supports-screens
             android:largeScreens="true"
             android:xlargeScreens="true"
 		    android:normalScreens="false"
             android:smallScreens="false"
-		    android:anyDensity="true"
             />
 </manifest>

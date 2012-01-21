@@ -19,12 +19,6 @@
 			android:layout_height="240dp" />
 	</LinearLayout>
 
-    <org.sketchertab.colorpicker.AlphaPicker
-			android:id="@+id/alpha_picker"
-            android:layout_width="fill_parent"
-			android:layout_height="50dp"
-            />
-
 	<org.sketchertab.colorpicker.PreviewView
 		android:id="@+id/preview_new" android:layout_width="100dp"
 		android:layout_height="40dp" android:layout_centerInParent="true"

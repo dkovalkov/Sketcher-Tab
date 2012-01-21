@@ -35,7 +35,7 @@
 	<string name="eraser">Ластик</string>
 
 	<!-- About dialog -->
-    <string name="about_title">О приложении Sketcher Tab</string>
+    <string name="about_title">О Sketcher Tab</string>
     <string name="about_text">
 		Рисовалка с процедурными кистями. Рисунок кисти строится на математических правилах.
         \nПриложение Sketcher Tab создано на основе &lt;a href="https://market.android.com/details?id=org.sketcher"&gt;Sketcher Lite&lt;/a&gt;, автор Wargoth.

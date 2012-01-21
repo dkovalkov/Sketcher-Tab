@@ -69,8 +69,7 @@ class WebStyle extends StyleBrush {
 	@SuppressWarnings("unchecked")
 	public void restoreState(HashMap<Integer, Object> state) {
 		this.points.clear();
-		ArrayList<PointF> points = (ArrayList<PointF>) state
-				.get(StylesFactory.WEB);
+		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.WEB);
 		this.points.addAll(points);
 	}
 }

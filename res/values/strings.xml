@@ -41,7 +41,7 @@
 	<string name="cancel">Cancel</string>
 
 	<!-- About dialog -->
-	<string name="about_title">About Sketcher Tab app</string>
+	<string name="about_title">About Sketcher Tab</string>
 	<string name="about_text">
         Drawing program with procedural brushes. Brush line based on mathematical rules.
         Sketcher Tab app based on &lt;a href="https://market.android.com/details?id=org.sketcher"&gt;Sketcher Lite&lt;/a&gt;, author Wargoth.
