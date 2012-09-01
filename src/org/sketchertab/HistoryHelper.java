@@ -40,11 +40,13 @@ public final class HistoryHelper {
 	}
 
 	private void saveState(Bitmap bitmap, State state) {
-		state.mBuffer = new byte[bitmap.getRowBytes() * bitmap.getHeight()];
-		Buffer byteBuffer = ByteBuffer.wrap(state.mBuffer);
-		bitmap.copyPixelsToBuffer(byteBuffer);
-		StylesFactory.saveState(state.stylesState);
-	}
+        if (null == state.mBuffer) {
+            state.mBuffer = new byte[bitmap.getRowBytes() * bitmap.getHeight()];
+        }
+        Buffer byteBuffer = ByteBuffer.wrap(state.mBuffer);
+        bitmap.copyPixelsToBuffer(byteBuffer);
+        StylesFactory.saveState(state.stylesState);
+    }
 
 	private static class State {
 		byte[] mBuffer = null;

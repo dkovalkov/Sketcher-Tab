@@ -17,21 +17,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b59da1a4-f97c-4e31-ae7c-4c2abc849902" name="Default" comment="Для кисти Фур изменено направление. Добавлена кисть Риббон. Увеличена прозрачность Скетчи, Фур, Риббон.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/org/sketchertab/colorpicker/AlphaPicker.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.txt" afterPath="$PROJECT_DIR$/README.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/color_picker.xml" afterPath="$PROJECT_DIR$/res/layout/color_picker.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/menu/main_options.xml" afterPath="$PROJECT_DIR$/res/menu/main_options.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/res/values-ru/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/FileHelper.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/FileHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/Sketcher.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/Sketcher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/Surface.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/Surface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/style/ChromeStyle.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/style/ChromeStyle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/style/WebStyle.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/style/WebStyle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sketcher.iml" afterPath="$PROJECT_DIR$/Sketcher.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java" afterPath="$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java" />
     </list>
     <list id="0ddaf962-8229-4081-a61e-4b10ff019d29" name="Rejected commit: Default" comment="Для кисти Фур изменено направление. Добавлена кисть Риббон. Увеличена прозрачность Скетчи, Фур, Риббон." />
     <ignored path="Sketcher.iws" />
@@ -95,19 +85,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <file leaf-file-name="HistoryHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="37" selection-start="839" selection-end="839" vertical-scroll-proportion="0.48591548">
+            <state line="42" column="21" selection-start="1051" selection-end="1051" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Picker.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/Picker.java">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="31" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
+            <state line="5" column="27" selection-start="226" selection-end="226" vertical-scroll-proportion="0.111386135">
               <folding />
             </state>
           </provider>
@@ -121,21 +111,18 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
-    <option name="CHECKOUT_INCLUDE_TAGS" value="false" />
-    <option name="UPDATE_CHANGES_POLICY" value="STASH" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/org/sketchertab/style/RibbonStyle.java" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/style/SimpleStyle.java" />
-        <option value="$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/style/ChromeStyle.java" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/style/WebStyle.java" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/Surface.java" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/Sketcher.java" />
         <option value="$PROJECT_DIR$/res/menu/main_options.xml" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/colorpicker/AlphaPicker.java" />
         <option value="$PROJECT_DIR$/res/layout/color_picker.xml" />
         <option value="$PROJECT_DIR$/src/org/sketchertab/FileHelper.java" />
@@ -143,6 +130,8 @@
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/res/values-ru/strings.xml" />
         <option value="$PROJECT_DIR$/Changelog.txt" />
+        <option value="$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -158,8 +147,10 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="922" />
+    <option name="x" value="173" />
+    <option name="y" value="22" />
+    <option name="width" value="1202" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -230,7 +221,7 @@
     <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Tablet" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Honeycomb7inch" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="AndroidTargetDevices" value="3806148412074d7" />
     <property name="FullScreen" value="false" />
@@ -244,9 +235,11 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="Errors" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="13001991615" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
+    <property name="KeystoreLocation" value="$PROJECT_DIR$/doc/sketcher_tab.keystore" />
+    <property name="KeyAlias" value="sketcher_tab" />
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
@@ -297,6 +290,7 @@
             <option name="localRepository" value="" />
             <option name="mavenHome" value="" />
             <option name="nonRecursive" value="false" />
+            <option name="outputLevel" value="INFO" />
             <option name="pluginUpdatePolicy" value="DO_NOT_UPDATE" />
             <option name="printErrorStackTraces" value="false" />
             <option name="snapshotUpdatePolicy" value="ALWAYS_UPDATE" />
@@ -318,11 +312,14 @@
         </option>
         <option name="myRunnerParameters">
           <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
             <option name="goals">
               <list />
             </option>
-            <option name="profiles">
-              <set />
+            <option name="profilesMap">
+              <map />
             </option>
             <option name="workingDirPath" value="" />
           </MavenRunnerParameters>
@@ -462,20 +459,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy Script">
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="$PROJECT_DIR$" />
-      <setting name="debug" value="false" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -518,6 +501,20 @@
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Android Application.Sketcher" />
     </list>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy Script">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -572,24 +569,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="922" extended-state="0" />
+    <frame x="173" y="22" width="1202" height="878" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973262" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328877" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274559" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269461" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4071856" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3275401" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494382" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.22186235" sideWeight="0.67042255" order="0" side_tool="false" content_ui="tabs" x="693" y="56" width="366" height="766" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32764506" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="FLOATING" visible="false" weight="0.43117177" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="633" y="92" width="773" height="651" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269461" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34123564" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -597,6 +595,7 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Logcat" active="false" anchor="bottom" auto_hide="true" internal_type="SLIDING" type="FLOATING" visible="false" weight="0.43117177" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="630" y="92" width="773" height="651" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -632,7 +631,10 @@
     <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <option name="CREATE_PATCH_EXPAND_DETAILS_DEFAULT" value="true" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="Для кисти Фур изменено направление. Добавлена кисть Риббон. Увеличена прозрачность Скетчи, Фур, Риббон." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -664,11 +666,6 @@
     <entry file="file://$PROJECT_DIR$/src/org/sketchertab/Style.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="0" selection-start="400" selection-end="400" vertical-scroll-proportion="0.35915494" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="40" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/sketchertab/style/StylesFactory.java">
@@ -728,14 +725,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/sketchertab/colorpicker/Picker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="31" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
+        <state line="5" column="31" selection-start="141" selection-end="141" vertical-scroll-proportion="0.12064343" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/sketchertab/HistoryHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="21" selection-start="1051" selection-end="1051" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="37" selection-start="839" selection-end="839" vertical-scroll-proportion="0.48591548">
+        <state line="5" column="27" selection-start="226" selection-end="226" vertical-scroll-proportion="0.111386135">
           <folding />
         </state>
       </provider>
