@@ -22,18 +22,19 @@ import java.io.File;
 import java.util.HashMap;
 
 public class Sketcher extends Activity {
+    private static Sketcher INSTANCE;
     private static final String PREF_OPACITY = "cur_opacity";
-    private static final String PREF_STYLE = "cur_style";
+    private static final String PREF_STYLE = "cur_brush_type";
     private static final String PREF_COLOR = "cur_color";
     private static final String PREF_BG_COLOR = "cur_background_color";
     private static final String PREF_STROKE_WIDTH = "cur_stroke_width";
     private static final float MAX_STROKE_WIDTH = 4;
     private static final float MAX_OPACITY = 255;
     private static final String TEMP_FILE_NAME = "current_pic.png";
+
     public static final String PREFS_NAME = "preferences";
 
-
-    private static final HashMap<Integer, Integer> StyleButtonIdMap = new HashMap<Integer, Integer>();
+    private static final HashMap<StylesFactory.BrushType, Integer> StyleButtonMap = new HashMap<StylesFactory.BrushType, Integer>();
 
 	private Surface surface;
     private final FileHelper fileHelper = new FileHelper(this);
@@ -41,17 +42,23 @@ public class Sketcher extends Activity {
     private View backgroundPickerButton;
     private View foregroundPickerButton;
 
+    public static Sketcher getInstance() {
+        return INSTANCE;
+    }
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        StyleButtonIdMap.put(StylesFactory.SKETCHY, R.id.brush_sketchy);
-        StyleButtonIdMap.put(StylesFactory.SHADED, R.id.brush_shaded);
-        StyleButtonIdMap.put(StylesFactory.FUR, R.id.brush_fur);
-        StyleButtonIdMap.put(StylesFactory.WEB, R.id.brush_web);
-		StyleButtonIdMap.put(StylesFactory.CIRCLES, R.id.brush_circles);
-		StyleButtonIdMap.put(StylesFactory.RIBBON, R.id.brush_ribbon);
-        StyleButtonIdMap.put(StylesFactory.SIMPLE, R.id.brush_simple);
+        INSTANCE = this;
+
+        StyleButtonMap.put(StylesFactory.BrushType.SKETCHY, R.id.brush_sketchy);
+        StyleButtonMap.put(StylesFactory.BrushType.SHADED, R.id.brush_shaded);
+        StyleButtonMap.put(StylesFactory.BrushType.FUR, R.id.brush_fur);
+        StyleButtonMap.put(StylesFactory.BrushType.WEB, R.id.brush_web);
+		StyleButtonMap.put(StylesFactory.BrushType.CIRCLES, R.id.brush_circles);
+		StyleButtonMap.put(StylesFactory.BrushType.RIBBON, R.id.brush_ribbon);
+        StyleButtonMap.put(StylesFactory.BrushType.SIMPLE, R.id.brush_simple);
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 
@@ -70,9 +77,82 @@ public class Sketcher extends Activity {
         getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        preferences.edit().putInt(PREF_OPACITY, surface.getOpacity())
+                .putFloat(PREF_STROKE_WIDTH, surface.getStrokeWidth())
+                .putInt(PREF_COLOR, surface.getPaintColor())
+                .putInt(PREF_BG_COLOR, surface.getBackgroundColor())
+                .putString(PREF_STYLE, StylesFactory.getCurrentBrushType().name()).apply();
+
+//        if (fileHelper.isSaved) {
+//			return;
+//		}
+        // wrapped to a new thread since it can be killed due to time limits for
+        // #onPause() method
+        new Thread() {
+            @Override
+            public void run() {
+                String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
+                fileHelper.saveBitmap(tempFileName);
+            }
+        }.run();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fileHelper.isSaved = false;
+        String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
+        getSurface().setInitialBitmap(fileHelper.getSavedBitmap(tempFileName));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_clear:
+                getSurface().clearBitmap();
+                return true;
+            case R.id.menu_save:
+                fileHelper.saveToSD();
+                return true;
+            case R.id.menu_send:
+                fileHelper.share();
+                return true;
+            case R.id.menu_about:
+                showAboutDialog();
+                return true;
+            case R.id.menu_undo:
+//                getSurface().undo();
+                DocumentHistory.getInstance().undo();
+                return true;
+            case R.id.menu_redo:
+                DocumentHistory.getInstance().redo();
+            default:
+                return false;
+        }
+    }
+
+    public Surface getSurface() {
+        return surface;
+    }
+
+//    public Canvas getCanvas() {
+//        return surface.getDrawCanvas();
+//    }
+
     private void initButtons() {
-        for (int styleId : StyleButtonIdMap.keySet()) {
-            brushButtonOnClick(StyleButtonIdMap.get(styleId), styleId);
+        for (StylesFactory.BrushType brushType : StyleButtonMap.keySet()) {
+            brushButtonOnClick(StyleButtonMap.get(brushType), brushType);
         }
 
         backgroundPickerButton = findViewById(R.id.background_picker_button);
@@ -137,13 +217,13 @@ public class Sketcher extends Activity {
     }
 
     private void initStyle() {
-        selectedBrushButton = findViewById(StyleButtonIdMap.get(StylesFactory.getCurrentStyleId()));
+        selectedBrushButton = findViewById(StyleButtonMap.get(StylesFactory.getCurrentBrushType()));
         selectedBrushButton.setSelected(true);
         backgroundPickerButton.setBackgroundColor(surface.getBackgroundColor());
         foregroundPickerButton.setBackgroundColor(surface.getPaintColor());
     }
 
-    private void brushButtonOnClick(int buttonRes, final int brushStyle) {
+    private void brushButtonOnClick(int buttonRes, final StylesFactory.BrushType brushType) {
         ImageButton button = (ImageButton) findViewById(buttonRes);
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
@@ -152,7 +232,7 @@ public class Sketcher extends Activity {
                 }
                 selectedBrushButton = view;
                 view.setSelected(true);
-                StyleBrush styleBrush = StylesFactory.getStyle(brushStyle);
+                StyleBrush styleBrush = StylesFactory.getStyle(brushType);
                 getSurface().setStyle(styleBrush);
             }
         });
@@ -174,84 +254,24 @@ public class Sketcher extends Activity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_options, menu);
-        return true;
-    }
-
     private void restoreFromPrefs() {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        surface.setOpacity(preferences.getInt(PREF_OPACITY, Controller.DEFAULT_OPACITY));
-        surface.setStrokeWidth(preferences.getFloat(PREF_STROKE_WIDTH, Controller.DEFAULT_WIDTH));
-        surface.setPaintColor(preferences.getInt(PREF_COLOR, Controller.DEFAULT_COLOR));
-        surface.setBackgroundColor(preferences.getInt(PREF_BG_COLOR, Controller.INIT_BG_COLOR));
-        surface.setStyle(StylesFactory.getStyle(preferences.getInt(PREF_STYLE, StylesFactory.DEFAULT_STYLE)));
+        surface.setOpacity(preferences.getInt(PREF_OPACITY, DrawController.DEFAULT_OPACITY));
+        surface.setStrokeWidth(preferences.getFloat(PREF_STROKE_WIDTH, DrawController.DEFAULT_WIDTH));
+        surface.setPaintColor(preferences.getInt(PREF_COLOR, DrawController.DEFAULT_COLOR));
+        surface.setBackgroundColor(preferences.getInt(PREF_BG_COLOR, DrawController.INIT_BG_COLOR));
+
+        String brushName = preferences.getString(PREF_STYLE, "");
+        StylesFactory.BrushType brushType;
+        if (brushName.length() > 0)
+            brushType = StylesFactory.BrushType.valueOf(brushName);
+        else
+            brushType = StylesFactory.DEFAULT_BRUSH_TYPE;
+        surface.setStyle(StylesFactory.getStyle(brushType));
     }
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        preferences.edit().putInt(PREF_OPACITY, surface.getOpacity())
-                .putFloat(PREF_STROKE_WIDTH, surface.getStrokeWidth())
-                .putInt(PREF_COLOR, surface.getPaintColor())
-                .putInt(PREF_BG_COLOR, surface.getBackgroundColor())
-                .putInt(PREF_STYLE, StylesFactory.getCurrentStyleId()).apply();
-
-//        if (fileHelper.isSaved) {
-//			return;
-//		}
-		// wrapped to a new thread since it can be killed due to time limits for
-		// #onPause() method
-		new Thread() {
-			@Override
-			public void run() {
-                String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
-				fileHelper.saveBitmap(tempFileName);
-			}
-		}.run();
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		fileHelper.isSaved = false;
-        String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
-		getSurface().setInitialBitmap(fileHelper.getSavedBitmap(tempFileName));
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-            case R.id.menu_clear:
-                getSurface().clearBitmap();
-                return true;
-            case R.id.menu_save:
-                fileHelper.saveToSD();
-                return true;
-            case R.id.menu_send:
-                fileHelper.share();
-                return true;
-            case R.id.menu_about:
-                showAboutDialog();
-                return true;
-            case R.id.menu_undo:
-                getSurface().undo();
-                return true;
-            default:
-                return false;
-        }
-	}
 
 	private void showAboutDialog() {
 		Dialog dialog = new AboutDialog(this);
 		dialog.show();
 	}
-
-	Surface getSurface() {
-		return surface;
-	}
-
 }

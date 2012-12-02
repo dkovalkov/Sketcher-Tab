@@ -1,14 +1,11 @@
 package org.sketchertab.style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.sketchertab.Style;
-
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 class WebStyle extends StyleBrush {
 	private float prevX;
@@ -60,16 +57,16 @@ class WebStyle extends StyleBrush {
 		paint.setColor(color);
 	}
 
-	public void saveState(HashMap<Integer, Object> state) {
+	public void saveState(Map<StylesFactory.BrushType, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
-		state.put(StylesFactory.WEB, points);
+		state.put(StylesFactory.BrushType.WEB, points);
 	}
 
 	@SuppressWarnings("unchecked")
-	public void restoreState(HashMap<Integer, Object> state) {
+	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
 		this.points.clear();
-		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.WEB);
+		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.BrushType.WEB);
 		this.points.addAll(points);
 	}
 }

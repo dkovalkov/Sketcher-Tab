@@ -1,27 +1,31 @@
 package org.sketchertab;
 
-import android.graphics.Color;
-import org.sketchertab.style.StylesFactory;
-
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
+import org.sketchertab.style.StylesFactory;
 
-public class Controller implements View.OnTouchListener {
+import java.util.HashMap;
+import java.util.Map;
+
+public class DrawController implements View.OnTouchListener {
     public static final int INIT_BG_COLOR = Color.rgb(255, 250, 232);
     public static final int DEFAULT_OPACITY = 50;
     public static final float DEFAULT_WIDTH = 1;
     public static final int DEFAULT_COLOR = Color.argb(DEFAULT_OPACITY, 0, 0, 0);
-
 
 	private Style style;
 	private final Canvas mCanvas;
 	private boolean toDraw = false;
 	private Paint mColor = new Paint();
     private Paint bgColor = new Paint();
+    private Bitmap undoSurface;
+    private Map<StylesFactory.BrushType, Object> brushData;
 
-	public Controller(Canvas canvas) {
+	public DrawController(Canvas canvas) {
 		clear();
 		mCanvas = canvas;
         bgColor.setColor(INIT_BG_COLOR);
@@ -44,19 +48,22 @@ public class Controller implements View.OnTouchListener {
 		this.style = style;
 	}
 
-    public Style getStyle() {
-        return style;
-    }
-
 	public boolean onTouch(View v, MotionEvent event) {
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			toDraw = true;
-			style.strokeStart(event.getX(), event.getY());
-			break;
-		case MotionEvent.ACTION_MOVE:
-			style.stroke(mCanvas, event.getX(), event.getY());
-			break;
+            case MotionEvent.ACTION_DOWN:
+                undoSurface = Sketcher.getInstance().getSurface().getBitmap().copy(Bitmap.Config.ARGB_8888, true);
+                brushData = new HashMap<StylesFactory.BrushType, Object>();
+                StylesFactory.saveState(brushData);
+                toDraw = true;
+                style.strokeStart(event.getX(), event.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                style.stroke(mCanvas, event.getX(), event.getY());
+                break;
+            case MotionEvent.ACTION_UP:
+                HistoryItem item = new HistoryItem(undoSurface, brushData);
+                DocumentHistory.getInstance().pushNewItem(item);
+                break;
 		}
 		return true;
 	}

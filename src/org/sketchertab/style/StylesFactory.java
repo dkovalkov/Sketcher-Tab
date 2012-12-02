@@ -1,86 +1,89 @@
 package org.sketchertab.style;
 
+import org.sketchertab.Style;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.sketchertab.Style;
+public final class StylesFactory {
+    public static final BrushType DEFAULT_BRUSH_TYPE = BrushType.SKETCHY;
 
-public class StylesFactory {
-	public static final int SKETCHY = 0x1001;
-	public static final int SHADED = 0x1002;
-	public static final int CHROME = 0x1003;
-	public static final int FUR = 0x1004;
-	public static final int WEB = 0x1006;
-	public static final int RIBBON = 0x1008;
-	public static final int CIRCLES = 0x1009;
-	public static final int SIMPLE = 0x1011;
-    public static final int DEFAULT_STYLE = SKETCHY;
+	private static Map<BrushType, StyleBrush> usedBrushes = new HashMap<BrushType, StyleBrush>();
+	private static BrushType currentStyle = DEFAULT_BRUSH_TYPE;
 
-	private static Map<Integer, StyleBrush> cache = new HashMap<Integer, StyleBrush>();
-	private static int currentStyle = DEFAULT_STYLE;
-
-	public static StyleBrush getStyle(int id) {
-		if (!cache.containsKey(id)) {
+	public static StyleBrush getStyle(BrushType brushType) {
+		if (!usedBrushes.containsKey(brushType)) {
 			StyleBrush style;
 			try {
-				style = getStyleInstance(id);
+				style = getStyleInstance(brushType);
 			} catch (RuntimeException e) {
-				id = DEFAULT_STYLE;
-				style = getStyleInstance(id);
+				brushType = DEFAULT_BRUSH_TYPE;
+				style = getStyleInstance(brushType);
 			}
-			cache.put(id, style);
+			usedBrushes.put(brushType, style);
 		}
-		currentStyle = id;
-		return cache.get(id);
+		currentStyle = brushType;
+		return usedBrushes.get(brushType);
 	}
 
 	public static Style getCurrentStyle() {
 		return getStyle(currentStyle);
 	}
 
-    public static int getCurrentStyleId() {
+    public static BrushType getCurrentBrushType() {
 		return currentStyle;
 	}
 
 	public static void clearCache() {
-		cache.clear();
+		usedBrushes.clear();
 	}
 
-	private static StyleBrush getStyleInstance(int id) {
+	private static StyleBrush getStyleInstance(BrushType id) {
 		switch (id) {
-		case SKETCHY:
-			return new SketchyStyle();
-		case SHADED:
-			return new ShadedStyle();
-		case FUR:
-			return new FurStyle();
-		case WEB:
-			return new WebStyle();
-		case CIRCLES:
-			return new CirclesStyle();
-        case RIBBON:
-			return new RibbonStyle();
-		case SIMPLE:
-			return new SimpleStyle();
-		default:
-			throw new RuntimeException("Invalid style ID");
+            case SKETCHY:
+                return new SketchyStyle();
+            case SHADED:
+                return new ShadedStyle();
+            case FUR:
+                return new FurStyle();
+            case WEB:
+                return new WebStyle();
+            case CIRCLES:
+                return new CirclesStyle();
+            case RIBBON:
+                return new RibbonStyle();
+            case SIMPLE:
+                return new SimpleStyle();
+            default:
+                throw new RuntimeException("Invalid style ID");
 		}
 	}
 
-	public static void saveState(HashMap<Integer, Object> state) {
-		Collection<StyleBrush> values = cache.values();
+	public static void saveState(Map<BrushType, Object> state) {
+		Collection<StyleBrush> values = usedBrushes.values();
 		for (Style style : values) {
 			style.saveState(state);
 		}
 	}
 
-	public static void restoreState(HashMap<Integer, Object> state) {
-		Set<Integer> keySet = state.keySet();
-		for (int id : keySet) {
-			Style style = getStyle(id);
+	public static void restoreState(Map<BrushType, Object> state) {
+		Set<BrushType> keySet = state.keySet();
+		for (BrushType brushType : keySet) {
+			Style style = getStyle(brushType);
 			style.restoreState(state);
 		}
 	}
+
+    public enum BrushType {
+        SKETCHY,
+        SHADED,
+        CHROME,
+        FUR,
+        WEB,
+        RIBBON,
+        CIRCLES,
+        SIMPLE
+    }
 }

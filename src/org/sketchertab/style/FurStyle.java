@@ -1,14 +1,10 @@
 package org.sketchertab.style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.sketchertab.Style;
-
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 class FurStyle extends StyleBrush {
 	private float prevX;
@@ -61,17 +57,17 @@ class FurStyle extends StyleBrush {
 	public void draw(Canvas c) {
 	}
 
-	public void saveState(HashMap<Integer, Object> state) {
+	public void saveState(Map<StylesFactory.BrushType, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
-		state.put(StylesFactory.FUR, points);
+		state.put(StylesFactory.BrushType.FUR, points);
 	}
 
 	@SuppressWarnings("unchecked")
-	public void restoreState(HashMap<Integer, Object> state) {
+	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
 		this.points.clear();
 		ArrayList<PointF> points = (ArrayList<PointF>) state
-				.get(StylesFactory.FUR);
+				.get(StylesFactory.BrushType.FUR);
 		this.points.addAll(points);
 	}
 }

@@ -1,10 +1,11 @@
 package org.sketchertab.style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PointF;
 
-import android.graphics.*;
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.Map;
 
 class ChromeStyle extends StyleBrush {
 	private float prevX;
@@ -73,15 +74,15 @@ class ChromeStyle extends StyleBrush {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void restoreState(HashMap<Integer, Object> state) {
+	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
 		points.clear();
-		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.CHROME);
+		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.BrushType.CHROME);
 		points.addAll(points);
 	}
 
-	public void saveState(HashMap<Integer, Object> state) {
+	public void saveState(Map<StylesFactory.BrushType, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
-		state.put(StylesFactory.CHROME, points);
+		state.put(StylesFactory.BrushType.CHROME, points);
 	}
 }

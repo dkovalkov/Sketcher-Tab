@@ -1,9 +1,9 @@
 package org.sketchertab;
 
-import java.util.HashMap;
-
 import android.graphics.Canvas;
-import org.sketchertab.style.StyleBrush;
+import org.sketchertab.style.StylesFactory;
+
+import java.util.Map;
 
 public interface Style {
 	public void strokeStart(float x, float y);
@@ -18,7 +18,7 @@ public interface Style {
 
     public void setStrokeWidth(float width);
 
-	public void saveState(HashMap<Integer, Object> state);
+	public void saveState(Map<StylesFactory.BrushType, Object> state);
 
-	public void restoreState(HashMap<Integer, Object> state);
+	public void restoreState(Map<StylesFactory.BrushType, Object> state);
 }

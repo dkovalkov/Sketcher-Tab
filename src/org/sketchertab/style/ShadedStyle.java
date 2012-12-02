@@ -1,15 +1,10 @@
 package org.sketchertab.style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.util.Log;
-import org.sketchertab.Style;
-
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PointF;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 class ShadedStyle extends StyleBrush {
 	private ArrayList<PointF> points = new ArrayList<PointF>();
@@ -50,17 +45,17 @@ class ShadedStyle extends StyleBrush {
 
 
 
-	public void saveState(HashMap<Integer, Object> state) {
+	public void saveState(Map<StylesFactory.BrushType, Object> state) {
 		ArrayList<PointF> points = new ArrayList<PointF>();
 		points.addAll(this.points);
-		state.put(StylesFactory.SHADED, points);
+		state.put(StylesFactory.BrushType.SHADED, points);
 	}
 
 	@SuppressWarnings("unchecked")
-	public void restoreState(HashMap<Integer, Object> state) {
+	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
 		this.points.clear();
 		ArrayList<PointF> points = (ArrayList<PointF>) state
-				.get(StylesFactory.SHADED);
+				.get(StylesFactory.BrushType.SHADED);
 		this.points.addAll(points);
 	}
 }

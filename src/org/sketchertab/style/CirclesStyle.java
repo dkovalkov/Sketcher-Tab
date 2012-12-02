@@ -1,11 +1,9 @@
 package org.sketchertab.style;
 
-import java.util.HashMap;
-
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
+
+import java.util.Map;
 
 class CirclesStyle extends StyleBrush {
 	private float prevX;
@@ -44,9 +42,9 @@ class CirclesStyle extends StyleBrush {
 	public void draw(Canvas c) {
 	}
 
-	public void saveState(HashMap<Integer, Object> state) {
+	public void saveState(Map<StylesFactory.BrushType, Object> state) {
 	}
 
-	public void restoreState(HashMap<Integer, Object> state) {
+	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
 	}
 }

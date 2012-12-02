@@ -1,10 +1,8 @@
 package org.sketchertab.style;
 
-import java.util.HashMap;
-
-import android.content.Context;
 import android.graphics.Canvas;
-import org.sketchertab.Sketcher;
+
+import java.util.Map;
 
 class RibbonStyle extends StyleBrush {
     private static final int LINE_NUM = 50;
@@ -55,10 +53,10 @@ class RibbonStyle extends StyleBrush {
         }
 	}
 
-	public void saveState(HashMap<Integer, Object> state) {
+	public void saveState(Map<StylesFactory.BrushType, Object> state) {
 	}
 
-	public void restoreState(HashMap<Integer, Object> state) {
+	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
 	}
 
     private class Painter {

@@ -9,14 +9,17 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import org.sketchertab.style.StylesFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class Surface extends SurfaceView implements Callback {
 	private DrawThread drawThread;
 	private final Canvas drawCanvas = new Canvas();
-	private final Controller controller = new Controller(drawCanvas);
+	private final DrawController drawController = new DrawController(drawCanvas);
 	private Bitmap initialBitmap;
 	private Bitmap bitmap;
-	private final HistoryHelper mHistoryHelper = new HistoryHelper(this);
 
 	public Surface(Context context, AttributeSet attributes) {
 		super(context, attributes);
@@ -27,16 +30,11 @@ public final class Surface extends SurfaceView implements Callback {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                mHistoryHelper.saveState();
-                break;
-		}
-		return controller.onTouch(this, event);
+		return drawController.onTouch(this, event);
 	}
 
 	public void setStyle(Style style) {
-		controller.setStyle(style);
+		drawController.setStyle(style);
 	}
 
 	public DrawThread getDrawThread() {
@@ -46,8 +44,7 @@ public final class Surface extends SurfaceView implements Callback {
 		return drawThread;
 	}
 
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 		bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		bitmap.eraseColor(Color.WHITE);
 
@@ -56,7 +53,6 @@ public final class Surface extends SurfaceView implements Callback {
 		if (initialBitmap != null) {
 			drawCanvas.drawBitmap(initialBitmap, 0, 0, null);
 		}
-		mHistoryHelper.saveState();
 	}
 
 	public void surfaceCreated(SurfaceHolder holder) {
@@ -77,41 +73,46 @@ public final class Surface extends SurfaceView implements Callback {
 	}
 
 	public void clearBitmap() {
-		bitmap.eraseColor(controller.getBackgroundColor());
-		controller.clear();
-		mHistoryHelper.saveState();
+        Bitmap old = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Map<StylesFactory.BrushType, Object> brushData = new HashMap<StylesFactory.BrushType, Object>();
+        StylesFactory.saveState(brushData);
+
+        bitmap.eraseColor(drawController.getBackgroundColor());
+        drawController.clear();
+        HistoryItem item = new HistoryItem(old, brushData);
+        DocumentHistory.getInstance().pushNewItem(item);
 	}
 
 	public void setPaintColor(int color) {
-		controller.setPaintColor(color);
+		drawController.setPaintColor(color);
 	}
 
 	public int getPaintColor() {
-		return controller.getPaintColor();
+		return drawController.getPaintColor();
 	}
 
     public void setOpacity(int opacity) {
-        controller.setOpacity(opacity);
+        drawController.setOpacity(opacity);
     }
 
     public int getOpacity() {
-        return controller.getOpacity();
+        return drawController.getOpacity();
     }
 
     public void setStrokeWidth(float width) {
-        controller.setStrokeWidth(width);
+        drawController.setStrokeWidth(width);
     }
 
     public float getStrokeWidth() {
-        return controller.getStrokeWidth();
+        return drawController.getStrokeWidth();
     }
 
     public void setBackgroundColor(int color) {
-		controller.setBackgroundColor(color);
+		drawController.setBackgroundColor(color);
 	}
 
     public int getBackgroundColor() {
-		return controller.getBackgroundColor();
+		return drawController.getBackgroundColor();
 	}
 
 	public void setInitialBitmap(Bitmap initialBitmap) {
@@ -122,9 +123,18 @@ public final class Surface extends SurfaceView implements Callback {
 		return bitmap;
 	}
 
-	public void undo() {
-		mHistoryHelper.undo();
-	}
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        drawCanvas.setBitmap(bitmap);
+    }
+
+    public Canvas getDrawCanvas() {
+        return drawCanvas;
+    }
+
+//	public void undo() {
+//		mHistoryHelper.undo();
+//	}
 
     public final class DrawThread extends Thread {
         private boolean mRun = true;
@@ -149,7 +159,7 @@ public final class Surface extends SurfaceView implements Callback {
                     }
 
                     synchronized (surfaceHolder) {
-                        controller.draw();
+                        drawController.draw();
                         canvas.drawBitmap(bitmap, 0, 0, null);
                     }
 
