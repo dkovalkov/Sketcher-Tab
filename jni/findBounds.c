@@ -3,8 +3,16 @@
 
 #define LOG_TAG "libfindBounds"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#define max(a,b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a > _b ? _a : _b; })
+#define min(a,b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a < _b ? _a : _b; })
 
-void findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf, uint32_t originalWidth, uint32_t originalHeight, jintArray bounds) {
+void Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf, int32_t originalWidth, int32_t originalHeight, jintArray bounds) {
     AndroidBitmapInfo  originalInfo;
     uint32_t          *originalPixels;
     AndroidBitmapInfo  updatedInfo;
@@ -26,27 +34,30 @@ void findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf,
     AndroidBitmap_lockPixels(env, original, (void*)&originalPixels);
     AndroidBitmap_lockPixels(env, updatedSurf, (void*)&updatedPixels);
 
+    uint32_t* originalPtr = originalPixels;
+    uint32_t* updatedPtr = updatedPixels;
+    int32_t myBoundLeft = originalWidth + 1;
+    int32_t myBoundRight = -1;
+    int32_t myBoundTop = originalHeight + 1;
+    int32_t myBoundBottom = -1;
+
     for (int row = 0; row < originalHeight; row += 1) {
         int isChangeInRow = 0;
 
-//        int[] originalRow = new int[originalWidth];
-//        original.getPixels(originalRow, 0, originalWidth, 0, row, originalWidth, 1);
-
-//        int[] updatedRow = new int[originalWidth];
-//        updatedSurf.getPixels(updatedRow, 0, originalWidth, 0, row, originalWidth, 1);
-
         for (int i = 0; i < originalWidth; i += 1) {
-//            if (originalRow[i] != updatedRow[i]) {
-//                isChangeInRow = true;
-//                myBounds.left = Math.min(myBounds.left, i);
-//                myBounds.right = Math.max(myBounds.right, i);
-//            }
+            if (*originalPtr != *updatedPtr) {
+                isChangeInRow = 1;
+                myBoundLeft = min(myBoundLeft, i);
+                myBoundRight = max(myBoundRight, i);
+            }
+            originalPtr += 1;
+            updatedPtr += 1;
         }
 
-//        if (isChangeInRow) {
-//            myBounds.top = Math.min(myBounds.top, row);
-//            myBounds.bottom = Math.max(myBounds.bottom, row);
-//        }
+        if (isChangeInRow) {
+            myBoundTop = min(myBoundTop, row);
+            myBoundBottom = max(myBoundBottom, row);
+        }
     }
 
     AndroidBitmap_unlockPixels(env, original);
@@ -58,7 +69,11 @@ void findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf,
     if (NULL == cArray)
         return;
 
-    cArray[0] = 11;
+    cArray[0] = myBoundLeft;
+    cArray[1] = myBoundRight;
+    cArray[2] = myBoundTop;
+    cArray[3] = myBoundBottom;
+
     (*env)->ReleaseIntArrayElements(env, bounds, cArray, 0);
 }
 

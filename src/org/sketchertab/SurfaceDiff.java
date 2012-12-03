@@ -24,7 +24,7 @@ public final class SurfaceDiff {
         this.pixels = pixels;
     }
 
-    public native String findBounds(Bitmap original, Bitmap updatedSurf, int originalWidth, int originalHeight);
+    public static native void findBounds(Bitmap original, Bitmap updatedSurf, int originalWidth, int originalHeight, int[] bounds);
 
     public static SurfaceDiff Create(Bitmap original, Bitmap updatedSurf) {
         int originalWidth = original.getWidth();
@@ -40,6 +40,10 @@ public final class SurfaceDiff {
 
         Rect diffBounds = new Rect(originalWidth + 1, originalHeight + 1, -1, -1);
         Rect myBounds = new Rect(originalWidth + 1, originalHeight + 1, -1, -1);
+
+        int[] nativeBounds = new int[4];
+        findBounds(original, updatedSurf, originalWidth, originalHeight, nativeBounds);
+        Log.i(TAG, String.format("native bounds: %d %d %d %d", nativeBounds[0], nativeBounds[1], nativeBounds[2], nativeBounds[3]));
 
 //        todo: need jni optimization
         for (int row = 0; row < originalHeight; row += 1) {
