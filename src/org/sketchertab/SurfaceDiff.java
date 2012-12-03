@@ -18,15 +18,15 @@ public final class SurfaceDiff {
     private Rect bounds;
     private int[] pixels;
 
-    private SurfaceDiff(boolean[] bitmask, Rect bounds, int[] pixels)
-    {
+    private SurfaceDiff(boolean[] bitmask, Rect bounds, int[] pixels) {
         this.bitmask = bitmask;
         this.bounds = bounds;
         this.pixels = pixels;
     }
 
-    public static SurfaceDiff Create(Bitmap original, Bitmap updatedSurf)
-    {
+    public native String findBounds(Bitmap original, Bitmap updatedSurf, int originalWidth, int originalHeight);
+
+    public static SurfaceDiff Create(Bitmap original, Bitmap updatedSurf) {
         int originalWidth = original.getWidth();
         int originalHeight = original.getHeight();
 
@@ -87,7 +87,7 @@ public final class SurfaceDiff {
             }
         }
 
-        int savings = (int)(100 - (float)numChanged / (float)(originalWidth * originalHeight) * 100);
+        int savings = (int) (100 - (float) numChanged / (float) (originalWidth * originalHeight) * 100);
 
         if (DEBUG_DIFF)
             Log.i(TAG, String.format("Compressed bitmask: %d/%d = %d%%", numChanged, originalHeight * originalWidth, 100 - savings));
@@ -131,5 +131,9 @@ public final class SurfaceDiff {
                 maskIndex += 1;
             }
         }
+    }
+
+    static {
+        System.loadLibrary("findBounds");
     }
 }
