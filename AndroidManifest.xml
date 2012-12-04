@@ -4,6 +4,7 @@
         android:versionCode="20121201"
         android:versionName="1.2.0"
         android:installLocation="auto"
+        android:debuggable="true"
         >
 
     <uses-sdk

@@ -6,3 +6,8 @@ out/
 *.apk
 *.keystore
 .idea/workspace.xml
+*.so
+*.o
+*.o.d
+obj/local/
+jni/obj/local/
