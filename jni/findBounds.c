@@ -11,7 +11,7 @@
 #define DEBUG_DIFF 1
 #define MINIMUM_SAVINGS_PERCENT (10)
 
-void Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf, int32_t originalWidth, int32_t originalHeight, jbooleanArray bitmaskArr, jintArray bounds, jintArray pixelsArr) {
+void Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf, int32_t originalWidth, int32_t originalHeight, jobject diffResult) {
     AndroidBitmapInfo  originalInfo;
     uint32_t          *originalPixels;
     AndroidBitmapInfo  updatedInfo;
@@ -120,43 +120,27 @@ void Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jobje
 
     AndroidBitmap_unlockPixels(env, original);
 
-    jint* cArray;
-    cArray = (*env)->GetIntArrayElements(env, bounds, NULL);
-
-    if (NULL == cArray)
-        return;
-
-    cArray[0] = myBoundLeft;
-    cArray[1] = myBoundRight;
-    cArray[2] = myBoundTop;
-    cArray[3] = myBoundBottom;
-
-    (*env)->ReleaseIntArrayElements(env, bounds, cArray, 0);
-
-    // Fill pixels array
-    //jintArray pixelsArray = (*env)->NewIntArray(env, numChanged);
+    // Make return object
     
-    LOGI("setIntArray");
-    (*env)->SetIntArrayRegion(env, pixelsArr, 0, numChanged, pixels);
-    LOGI("pixelsArr length %d", (*env)->GetArrayLength(env, pixelsArr));
-    //for (int i = 0; i < numChanged; i += 1)
-    //    pixelsArr[i] = pixelsArray[i];
+    jclass cls = (*env)->FindClass(env, "org/sketchertab/SurfaceDiff$DiffResult");
+    jfieldID fld = (*env)->GetFieldID(env, cls, "boundLeft", "I"); 
+    (*env)->SetIntField(env, diffResult, fld, myBoundLeft);
+    fld = (*env)->GetFieldID(env, cls, "boundRight", "I"); 
+    (*env)->SetIntField(env, diffResult, fld, myBoundRight);
+    fld = (*env)->GetFieldID(env, cls, "boundTop", "I"); 
+    (*env)->SetIntField(env, diffResult, fld, myBoundTop);
+    fld = (*env)->GetFieldID(env, cls, "boundBottom", "I"); 
+    (*env)->SetIntField(env, diffResult, fld, myBoundBottom);
 
-    //cArray = (*env)->GetIntArrayElements(env, pixelsArr, NULL);
+    LOGI("return bitmask");
+    fld = (*env)->GetFieldID(env, cls, "bitmask", "[B"); 
+    (*env)->SetObjectField(env, diffResult, fld, bitmask);
 
-    //if (NULL == cArray)
-    //    return;
-    // add elements
-    //(*env)->ReleaseIntArrayElements(env, pixelsArr, cArray, 0);
+    LOGI("return pixels");
+    fld = (*env)->GetFieldID(env, cls, "pixels", "[I"); 
+    (*env)->SetObjectField(env, diffResult, fld, pixels);
 
-    //(*env)->SetBooleanArrayRegion(env, bitmaskArr, 0, boundWidth * boundHeight, (jboolean*) bitmask);
-    
-    //jchar* byteArray;
-    //byteArray = (*env)->GetCharArrayElements(env, bitmaskArr, NULL);
 
-    //if (NULL == byteArray)
-    //    return;
-    //(*env)->ReleaseCharArrayElements(env, bitmaskArr, byteArray, 0);
     free(bitmask);
     free(pixels);
 }
