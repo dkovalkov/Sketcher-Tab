@@ -23,7 +23,9 @@ public final class SurfaceDiff {
         this.pixels = pixels;
     }
 
-    public static native void findBounds(Bitmap original, Bitmap updatedSurf, int originalWidth, int originalHeight, DiffResult result);
+    private static native boolean findBounds(Bitmap original, Bitmap updatedSurf, DiffResult result);
+
+    private static native boolean applyAndSwap(Bitmap dest, int boundTop, int boundBottom, int boundLeft, int boundRight, boolean[] bitmask, int[] pixels);
 
     public static SurfaceDiff Create(Bitmap original, Bitmap updatedSurf) {
         int originalWidth = original.getWidth();
@@ -36,27 +38,8 @@ public final class SurfaceDiff {
         }
 
         DiffResult diffResult = new DiffResult();
-        findBounds(original, updatedSurf, originalWidth, originalHeight, diffResult);
-
-        Rect diffBounds = new Rect(diffResult.boundLeft, diffResult.boundTop, diffResult.boundRight, diffResult.boundBottom);
-
-//        if (savings < MINIMUM_SAVINGS_PERCENT)
-//            return null;
-
-        // Store the old pixels.
-//        int[] pixels = new int[numChanged];
-//        int maskIndex = 0;
-//        int pixelIndex = 0;
-//
-//        for (int y = diffBounds.top; y <= diffBounds.bottom; y += 1) {
-//            for (int x = diffBounds.left; x <= diffBounds.right; x += 1) {
-//                if (bitmask[maskIndex]) {
-//                    pixels[pixelIndex] = original.getPixel(x, y);
-//                    pixelIndex += 1;
-//                }
-//                maskIndex += 1;
-//            }
-//        }
+        if (!findBounds(original, updatedSurf, diffResult))
+            return null;
 
         if (DEBUG_DIFF)
             Log.i(TAG, String.format("SurfaceDiff time: %d", System.currentTimeMillis() - startDiff));
@@ -65,28 +48,18 @@ public final class SurfaceDiff {
         for (int i = 0; i < diffResult.bitmask.length; i += 1) {
             bMask[i] = diffResult.bitmask[i] == 1;
         }
+
+        Rect diffBounds = new Rect(diffResult.boundLeft, diffResult.boundTop, diffResult.boundRight, diffResult.boundBottom);
+
         return new SurfaceDiff(bMask, diffBounds, diffResult.pixels);
     }
 
-    public void applyAndSwap(Bitmap dest) {
-        int maskIndex = 0;
-        int pixelIndex = 0;
-
-        for (int y = bounds.top; y <= bounds.bottom; y += 1) {
-            for (int x = bounds.left; x <= bounds.right; x += 1) {
-                if (bitmask[maskIndex]) {
-                    int swapPixel = dest.getPixel(x, y);
-                    dest.setPixel(x, y, pixels[pixelIndex]);
-                    pixels[pixelIndex] = swapPixel;
-                    pixelIndex += 1;
-                }
-                maskIndex += 1;
-            }
-        }
+    public void applyAndSwap(Bitmap destination) {
+        applyAndSwap(destination, bounds.top, bounds.bottom, bounds.left, bounds.right, bitmask, pixels);
     }
 
     static {
-        System.loadLibrary("findBounds");
+        System.loadLibrary("surfaceDiff");
     }
 
     public static class DiffResult {

@@ -1,7 +1,12 @@
-#ifndef _FINDBOUNDS_H
-#define _FINDBOUNDS_H
+#ifndef _COMMONDEFS_H
+#define _COMMONDEFS_H
 
-#define LOG_TAG "libfindBounds"
+#include <android/bitmap.h>
+#include <android/log.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LOG_TAG "libsurfaceDiff"
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #define max(a,b) \
@@ -13,4 +18,4 @@
        __typeof__ (b) _b = (b); \
      _a < _b ? _a : _b; })
 
-#endif /* _FINDBOUNDS_H */
+#endif /* _COMMONDEFS_H */

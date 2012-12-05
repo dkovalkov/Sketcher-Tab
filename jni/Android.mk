@@ -16,8 +16,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := findBounds
-LOCAL_SRC_FILES := findBounds.c
+LOCAL_MODULE    := surfaceDiff
+LOCAL_SRC_FILES := findBounds.c applyAndSwap.c
 LOCAL_LDLIBS    += -ljnigraphics -llog
 LOCAL_CFLAGS    := -std=c99
 
