@@ -1,9 +1,5 @@
 package org.sketchertab;
 
-import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,51 +12,57 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 public class FileHelper {
-	private static final String FILENAME_PATTERN = "sketch_%04d.png";
+    private static final String FILENAME_PATTERN = "sketch_%04d.png";
     private static final String CUR_FILE_NUM = "cur_file_num";
 
-	private final Sketcher context;
-	boolean isSaved = false;
+    private final Sketcher context;
 
-	FileHelper(Sketcher context) {
-		this.context = context;
-	}
+    public FileHelper(Sketcher context) {
+        this.context = context;
+    }
 
-	private File getSDDir() {
-		String path = Environment.getExternalStorageDirectory()
-				.getAbsolutePath() + "/sketcher_tab/";
+    private File getSDDir() {
+        String path = Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/sketcher_tab/";
 
-		File file = new File(path);
-		if (!file.exists()) {
-			file.mkdirs();
-		}
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
 
-		return file;
-	}
+        return file;
+    }
 
-	Bitmap getSavedBitmap(String fileName) {
-		if (!isStorageAvailable()) {
-			return null;
-		}
+    public Bitmap getSavedBitmap(String fileName) {
+        if (!isStorageAvailable()) {
+            return null;
+        }
 
-		File lastFile = new File(fileName);
-		if (!lastFile.exists()) {
-			return null;
-		}
+        File lastFile = new File(fileName);
+        if (!lastFile.exists()) {
+            return null;
+        }
 
-		Bitmap savedBitmap;
+        Bitmap savedBitmap = null;
 
-		try {
-			FileInputStream fis = new FileInputStream(lastFile);
-			savedBitmap = BitmapFactory.decodeStream(fis);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-		return savedBitmap;
-	}
+        try {
+            FileInputStream fis = new FileInputStream(lastFile);
+            savedBitmap = BitmapFactory.decodeStream(fis);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+        }
+        return savedBitmap;
+    }
 
-	private String getUniqueFilePath(File dir) {
+    private String getUniqueFilePath(File dir) {
         SharedPreferences preferences = context.getSharedPreferences(Sketcher.PREFS_NAME, Context.MODE_PRIVATE);
         int curFileNum = preferences.getInt(CUR_FILE_NUM, 0);
 
@@ -78,87 +80,86 @@ public class FileHelper {
         return result;
     }
 
-	private void saveBitmap(File file) {
-		try {
-			FileOutputStream fos = new FileOutputStream(file);
-			Bitmap bitmap = context.getSurface().getBitmap();
-			if (bitmap == null) {
-				return;
-			}
-			bitmap.compress(CompressFormat.PNG, 100, fos);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    private void saveBitmap(File file) {
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            Bitmap bitmap = context.getSurface().getBitmap();
+            if (bitmap == null) {
+                return;
+            }
+            bitmap.compress(CompressFormat.PNG, 100, fos);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	private boolean isStorageAvailable() {
-		String externalStorageState = Environment.getExternalStorageState();
-		if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
+    private boolean isStorageAvailable() {
+        String externalStorageState = Environment.getExternalStorageState();
+        if (!externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
             Toast.makeText(context, R.string.sd_card_is_not_available, Toast.LENGTH_SHORT).show();
             return false;
         }
-		return true;
-	}
+        return true;
+    }
 
-	void share() {
-		if (!isStorageAvailable()) {
-			return;
-		}
+    public void share() {
+        if (!isStorageAvailable()) {
+            return;
+        }
 
-		new SaveTask() {
-			protected void onPostExecute(File file) {
-				isSaved = true;
-				Uri uri = Uri.fromFile(file);
+        new SaveTask() {
+            protected void onPostExecute(File file) {
+                Uri uri = Uri.fromFile(file);
 
-				Intent i = new Intent(Intent.ACTION_SEND);
-				i.setType("image/png");
-				i.putExtra(Intent.EXTRA_STREAM, uri);
-				context.startActivity(Intent.createChooser(i,
-						context.getString(R.string.send_image_to)));
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("image/png");
+                i.putExtra(Intent.EXTRA_STREAM, uri);
+                context.startActivity(Intent.createChooser(i,
+                        context.getString(R.string.send_image_to)));
 
-				super.onPostExecute(file);
-			}
-		}.execute();
-	}
+                super.onPostExecute(file);
+            }
+        }.execute();
+    }
 
-	void saveToSD() {
-		if (!isStorageAvailable()) {
-			return;
-		}
-		new SaveTask().execute();
-	}
+    public void saveToSD() {
+        if (!isStorageAvailable()) {
+            return;
+        }
+        new SaveTask().execute();
+    }
 
-	File saveBitmap(String fileName) {
+    public File saveBitmap(String fileName) {
         File newFile = new File(fileName);
-		saveBitmap(newFile);
-		notifyMediaScanner(newFile);
-		return newFile;
-	}
+        saveBitmap(newFile);
+        notifyMediaScanner(newFile);
+        return newFile;
+    }
 
-	private void notifyMediaScanner(File file) {
-		Uri uri = Uri.fromFile(file);
-		context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-	}
+    private void notifyMediaScanner(File file) {
+        Uri uri = Uri.fromFile(file);
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+    }
 
-	private class SaveTask extends AsyncTask<Void, Void, File> {
-		private ProgressDialog dialog;
+    private class SaveTask extends AsyncTask<Void, Void, File> {
+        private ProgressDialog dialog;
 
         protected void onPreExecute() {
             dialog = ProgressDialog.show(context, "", context.getString(R.string.saving_to_sd_please_wait), true);
         }
 
-		protected File doInBackground(Void... none) {
-			context.getSurface().getDrawThread().pauseDrawing();
-			return saveBitmap(getUniqueFilePath(getSDDir()));
-		}
+        protected File doInBackground(Void... none) {
+            context.getSurface().getDrawThread().pauseDrawing();
+            return saveBitmap(getUniqueFilePath(getSDDir()));
+        }
 
-		protected void onPostExecute(File file) {
-			dialog.dismiss();
-			String absolutePath = file.getAbsolutePath();
-			Toast.makeText(context, context.getString(R.string.successfully_saved_to, absolutePath),
-					Toast.LENGTH_LONG).show();
-			context.getSurface().getDrawThread().resumeDrawing();
-		}
-	}
+        protected void onPostExecute(File file) {
+            dialog.dismiss();
+            String absolutePath = file.getAbsolutePath();
+            Toast.makeText(context, context.getString(R.string.successfully_saved_to, absolutePath),
+                    Toast.LENGTH_LONG).show();
+            context.getSurface().getDrawThread().resumeDrawing();
+        }
+    }
 
 }

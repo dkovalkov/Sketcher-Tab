@@ -6,10 +6,10 @@
         android:orientation="vertical"
         android:gravity="center"
         >
-	<ScrollView
+    <ScrollView
             android:padding="10dp"
             android:layout_weight="1"
-		    android:layout_height="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             >
         <TextView
@@ -19,14 +19,5 @@
                 android:layout_height="wrap_content"
                 android:text="@string/about_text"
                 />
-	</ScrollView>
-
-    <Button
-            android:id="@+id/button_close"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:background="@android:drawable/bottom_bar"
-            android:text="@string/button_close"
-            android:layout_marginBottom="20dp"
-            />
+    </ScrollView>
 </LinearLayout>

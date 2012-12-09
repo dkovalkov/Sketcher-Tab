@@ -50,9 +50,9 @@ public final class HistoryItem {
         Sketcher.getInstance().getSurface().invalidate();
     }
 
-//    public HistoryItemState getState() {
-//        return state;
-//    }
+    public HistoryItemState getState() {
+        return state;
+    }
 
     public void setState(HistoryItemState state) {
         this.state = state;

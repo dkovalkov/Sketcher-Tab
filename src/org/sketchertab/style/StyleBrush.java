@@ -2,15 +2,10 @@ package org.sketchertab.style;
 
 
 import android.graphics.Paint;
-import android.util.Log;
 import org.sketchertab.Style;
 
 /**
- * Created by IntelliJ IDEA.
- * User: denis
- * Date: 9/18/11
- * Time: 7:54 PM
- * To change this template use File | Settings | File Templates.
+ * Abstract class for brush
  */
 public abstract class StyleBrush implements Style {
     protected Paint paint = new Paint();
@@ -26,6 +21,6 @@ public abstract class StyleBrush implements Style {
     }
 
     public void setColor(int color) {
-		paint.setColor(color);
-	}
+        paint.setColor(color);
+    }
 }

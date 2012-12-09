@@ -22,6 +22,8 @@ import java.io.File;
 import java.util.HashMap;
 
 public class Sketcher extends Activity {
+    private final static String TAG = "Sketcher";
+
     private static Sketcher INSTANCE;
     private static final String PREF_OPACITY = "cur_opacity";
     private static final String PREF_STYLE = "cur_brush_type";
@@ -36,7 +38,7 @@ public class Sketcher extends Activity {
 
     private static final HashMap<StylesFactory.BrushType, Integer> StyleButtonMap = new HashMap<StylesFactory.BrushType, Integer>();
 
-	private Surface surface;
+    private Surface surface;
     private final FileHelper fileHelper = new FileHelper(this);
     private View selectedBrushButton;
     private View backgroundPickerButton;
@@ -46,35 +48,37 @@ public class Sketcher extends Activity {
         return INSTANCE;
     }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         INSTANCE = this;
 
         StyleButtonMap.put(StylesFactory.BrushType.SKETCHY, R.id.brush_sketchy);
         StyleButtonMap.put(StylesFactory.BrushType.SHADED, R.id.brush_shaded);
         StyleButtonMap.put(StylesFactory.BrushType.FUR, R.id.brush_fur);
         StyleButtonMap.put(StylesFactory.BrushType.WEB, R.id.brush_web);
-		StyleButtonMap.put(StylesFactory.BrushType.CIRCLES, R.id.brush_circles);
-		StyleButtonMap.put(StylesFactory.BrushType.RIBBON, R.id.brush_ribbon);
+        StyleButtonMap.put(StylesFactory.BrushType.CIRCLES, R.id.brush_circles);
+        StyleButtonMap.put(StylesFactory.BrushType.RIBBON, R.id.brush_ribbon);
         StyleButtonMap.put(StylesFactory.BrushType.SIMPLE, R.id.brush_simple);
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 
-		setContentView(R.layout.main);
-		surface = (Surface) findViewById(R.id.surface);
+        setContentView(R.layout.main);
+        surface = (Surface) findViewById(R.id.surface);
 
         restoreFromPrefs();
         initButtons();
         initStyle();
         initSliders();
-	}
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.action_bar));
+//        We are loosing action bar color on resume. So did some hack.
+        switchToolbars();
+        switchToolbars();
     }
 
     @Override
@@ -88,11 +92,8 @@ public class Sketcher extends Activity {
                 .putInt(PREF_BG_COLOR, surface.getBackgroundColor())
                 .putString(PREF_STYLE, StylesFactory.getCurrentBrushType().name()).apply();
 
-//        if (fileHelper.isSaved) {
-//			return;
-//		}
         // wrapped to a new thread since it can be killed due to time limits for
-        // #onPause() method
+        // onPause() method
         new Thread() {
             @Override
             public void run() {
@@ -105,7 +106,6 @@ public class Sketcher extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        fileHelper.isSaved = false;
         String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
         getSurface().setInitialBitmap(fileHelper.getSavedBitmap(tempFileName));
     }
@@ -113,6 +113,8 @@ public class Sketcher extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_options, menu);
+        menu.findItem(R.id.menu_undo).setEnabled(DocumentHistory.getInstance().canUndo());
+        menu.findItem(R.id.menu_redo).setEnabled(DocumentHistory.getInstance().canRedo());
         return true;
     }
 
@@ -132,11 +134,12 @@ public class Sketcher extends Activity {
                 showAboutDialog();
                 return true;
             case R.id.menu_undo:
-//                getSurface().undo();
                 DocumentHistory.getInstance().undo();
+                invalidateOptionsMenu();
                 return true;
             case R.id.menu_redo:
                 DocumentHistory.getInstance().redo();
+                invalidateOptionsMenu();
             default:
                 return false;
         }
@@ -145,10 +148,6 @@ public class Sketcher extends Activity {
     public Surface getSurface() {
         return surface;
     }
-
-//    public Canvas getCanvas() {
-//        return surface.getDrawCanvas();
-//    }
 
     private void initButtons() {
         for (StylesFactory.BrushType brushType : StyleButtonMap.keySet()) {
@@ -189,20 +188,23 @@ public class Sketcher extends Activity {
 
     private void initSliders() {
         SeekBar opacityBar = (SeekBar) findViewById(R.id.brush_opacity_bar);
-        opacityBar.setProgress((int) (surface.getOpacity() / MAX_OPACITY * 100));
+        opacityBar.setProgress((int) (Math.sqrt(surface.getOpacity() / MAX_OPACITY) * 100));
 
         SeekBar sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
         sizeBar.setProgress((int) (surface.getStrokeWidth() / MAX_STROKE_WIDTH * 100));
 
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                surface.setOpacity((int) (i * MAX_OPACITY / 100));
+                float opacityValue = ((float) i * i / 10000) * MAX_OPACITY;
+                surface.setOpacity((int) opacityValue);
                 foregroundPickerButton.setBackgroundColor(surface.getPaintColor());
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -210,9 +212,11 @@ public class Sketcher extends Activity {
                 surface.setStrokeWidth((float) i / 100 * MAX_STROKE_WIDTH);
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
     }
 
@@ -270,8 +274,8 @@ public class Sketcher extends Activity {
         surface.setStyle(StylesFactory.getStyle(brushType));
     }
 
-	private void showAboutDialog() {
-		Dialog dialog = new AboutDialog(this);
-		dialog.show();
-	}
+    private void showAboutDialog() {
+        Dialog dialog = new AboutDialog(this);
+        dialog.show();
+    }
 }

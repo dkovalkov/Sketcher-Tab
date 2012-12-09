@@ -10,7 +10,6 @@ import android.util.Log;
 
 public final class SurfaceDiff {
     private static final String TAG = "SurfaceDiff";
-
     private static final boolean DEBUG_DIFF = true;
 
     private boolean[] bitmask;

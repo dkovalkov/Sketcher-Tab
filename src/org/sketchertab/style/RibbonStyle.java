@@ -6,27 +6,27 @@ import java.util.Map;
 
 class RibbonStyle extends StyleBrush {
     private static final int LINE_NUM = 50;
-	private Painter[] paintPool = new Painter[LINE_NUM];
+    private Painter[] paintPool = new Painter[LINE_NUM];
 
-	private float x;
-	private float y;
+    private float x;
+    private float y;
+
+    {
+        paint.setAntiAlias(true);
+
+        for (int i = 0; i < LINE_NUM; i++) {
+            paintPool[i] = new Painter();
+        }
+    }
 
     @Override
     public void setOpacity(int opacity) {
         super.setOpacity((int) (opacity * 0.25f));
     }
 
-	{
-		paint.setAntiAlias(true);
-
-		for (int i = 0; i < LINE_NUM; i++) {
-			paintPool[i] = new Painter();
-		}
-	}
-
-	public void draw(Canvas c) {
-		float startX;
-		float startY;
+    public void draw(Canvas c) {
+        float startX;
+        float startY;
         for (Painter painter : paintPool) {
             startX = painter.dx;
             startY = painter.dy;
@@ -36,28 +36,28 @@ class RibbonStyle extends StyleBrush {
             painter.dy -= painter.ay;
             c.drawLine(startX, startY, painter.dx, painter.dy, paint);
         }
-	}
+    }
 
-	public void stroke(Canvas c, float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
+    public void stroke(Canvas c, float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	public void strokeStart(float x, float y) {
-		this.x = x;
-		this.y = y;
+    public void strokeStart(float x, float y) {
+        this.x = x;
+        this.y = y;
 
         for (Painter painter : paintPool) {
             painter.dx = x;
             painter.dy = y;
         }
-	}
+    }
 
-	public void saveState(Map<StylesFactory.BrushType, Object> state) {
-	}
+    public void saveState(Map<StylesFactory.BrushType, Object> state) {
+    }
 
-	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
-	}
+    public void restoreState(Map<StylesFactory.BrushType, Object> state) {
+    }
 
     private class Painter {
         float dx = 0;
@@ -67,5 +67,4 @@ class RibbonStyle extends StyleBrush {
         float div = 0.1F;
         float ease = (float) (Math.random() * 0.2 + 0.6);
     }
-
 }

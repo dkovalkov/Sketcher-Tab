@@ -149,7 +149,7 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     (*env)->SetByteArrayRegion(env, bitmaskArr, 0, bitmaskLength, bitmask);
     fld = (*env)->GetFieldID(env, cls, "bitmask", "[B"); 
     (*env)->SetObjectField(env, diffResult, fld, bitmaskArr);
-    // (*env)->DeleteLocalRef(env, bitmaskArr); // in memory leak case
+    (*env)->DeleteLocalRef(env, bitmaskArr);
 
     jintArray pixelsArr = (*env)->NewIntArray(env, numChanged);
     if (NULL == pixelsArr) {
@@ -161,7 +161,7 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     (*env)->SetIntArrayRegion(env, pixelsArr, 0, numChanged, pixels);
     fld = (*env)->GetFieldID(env, cls, "pixels", "[I"); 
     (*env)->SetObjectField(env, diffResult, fld, pixelsArr);
-    // (*env)->DeleteLocalRef(env, pixelsArr); // in memory leak case
+    (*env)->DeleteLocalRef(env, pixelsArr);
 
     free(bitmask);
     free(pixels);

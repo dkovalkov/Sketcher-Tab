@@ -1,56 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Sketcher 茶</string>
-	<string name="pick_a_color">Pick a Color</string>
-	<string name="saving_to_sd_please_wait">Saving...</string>
-	<string name="successfully_saved_to">Picture saved to "%s"</string>
-	<string name="please_wait">Please wait...</string>
-	<string name="sd_card_is_not_available">SD card is not available</string>
-	<string name="send_image_to">Send Image To:</string>
+    <string name="app_name">Sketcher 茶</string>
+    <string name="pick_a_color">Pick a Color</string>
+    <string name="saving_to_sd_please_wait">Saving...</string>
+    <string name="successfully_saved_to">Picture saved to "%s"</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="sd_card_is_not_available">SD card is not available</string>
+    <string name="send_image_to">Send Image To:</string>
 
-	<!-- Confirm dialog -->
-	<string name="yes">Yes</string>
-	<string name="are_you_sure">Are you sure that you want to clear the canvas?
-	</string>
+    <!-- Confirm dialog -->
+    <string name="yes">Yes</string>
+    <string name="are_you_sure">Are you sure that you want to clear the canvas?
+    </string>
 
-	<!-- Menu -->
-	<string name="brushes">Brushes</string>
-	<string name="color">Color</string>
-	<string name="clear">Clear</string>
-	<string name="send">Share</string>
-	<string name="save">Save</string>
-	<string name="about">About</string>
-	<string name="undo">Undo</string>
-	<string name="redo">Redo</string>
+    <!-- Menu -->
+    <string name="brushes">Brushes</string>
+    <string name="color">Color</string>
+    <string name="clear">Clear</string>
+    <string name="send">Share</string>
+    <string name="save">Save</string>
+    <string name="about">About</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
 
-	<!-- Submenu -->
-	<string name="grid">Grid</string>
-	<string name="circles">Circles</string>
-	<string name="ribbon">Ribbon</string>
-	<string name="squares">Squares</string>
-	<string name="web">Web</string>
-	<string name="longfur">Longfur</string>
-	<string name="fur">Fur</string>
-	<string name="chrome">Chrome</string>
-	<string name="shaded">Shaded</string>
-	<string name="simple">Simple</string>
-	<string name="sketchy">Sketchy</string>
-	<string name="eraser">Eraser</string>
+    <!-- Submenu -->
+    <string name="grid">Grid</string>
+    <string name="circles">Circles</string>
+    <string name="ribbon">Ribbon</string>
+    <string name="squares">Squares</string>
+    <string name="web">Web</string>
+    <string name="longfur">Longfur</string>
+    <string name="fur">Fur</string>
+    <string name="chrome">Chrome</string>
+    <string name="shaded">Shaded</string>
+    <string name="simple">Simple</string>
+    <string name="sketchy">Sketchy</string>
+    <string name="eraser">Eraser</string>
 
-	<!-- Picker dialog -->
-	<string name="accept">Accept</string>
-	<string name="cancel">Cancel</string>
+    <!-- Picker dialog -->
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 
-	<!-- About dialog -->
-	<string name="about_title">About Sketcher Tab</string>
-	<string name="about_text">
-        Drawing program with procedural brushes. Brush line based on mathematical rules.
-        Sketcher Tab app based on &lt;a href="https://market.android.com/details?id=org.sketcher"&gt;Sketcher Lite&lt;/a&gt;, author Wargoth.
-        Source code is available at &lt;a href="https://github.com/dkovalkov/Sketcher-Tab"&gt;GitHub&lt;/a&gt; and is distributed under Apache License, version 2.0.
-        &lt;p&gt;Facebook &lt;a href="http://www.facebook.com/groups/142209259135086/"&gt;Sketcher group&lt;/a&gt;.&lt;/p&gt;
-        &lt;p&gt;E-mail: &lt;a href="mailto:topoltop@gmail.com"&gt;topoltop@gmail.com&lt;/a&gt;&lt;/p&gt;
-	</string>
-	<string name="button_close">Close</string>
+    <!-- About dialog -->
+    <string name="about_title">Sketcher 茶 (Cha)</string>
+    <string name="about_text">
+        Source code at &lt;a href="https://github.com/dkovalkov/Sketcher-Tab"&gt;GitHub&lt;/a&gt;.
+        &lt;a href="mailto:topoltop@gmail.com"&gt;topoltop@gmail.com&lt;/a&gt;&lt;p&gt;
+    </string>
 
     <string name="opacity">Opacity</string>
     <string name="size">Size</string>
