@@ -97,8 +97,9 @@ public class Sketcher extends Activity {
         new Thread() {
             @Override
             public void run() {
-                String tempFileName = getExternalFilesDir(null) + File.separator + TEMP_FILE_NAME;
-                fileHelper.saveBitmap(tempFileName);
+                File tempFileName = new File(getExternalFilesDir(null), TEMP_FILE_NAME);
+                if (null != tempFileName)
+                    fileHelper.saveBitmap(tempFileName);
             }
         }.run();
     }

@@ -10,7 +10,7 @@ import android.util.Log;
 
 public final class SurfaceDiff {
     private static final String TAG = "SurfaceDiff";
-    private static final boolean DEBUG_DIFF = true;
+    private static final boolean DEBUG_DIFF = false;
 
     private boolean[] bitmask;
     private Rect bounds;
@@ -43,6 +43,7 @@ public final class SurfaceDiff {
         if (DEBUG_DIFF)
             Log.i(TAG, String.format("SurfaceDiff time: %d", System.currentTimeMillis() - startDiff));
 
+//        todo: Drop conversion
         boolean[] bMask = new boolean[diffResult.bitmask.length];
         for (int i = 0; i < diffResult.bitmask.length; i += 1) {
             bMask[i] = diffResult.bitmask[i] == 1;

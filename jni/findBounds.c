@@ -1,9 +1,10 @@
 /**
- * Create two surfaces diffirence structure
+ * Create two surfaces difference structure
+ * Pinta project was very helpful
  */
 #include "commonDefs.h"
 
-#define DEBUG_DIFF 1
+#define DEBUG_DIFF 0
 #define MINIMUM_SAVINGS_PERCENT (10)
 
 jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf, jobject diffResult) {

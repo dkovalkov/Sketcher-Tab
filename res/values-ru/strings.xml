@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="pick_a_color">Выберите цвет</string>
-    <string name="saving_to_sd_please_wait">Запись...</string>
+    <string name="saving_to_sd_please_wait">Запись…</string>
     <string name="successfully_saved_to">Рисунок сохранен в %s</string>
-    <string name="please_wait">Минуточку...</string>
+    <string name="save_error">Ошибка сохранения</string>
+    <string name="please_wait">Минуточку…</string>
     <string name="sd_card_is_not_available">SD-карта не доступна</string>
     <string name="send_image_to">Отправить:</string>
 

@@ -29,7 +29,7 @@ public class FileHelper {
 
     private File getSDDir() {
         String path = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/sketcher_tab/";
+                .getAbsolutePath() + "/sketcher_cha/";
 
         File file = new File(path);
         if (!file.exists()) {
@@ -62,14 +62,14 @@ public class FileHelper {
         return savedBitmap;
     }
 
-    private String getUniqueFilePath(File dir) {
+    private File getUniqueFilePath(File dir) {
         SharedPreferences preferences = context.getSharedPreferences(Sketcher.PREFS_NAME, Context.MODE_PRIVATE);
         int curFileNum = preferences.getInt(CUR_FILE_NUM, 0);
 
         int freeFileNum = findFreeFileNum(curFileNum + 1, dir);
         preferences.edit().putInt(CUR_FILE_NUM, freeFileNum).apply();
 
-        return new File(dir, String.format(FILENAME_PATTERN, freeFileNum)).getAbsolutePath();
+        return new File(dir, String.format(FILENAME_PATTERN, freeFileNum));
     }
 
     private int findFreeFileNum(int fileNum, File dir) {
@@ -78,19 +78,6 @@ public class FileHelper {
             result = findFreeFileNum(fileNum + 1, dir);
         }
         return result;
-    }
-
-    private void saveBitmap(File file) {
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            Bitmap bitmap = context.getSurface().getBitmap();
-            if (bitmap == null) {
-                return;
-            }
-            bitmap.compress(CompressFormat.PNG, 100, fos);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private boolean isStorageAvailable() {
@@ -108,8 +95,8 @@ public class FileHelper {
         }
 
         new SaveTask() {
-            protected void onPostExecute(File file) {
-                Uri uri = Uri.fromFile(file);
+            protected void onPostExecute(Void aVoid) {
+                Uri uri = Uri.fromFile(saveFile);
 
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("image/png");
@@ -117,23 +104,30 @@ public class FileHelper {
                 context.startActivity(Intent.createChooser(i,
                         context.getString(R.string.send_image_to)));
 
-                super.onPostExecute(file);
+                super.onPostExecute(aVoid);
             }
         }.execute();
     }
 
     public void saveToSD() {
-        if (!isStorageAvailable()) {
+        if (!isStorageAvailable())
             return;
-        }
         new SaveTask().execute();
     }
 
-    public File saveBitmap(String fileName) {
-        File newFile = new File(fileName);
-        saveBitmap(newFile);
-        notifyMediaScanner(newFile);
-        return newFile;
+    public boolean saveBitmap(File file) {
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            Bitmap bitmap = context.getSurface().getBitmap();
+            if (bitmap == null)
+                return false;
+            bitmap.compress(CompressFormat.PNG, 100, fos);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        notifyMediaScanner(file);
+        return true;
     }
 
     private void notifyMediaScanner(File file) {
@@ -141,23 +135,35 @@ public class FileHelper {
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
     }
 
-    private class SaveTask extends AsyncTask<Void, Void, File> {
+    private class SaveTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog dialog;
+        protected File saveFile;
 
+        @Override
         protected void onPreExecute() {
             dialog = ProgressDialog.show(context, "", context.getString(R.string.saving_to_sd_please_wait), true);
-        }
-
-        protected File doInBackground(Void... none) {
             context.getSurface().getDrawThread().pauseDrawing();
-            return saveBitmap(getUniqueFilePath(getSDDir()));
         }
 
-        protected void onPostExecute(File file) {
+        @Override
+        protected Void doInBackground(Void... none) {
+            saveFile = getUniqueFilePath(getSDDir());
+            if (!saveBitmap(saveFile))
+                cancel(false);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
             dialog.dismiss();
-            String absolutePath = file.getAbsolutePath();
-            Toast.makeText(context, context.getString(R.string.successfully_saved_to, absolutePath),
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.successfully_saved_to, saveFile.getAbsolutePath()), Toast.LENGTH_LONG).show();
+            context.getSurface().getDrawThread().resumeDrawing();
+        }
+
+        @Override
+        protected void onCancelled() {
+            dialog.dismiss();
+            Toast.makeText(context, context.getString(R.string.save_error), Toast.LENGTH_SHORT).show();
             context.getSurface().getDrawThread().resumeDrawing();
         }
     }

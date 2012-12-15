@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Paint history. Undo system inspired by Pinta graphical editor.
- * Keep undo level under memory footprint but at least 12 step.
+ * todo: Keep undo level under memory footprint but at least 12 step.
  */
 public class DocumentHistory {
     private static final DocumentHistory INSTANCE = new DocumentHistory();
