@@ -11,6 +11,7 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import org.sketchertab.style.StylesFactory;
 
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,14 +76,10 @@ public final class Surface extends SurfaceView implements Callback {
     }
 
     public void clearBitmap() {
-        Bitmap old = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-        Map<StylesFactory.BrushType, Object> brushData = new HashMap<StylesFactory.BrushType, Object>();
-        StylesFactory.saveState(brushData);
+        drawController.setUndoSurfaceBuffer(copyPixelsToBuffer(drawController.getUndoSurfaceBuffer()));
 
         bitmap.eraseColor(drawController.getBackgroundColor());
         drawController.clear();
-        HistoryItem item = new HistoryItem(old, brushData);
-        DocumentHistory.getInstance().pushNewItem(item);
     }
 
     public void setPaintColor(int color) {
@@ -125,9 +122,13 @@ public final class Surface extends SurfaceView implements Callback {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-        drawCanvas.setBitmap(bitmap);
+    public IntBuffer copyPixelsToBuffer(IntBuffer buffer) {
+        if (null == buffer)
+            buffer = IntBuffer.allocate(bitmap.getHeight() * bitmap.getWidth());
+        else
+            buffer.clear();
+        bitmap.copyPixelsToBuffer(buffer);
+        return buffer;
     }
 
     public final class DrawThread extends Thread {

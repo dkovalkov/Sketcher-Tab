@@ -3,6 +3,7 @@ package org.sketchertab;
 import android.graphics.Bitmap;
 import org.sketchertab.style.StylesFactory;
 
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,15 +12,15 @@ import java.util.Map;
  */
 public final class HistoryItem {
     private SurfaceDiff surfaceDiff;
-    private Bitmap oldSurface;
+    private IntBuffer oldSurfaceBuffer;
     private Map<StylesFactory.BrushType, Object> oldBrushData = new HashMap<StylesFactory.BrushType, Object>();
     private HistoryItemState state = HistoryItemState.UNDO;
 
-    public HistoryItem(Bitmap oldSurface, Map<StylesFactory.BrushType, Object> oldBrushData) {
+    public HistoryItem(IntBuffer oldSurface, Map<StylesFactory.BrushType, Object> oldBrushData) {
         surfaceDiff = SurfaceDiff.Create(oldSurface, Sketcher.getInstance().getSurface().getBitmap());
 
         if (null == surfaceDiff)
-            this.oldSurface = oldSurface;
+            this.oldSurfaceBuffer = (IntBuffer) oldSurface.rewind();
 
         this.oldBrushData = oldBrushData;
     }
@@ -33,15 +34,18 @@ public final class HistoryItem {
     }
 
     private void swap() {
-        Bitmap surf = Sketcher.getInstance().getSurface().getBitmap();
+        Bitmap bitmap = Sketcher.getInstance().getSurface().getBitmap();
         Map<StylesFactory.BrushType, Object> brushData = new HashMap<StylesFactory.BrushType, Object>();
         StylesFactory.saveState(brushData);
 
         if (null != surfaceDiff) {
-            surfaceDiff.applyAndSwap(surf);
+            surfaceDiff.applyAndSwap(bitmap);
         } else {
-            Sketcher.getInstance().getSurface().setBitmap(oldSurface);
-            oldSurface = surf;
+            IntBuffer surf = IntBuffer.allocate(bitmap.getWidth() * bitmap.getHeight());
+            bitmap.copyPixelsToBuffer(surf);
+
+            bitmap.copyPixelsFromBuffer(oldSurfaceBuffer);
+            oldSurfaceBuffer = (IntBuffer) surf.rewind();
         }
 
         StylesFactory.restoreState(oldBrushData);

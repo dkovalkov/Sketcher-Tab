@@ -1,6 +1,5 @@
 package org.sketchertab;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import org.sketchertab.style.StylesFactory;
 
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,11 +22,11 @@ public class DrawController implements View.OnTouchListener {
     private boolean toDraw = false;
     private Paint mColor = new Paint();
     private Paint bgColor = new Paint();
-    private Bitmap undoSurface;
+    private IntBuffer undoSurfaceBuffer;
     private Map<StylesFactory.BrushType, Object> brushData;
 
     public DrawController(Canvas canvas) {
-        clear();
+        setStyle(StylesFactory.getCurrentStyle());
         mCanvas = canvas;
         bgColor.setColor(INIT_BG_COLOR);
         setOpacity(DEFAULT_OPACITY);
@@ -35,9 +35,8 @@ public class DrawController implements View.OnTouchListener {
     }
 
     public void draw() {
-        if (toDraw) {
+        if (toDraw)
             style.draw(mCanvas);
-        }
     }
 
     public void setStyle(Style style) {
@@ -52,11 +51,11 @@ public class DrawController implements View.OnTouchListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 try {
-                    undoSurface = Sketcher.getInstance().getSurface().getBitmap().copy(Bitmap.Config.ARGB_8888, true);
+                    undoSurfaceBuffer = Sketcher.getInstance().getSurface().copyPixelsToBuffer(undoSurfaceBuffer);
                 } catch (OutOfMemoryError error) {
                     error.printStackTrace();
                     DocumentHistory.getInstance().clear();
-                    undoSurface = Sketcher.getInstance().getSurface().getBitmap().copy(Bitmap.Config.ARGB_8888, true);
+                    undoSurfaceBuffer = Sketcher.getInstance().getSurface().copyPixelsToBuffer(undoSurfaceBuffer);
                 }
                 brushData = new HashMap<StylesFactory.BrushType, Object>();
                 StylesFactory.saveState(brushData);
@@ -67,7 +66,7 @@ public class DrawController implements View.OnTouchListener {
                 style.stroke(mCanvas, event.getX(), event.getY());
                 break;
             case MotionEvent.ACTION_UP:
-                HistoryItem item = new HistoryItem(undoSurface, brushData);
+                HistoryItem item = new HistoryItem(undoSurfaceBuffer, brushData);
                 DocumentHistory.getInstance().pushNewItem(item);
                 Sketcher.getInstance().invalidateOptionsMenu();
                 break;
@@ -75,10 +74,23 @@ public class DrawController implements View.OnTouchListener {
         return true;
     }
 
+    public IntBuffer getUndoSurfaceBuffer() {
+        return undoSurfaceBuffer;
+    }
+
+    public void setUndoSurfaceBuffer(IntBuffer buffer) {
+        undoSurfaceBuffer = buffer;
+    }
+
     public void clear() {
         toDraw = false;
         StylesFactory.clearCache();
         setStyle(StylesFactory.getCurrentStyle());
+
+        brushData = new HashMap<StylesFactory.BrushType, Object>();
+        StylesFactory.saveState(brushData);
+        HistoryItem item = new HistoryItem(undoSurfaceBuffer, brushData);
+        DocumentHistory.getInstance().pushNewItem(item);
     }
 
     public void setPaintColor(int color) {

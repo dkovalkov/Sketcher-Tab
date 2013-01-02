@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.Log;
 
+import java.nio.IntBuffer;
+
 /**
  * Two surfaces difference
  */
@@ -22,22 +24,19 @@ public final class SurfaceDiff {
         this.pixels = pixels;
     }
 
-    private static native boolean findBounds(Bitmap original, Bitmap updatedSurf, DiffResult result);
+    private static native boolean findBounds(int[] original, Bitmap updatedSurf, DiffResult result);
 
     private static native boolean applyAndSwap(Bitmap dest, int boundTop, int boundBottom, int boundLeft, int boundRight, boolean[] bitmask, int[] pixels);
 
-    public static SurfaceDiff Create(Bitmap original, Bitmap updatedSurf) {
-        int originalWidth = original.getWidth();
-        int originalHeight = original.getHeight();
-
+    public static SurfaceDiff Create(IntBuffer original, Bitmap updatedSurf) {
         long startDiff;
         if (DEBUG_DIFF) {
-            Log.i(TAG, String.format("Original surface size: %dx%d", originalWidth, originalHeight));
+            Log.i(TAG, String.format("Surface size: %dx%d", updatedSurf.getWidth(), updatedSurf.getHeight()));
             startDiff = System.currentTimeMillis();
         }
 
         DiffResult diffResult = new DiffResult();
-        if (!findBounds(original, updatedSurf, diffResult))
+        if (!findBounds(original.array(), updatedSurf, diffResult))
             return null;
 
         if (DEBUG_DIFF)

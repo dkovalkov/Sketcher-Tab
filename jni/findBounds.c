@@ -5,29 +5,16 @@
 #include "commonDefs.h"
 
 #define DEBUG_DIFF 0
-#define MINIMUM_SAVINGS_PERCENT (10)
+#define MINIMUM_SAVINGS_PERCENT 10
 
-jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jobject original, jobject updatedSurf, jobject diffResult) {
+jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, jintArray original, jobject updatedSurf, jobject diffResult) {
 
-    AndroidBitmapInfo  originalInfo;
-    uint32_t*          originalPixels;
-    AndroidBitmapInfo  updatedInfo;
-    uint32_t*          updatedPixels;
-    int                ret;
+    jint* originalPixels;
+    AndroidBitmapInfo updatedInfo;
+    uint32_t* updatedPixels;
+    int ret;
 
     // STEP 1 - Find the bounds of the changed pixels.
-    //
-    if ((ret = AndroidBitmap_getInfo(env, original, &originalInfo)) < 0) {
-        LOGE("AndroidBitmap_getInfo() failed ! error=%d", ret);
-        return JNI_FALSE;
-    }
-    if (originalInfo.format != ANDROID_BITMAP_FORMAT_RGBA_8888) {
-        LOGE("Original bitmap format is not RGBA_8888!");
-        return JNI_FALSE;
-    }
-
-    uint32_t originalWidth = originalInfo.width;
-    uint32_t originalHeight = originalInfo.height;
 
     if ((ret = AndroidBitmap_getInfo(env, updatedSurf, &updatedInfo)) < 0) {
         LOGE("AndroidBitmap_getInfo() failed ! error=%d", ret);
@@ -38,8 +25,11 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
         return JNI_FALSE;
     }
 
-    AndroidBitmap_lockPixels(env, original, (void*)&originalPixels);
+    uint32_t originalWidth = updatedInfo.width;
+    uint32_t originalHeight = updatedInfo.height;
+	
     AndroidBitmap_lockPixels(env, updatedSurf, (void*)&updatedPixels);
+	originalPixels = (*env)->GetIntArrayElements(env, original, NULL);
 
     uint32_t* originalPtr = originalPixels;
     uint32_t* updatedPtr = updatedPixels;
@@ -52,13 +42,11 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
         int isChangeInRow = 0;
 
         for (int i = 0; i < originalWidth; i += 1) {
-            if (*originalPtr != *updatedPtr) {
+            if (*originalPtr++ != *updatedPtr++) {
                 isChangeInRow = 1;
                 myBoundLeft = min(myBoundLeft, i);
                 myBoundRight = max(myBoundRight, i);
             }
-            originalPtr += 1;
-            updatedPtr += 1;
         }
 
         if (isChangeInRow) {
@@ -86,12 +74,7 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
         updatedPtr = updatedPixels + y * originalWidth + myBoundLeft;
 
         for (int x = myBoundLeft; x <= myBoundRight; x += 1) {
-            char changed = *originalPtr != *updatedPtr;
-            *bitmaskPtr = changed;
-            originalPtr += 1;
-            updatedPtr += 1;
-            bitmaskPtr += 1;
-            if (changed)
+            if (*bitmaskPtr++ = *originalPtr++ != *updatedPtr++)
                 numChanged += 1;
         }
     }
@@ -116,17 +99,14 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     for (int y = myBoundTop; y <= myBoundBottom; y += 1) {
         originalPtr = originalPixels + y * originalWidth + myBoundLeft;
         for (int x = myBoundLeft; x <= myBoundRight; x += 1) {
-            if (*bitmaskPtr) {
-                *pixelsPtr = *originalPtr;
-                pixelsPtr += 1;
-            }
+            if (*bitmaskPtr)
+                *pixelsPtr++ = *originalPtr;
             bitmaskPtr += 1;
             originalPtr += 1;
         }
     }
 
-
-    AndroidBitmap_unlockPixels(env, original);
+	(*env)->ReleaseIntArrayElements(env, original, originalPixels, 0);
 
     // Make return object
     
