@@ -42,15 +42,9 @@ public final class SurfaceDiff {
         if (DEBUG_DIFF)
             Log.i(TAG, String.format("SurfaceDiff time: %d", System.currentTimeMillis() - startDiff));
 
-//        todo: Drop conversion
-        boolean[] bMask = new boolean[diffResult.bitmask.length];
-        for (int i = 0; i < diffResult.bitmask.length; i += 1) {
-            bMask[i] = diffResult.bitmask[i] == 1;
-        }
-
         Rect diffBounds = new Rect(diffResult.boundLeft, diffResult.boundTop, diffResult.boundRight, diffResult.boundBottom);
 
-        return new SurfaceDiff(bMask, diffBounds, diffResult.pixels);
+        return new SurfaceDiff(diffResult.bitmask, diffBounds, diffResult.pixels);
     }
 
     public void applyAndSwap(Bitmap destination) {
@@ -66,7 +60,7 @@ public final class SurfaceDiff {
         public int boundRight;
         public int boundTop;
         public int boundBottom;
-        public byte[] bitmask;
+        public boolean[] bitmask;
         public int[] pixels;
     }
 

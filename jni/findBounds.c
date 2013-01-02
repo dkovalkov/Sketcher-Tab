@@ -120,7 +120,7 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     fld = (*env)->GetFieldID(env, cls, "boundBottom", "I"); 
     (*env)->SetIntField(env, diffResult, fld, myBoundBottom);
 
-    jbyteArray bitmaskArr = (*env)->NewByteArray(env, bitmaskLength);
+    jbooleanArray bitmaskArr = (*env)->NewBooleanArray(env, bitmaskLength);
     if (NULL == bitmaskArr) {
         free(bitmask);
         free(pixels);
@@ -128,7 +128,7 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     }
 
     (*env)->SetByteArrayRegion(env, bitmaskArr, 0, bitmaskLength, bitmask);
-    fld = (*env)->GetFieldID(env, cls, "bitmask", "[B"); 
+    fld = (*env)->GetFieldID(env, cls, "bitmask", "[Z"); 
     (*env)->SetObjectField(env, diffResult, fld, bitmaskArr);
     (*env)->DeleteLocalRef(env, bitmaskArr);
 
