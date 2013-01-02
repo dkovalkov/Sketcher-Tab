@@ -8,65 +8,71 @@ import java.util.ArrayList;
 import java.util.Map;
 
 class WebStyle extends StyleBrush {
-	private float prevX;
-	private float prevY;
+    private float prevX;
+    private float prevY;
+    private float density;
 
-	private ArrayList<PointF> points = new ArrayList<PointF>();
+    private ArrayList<PointF> points = new ArrayList<PointF>();
 
-	{
-		paint.setColor(Color.BLACK);
-		paint.setAntiAlias(true);
-	}
+    {
+        paint.setColor(Color.BLACK);
+        paint.setAntiAlias(true);
+    }
 
-	public void stroke(Canvas c, float x, float y) {
-		PointF current = new PointF(x, y);
-		points.add(current);
+    WebStyle(float density) {
+        this.density = density;
+    }
 
-		c.drawLine(prevX, prevY, x, y, paint);
+    public void stroke(Canvas c, float x, float y) {
+        PointF current = new PointF(x, y);
+        points.add(current);
 
-		float dx;
-		float dy;
-		float length;
+        c.drawLine(prevX, prevY, x, y, paint);
 
-		for (int i = 0, max = points.size(); i < max; i++) {
-			PointF point = points.get(i);
+        float dx;
+        float dy;
+        float length;
 
-			dx = point.x - current.x;
-			dy = point.y - current.y;
+        for (int i = 0, max = points.size(); i < max; i++) {
+            PointF point = points.get(i);
 
-			length = dx * dx + dy * dy;
+            dx = point.x - current.x;
+            dy = point.y - current.y;
 
-			if (length < 2500 && Math.random() > 0.9) {
-				c.drawLine(current.x, current.y, point.x, point.y, paint);
-			}
-		}
+            length = dx * dx + dy * dy;
 
-		prevX = x;
-		prevY = y;
-	}
+            float maxLength = 2500 * density * density;
+            if (length < maxLength && Math.random() > 0.9) {
+                c.drawLine(current.x, current.y, point.x, point.y, paint);
+            }
+        }
 
-	public void strokeStart(float x, float y) {
-		prevX = x;
-		prevY = y;
-	}
+        prevX = x;
+        prevY = y;
+    }
 
-	public void draw(Canvas c) {
-	}
+    public void strokeStart(float x, float y) {
+        prevX = x;
+        prevY = y;
+    }
 
-	public void setColor(int color) {
-		paint.setColor(color);
-	}
+    public void draw(Canvas c) {
+    }
 
-	public void saveState(Map<StylesFactory.BrushType, Object> state) {
-		ArrayList<PointF> points = new ArrayList<PointF>();
-		points.addAll(this.points);
-		state.put(StylesFactory.BrushType.WEB, points);
-	}
+    public void setColor(int color) {
+        paint.setColor(color);
+    }
 
-	@SuppressWarnings("unchecked")
-	public void restoreState(Map<StylesFactory.BrushType, Object> state) {
-		this.points.clear();
-		ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.BrushType.WEB);
-		this.points.addAll(points);
-	}
+    public void saveState(Map<StylesFactory.BrushType, Object> state) {
+        ArrayList<PointF> points = new ArrayList<PointF>();
+        points.addAll(this.points);
+        state.put(StylesFactory.BrushType.WEB, points);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void restoreState(Map<StylesFactory.BrushType, Object> state) {
+        this.points.clear();
+        ArrayList<PointF> points = (ArrayList<PointF>) state.get(StylesFactory.BrushType.WEB);
+        this.points.addAll(points);
+    }
 }

@@ -150,6 +150,26 @@ public class Sketcher extends Activity {
         return surface;
     }
 
+    public float getDensity() {
+        return getResources().getDisplayMetrics().density;
+    }
+
+    public void switchToolbars() {
+        View brushToolbar = findViewById(R.id.brush_toolbar);
+        View brushProperties = findViewById(R.id.brush_property);
+        ActionBar actionBar = getActionBar();
+
+        if (actionBar.isShowing()) {
+            actionBar.hide();
+            brushToolbar.setVisibility(View.GONE);
+            brushProperties.setVisibility(View.GONE);
+        } else {
+            actionBar.show();
+            brushToolbar.setVisibility(View.VISIBLE);
+            brushProperties.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void initButtons() {
         for (StylesFactory.BrushType brushType : StyleButtonMap.keySet()) {
             brushButtonOnClick(StyleButtonMap.get(brushType), brushType);
@@ -241,22 +261,6 @@ public class Sketcher extends Activity {
                 getSurface().setStyle(styleBrush);
             }
         });
-    }
-
-    public void switchToolbars() {
-        View brushToolbar = findViewById(R.id.brush_toolbar);
-        View brushProperties = findViewById(R.id.brush_property);
-        ActionBar actionBar = getActionBar();
-
-        if (actionBar.isShowing()) {
-            actionBar.hide();
-            brushToolbar.setVisibility(View.GONE);
-            brushProperties.setVisibility(View.GONE);
-        } else {
-            actionBar.show();
-            brushToolbar.setVisibility(View.VISIBLE);
-            brushProperties.setVisibility(View.VISIBLE);
-        }
     }
 
     private void restoreFromPrefs() {
