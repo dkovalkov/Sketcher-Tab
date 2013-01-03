@@ -212,7 +212,7 @@ public class Sketcher extends Activity {
         opacityBar.setProgress((int) (Math.sqrt(surface.getOpacity() / MAX_OPACITY) * 100));
 
         SeekBar sizeBar = (SeekBar) findViewById(R.id.brush_size_bar);
-        sizeBar.setProgress((int) (surface.getStrokeWidth() / MAX_STROKE_WIDTH * 100));
+        sizeBar.setProgress((int) (surface.getStrokeWidth() / MAX_STROKE_WIDTH / getDensity() * 100));
 
         opacityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -230,7 +230,7 @@ public class Sketcher extends Activity {
 
         sizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                surface.setStrokeWidth((float) i / 100 * MAX_STROKE_WIDTH);
+                surface.setStrokeWidth((float) i / 100 * MAX_STROKE_WIDTH * getDensity());
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
