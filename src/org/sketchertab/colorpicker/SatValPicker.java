@@ -21,7 +21,8 @@ public class SatValPicker extends View implements Picker {
 		mGradient.setStrokeWidth(0);
 
 		mTrackerPaint.setStyle(Style.STROKE);
-		mTrackerPaint.setStrokeWidth(1);
+		float denst = getResources().getDisplayMetrics().density;
+		mTrackerPaint.setStrokeWidth(denst);
 		mTrackerPaint.setColor(Color.WHITE);
 		setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 	}
@@ -29,7 +30,6 @@ public class SatValPicker extends View implements Picker {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-
 		applyChanges(w, h);
 	}
 
@@ -83,7 +83,9 @@ public class SatValPicker extends View implements Picker {
 
 		float x = hsv[1] * getWidth();
 		float y = (1 - hsv[2]) * getHeight();
-		canvas.drawCircle(x, y, 4, mTrackerPaint);
+		float denst = getResources().getDisplayMetrics().density;
+		float pickerRadius = 4 * denst;
+		canvas.drawCircle(x, y, pickerRadius, mTrackerPaint);
 	}
 
 	@Override

@@ -1,13 +1,8 @@
 package org.sketchertab.colorpicker;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
+import android.graphics.*;
 import android.graphics.Paint.Style;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +25,8 @@ public class HuePicker extends View implements Picker {
 
 		mGradient.setStyle(Paint.Style.FILL);
 
-		mTrackerPaint.setStrokeWidth(1);
+		float denst = getResources().getDisplayMetrics().density;
+		mTrackerPaint.setStrokeWidth(denst);
 		mTrackerPaint.setColor(Color.WHITE);
 		mTrackerPaint.setStyle(Style.STROKE);
 	}
