@@ -29,7 +29,9 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     uint32_t originalHeight = updatedInfo.height;
 	
     AndroidBitmap_lockPixels(env, updatedSurf, (void*)&updatedPixels);
-	originalPixels = (*env)->GetIntArrayElements(env, original, NULL);
+	
+	jboolean isCopyOriginal;
+	originalPixels = (*env)->GetIntArrayElements(env, original, &isCopyOriginal);
 
     uint32_t* originalPtr = originalPixels;
     uint32_t* updatedPtr = updatedPixels;
@@ -106,7 +108,8 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
         }
     }
 
-	(*env)->ReleaseIntArrayElements(env, original, originalPixels, 0);
+	if (JNI_TRUE == isCopyOriginal)
+		(*env)->ReleaseIntArrayElements(env, original, originalPixels, JNI_ABORT);
 
     // Make return object
     
