@@ -65,7 +65,7 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
     // how many changed pixels we need to store.
 
     uint32_t bitmaskLength = (boundWidth + 1) * (boundHeight + 1);
-    char* bitmask = malloc(bitmaskLength);
+    jboolean* bitmask = malloc(bitmaskLength);
     int32_t numChanged = 0;
     char* bitmaskPtr = bitmask;
 
@@ -127,8 +127,8 @@ jboolean Java_org_sketchertab_SurfaceDiff_findBounds(JNIEnv *env, jobject obj, j
         return JNI_FALSE;
     }
 
-    (*env)->SetByteArrayRegion(env, bitmaskArr, 0, bitmaskLength, bitmask);
-    fld = (*env)->GetFieldID(env, cls, "bitmask", "[Z"); 
+    (*env)->SetBooleanArrayRegion(env, bitmaskArr, 0, bitmaskLength, bitmask);
+    fld = (*env)->GetFieldID(env, cls, "bitmask", "[Z");
     (*env)->SetObjectField(env, diffResult, fld, bitmaskArr);
     (*env)->DeleteLocalRef(env, bitmaskArr);
 

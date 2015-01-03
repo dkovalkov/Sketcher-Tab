@@ -21,8 +21,13 @@ void Java_org_sketchertab_SurfaceDiff_applyAndSwap(JNIEnv *env, jobject obj, job
 
     AndroidBitmap_lockPixels(env, dest, (void*)&destPixels);
 
-    jint* pixelsPtr = (*env)->GetIntArrayElements(env, pixels, 0);
-    jboolean* bitmaskPtr = (*env)->GetBooleanArrayElements(env, bitmask, 0);
+	jboolean isCopyPixels;
+    jint* pixelsPtr = (*env)->GetIntArrayElements(env, pixels, &isCopyPixels);
+	jint* pixelsElements = pixelsPtr;
+	
+	jboolean isCopyBimask;
+	jboolean* bitmaskPtr = (*env)->GetBooleanArrayElements(env, bitmask, &isCopyBimask);
+	jboolean* bitmaskElements = bitmaskPtr;
 
     uint32_t* destPixelsPtr;
 
@@ -41,8 +46,11 @@ void Java_org_sketchertab_SurfaceDiff_applyAndSwap(JNIEnv *env, jobject obj, job
         }
     }
 
-    (*env)->ReleaseIntArrayElements(env, pixels, pixelsPtr, 0);
-    (*env)->ReleaseBooleanArrayElements(env, bitmask, bitmaskPtr, 0);
+	if (JNI_TRUE == isCopyPixels)
+    	(*env)->ReleaseIntArrayElements(env, pixels, pixelsElements, 0);
+
+	if (JNI_TRUE == isCopyBimask)
+		(*env)->ReleaseBooleanArrayElements(env, bitmask, bitmaskElements, 0);
 
     AndroidBitmap_unlockPixels(env, dest);
 }
