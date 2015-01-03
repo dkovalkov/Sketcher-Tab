@@ -1,14 +1,8 @@
 package org.sketchertab.colorpicker;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ComposeShader;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
+import android.graphics.*;
 import android.graphics.Paint.Style;
-import android.graphics.PorterDuff;
-import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +23,7 @@ public class SatValPicker extends View implements Picker {
 		mTrackerPaint.setStyle(Style.STROKE);
 		mTrackerPaint.setStrokeWidth(1);
 		mTrackerPaint.setColor(Color.WHITE);
+		setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 	}
 
 	@Override
@@ -39,15 +34,12 @@ public class SatValPicker extends View implements Picker {
 	}
 
 	private void applyChanges(int w, int h) {
-		Shader valGradient = new LinearGradient(0, 0, 0, h, Color.WHITE,
-				Color.BLACK, Shader.TileMode.CLAMP);
+		Shader valGradient = new LinearGradient(0, 0, 0, h, Color.WHITE, Color.BLACK, Shader.TileMode.CLAMP);
 
-		int rgb = Color.HSVToColor(new float[] { mHue, 1f, 1f });
-		Shader satGradient = new LinearGradient(0, 0, w, 0, Color.WHITE, rgb,
-				Shader.TileMode.CLAMP);
+		int rgb = Color.HSVToColor(new float[]{mHue, 1, 1});
+		Shader satGradient = new LinearGradient(0, 0, w, 0, Color.WHITE, rgb, Shader.TileMode.CLAMP);
 
-		ComposeShader shader = new ComposeShader(valGradient, satGradient,
-				PorterDuff.Mode.MULTIPLY);
+		ComposeShader shader = new ComposeShader(valGradient, satGradient, PorterDuff.Mode.MULTIPLY);
 
 		mGradient.setShader(shader);
 		invalidate();
