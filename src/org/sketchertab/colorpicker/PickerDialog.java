@@ -1,14 +1,12 @@
 package org.sketchertab.colorpicker;
 
-import org.sketchertab.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.util.Log;
+import org.sketchertab.R;
 
 public class PickerDialog extends Dialog {
 	private Picker.OnColorChangedListener mListener;
@@ -55,7 +53,6 @@ public class PickerDialog extends Dialog {
 		};
 		huePicker.setOnColorChangedListener(hueLstr);
 		huePicker.setColor(mPaint.getColor());
-
 
 		Button acceptButton = (Button) findViewById(R.id.picker_button_accept);
 		acceptButton.setOnClickListener(new View.OnClickListener() {
